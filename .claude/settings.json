@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm -v)",
+      "Bash(cp public/skpl_logo.jpeg public/skpl-logo.png && ls public/)",
+      "Bash(npm install *)",
+      "Bash(npm run *)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\ChaitanyaNikam\\Desktop\\SKPL\\public"
+    ]
+  }
+}
