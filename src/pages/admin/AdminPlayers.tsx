@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { FormField } from '@/components/shared/FormField'
+import { ImageUploadField } from '@/components/shared/ImageUploadField'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorState } from '@/components/shared/ErrorState'
@@ -157,13 +158,13 @@ export default function AdminPlayers() {
             <FormField label="Name" htmlFor="player-name">
               <Input id="player-name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
             </FormField>
-            <FormField label="Image URL" htmlFor="player-image" hint="Optional. Paste an image URL.">
-              <Input
-                id="player-image"
-                value={form.image_url}
-                onChange={(e) => setForm({ ...form, image_url: e.target.value })}
-              />
-            </FormField>
+            <ImageUploadField
+              label="Player Photo"
+              value={form.image_url}
+              onChange={(url) => setForm({ ...form, image_url: url })}
+              folder="players"
+              hint="Optional. Upload an image or paste a URL."
+            />
             <FormField
               label="In-Game Name"
               htmlFor="player-game-name"

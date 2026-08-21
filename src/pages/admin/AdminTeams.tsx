@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { FormField } from '@/components/shared/FormField'
+import { ImageUploadField } from '@/components/shared/ImageUploadField'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorState } from '@/components/shared/ErrorState'
@@ -173,9 +174,13 @@ export default function AdminTeams() {
                 onChange={(e) => setForm({ ...form, short_name: e.target.value.toUpperCase() })}
               />
             </FormField>
-            <FormField label="Logo URL" htmlFor="team-logo" hint="Optional. Paste an image URL.">
-              <Input id="team-logo" value={form.logo_url} onChange={(e) => setForm({ ...form, logo_url: e.target.value })} />
-            </FormField>
+            <ImageUploadField
+              label="Team Logo"
+              value={form.logo_url}
+              onChange={(url) => setForm({ ...form, logo_url: url })}
+              folder="teams"
+              hint="Optional. Upload an image or paste a URL."
+            />
             <FormField label="Description" htmlFor="team-desc" error={formError ?? undefined}>
               <Textarea
                 id="team-desc"
