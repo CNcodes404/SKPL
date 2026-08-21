@@ -18,9 +18,10 @@ import type { Player } from '@/types'
 interface FormState {
   name: string
   image_url: string
+  game_name: string
 }
 
-const EMPTY_FORM: FormState = { name: '', image_url: '' }
+const EMPTY_FORM: FormState = { name: '', image_url: '', game_name: '' }
 
 export default function AdminPlayers() {
   const { data: players, loading, error, reload } = useAsync(() => listPlayers(true), [])
@@ -41,7 +42,7 @@ export default function AdminPlayers() {
 
   function openEdit(player: Player) {
     setEditing(player)
-    setForm({ name: player.name, image_url: player.image_url ?? '' })
+    setForm({ name: player.name, image_url: player.image_url ?? '', game_name: player.game_name ?? '' })
     setFormError(null)
     setDialogOpen(true)
   }
@@ -55,7 +56,11 @@ export default function AdminPlayers() {
     setSaving(true)
     setFormError(null)
     try {
-      const payload = { name: form.name.trim(), image_url: form.image_url.trim() || null }
+      const payload = {
+        name: form.name.trim(),
+        image_url: form.image_url.trim() || null,
+        game_name: form.game_name.trim() || null,
+      }
       if (editing) {
         await updatePlayer(editing.id, payload)
       } else {
@@ -152,16 +157,23 @@ export default function AdminPlayers() {
             <FormField label="Name" htmlFor="player-name">
               <Input id="player-name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
             </FormField>
-            <FormField
-              label="Image URL"
-              htmlFor="player-image"
-              hint="Optional. Paste an image URL."
-              error={formError ?? undefined}
-            >
+            <FormField label="Image URL" htmlFor="player-image" hint="Optional. Paste an image URL.">
               <Input
                 id="player-image"
                 value={form.image_url}
                 onChange={(e) => setForm({ ...form, image_url: e.target.value })}
+              />
+            </FormField>
+            <FormField
+              label="In-Game Name"
+              htmlFor="player-game-name"
+              hint="Optional. Their Smash Karts nickname, used to auto-match screenshot stat imports."
+              error={formError ?? undefined}
+            >
+              <Input
+                id="player-game-name"
+                value={form.game_name}
+                onChange={(e) => setForm({ ...form, game_name: e.target.value })}
               />
             </FormField>
             <DialogFooter>

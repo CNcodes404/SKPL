@@ -45,6 +45,7 @@ export interface Database {
           id: string
           name: string
           image_url: string | null
+          game_name: string | null
           is_active: boolean
           created_at: string
           updated_at: string
@@ -53,6 +54,7 @@ export interface Database {
           id?: string
           name: string
           image_url?: string | null
+          game_name?: string | null
           is_active?: boolean
           created_at?: string
           updated_at?: string

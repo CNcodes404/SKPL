@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { Save, Ban, AlertCircle } from 'lucide-react'
+import { useParams } from 'react-router-dom'
+import { Save, Ban, AlertCircle, ImageUp, Copy, Check, Wand2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { FormField } from '@/components/shared/FormField'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { PlayerAvatar } from '@/components/shared/Avatar'
 import { LoadingState } from '@/components/shared/LoadingState'
@@ -17,6 +17,13 @@ import { getSeasonRoster } from '@/services/seasons'
 import { formatDateTime } from '@/lib/utils'
 import { MATCH_TYPE_LABELS } from '@/types'
 import { validateMatchEntry } from '@/utils/validation'
+import {
+  parseImportJson,
+  matchEntryToPlayer,
+  SCREENSHOT_EXTRACTION_PROMPT,
+  type ExtractedStat,
+  type RosterPlayerOption,
+} from '@/utils/screenshotImport'
 
 interface StatRow {
   kills: number
@@ -26,7 +33,6 @@ interface StatRow {
 
 export default function AdminMatchDetail() {
   const { matchId = '' } = useParams()
-  const navigate = useNavigate()
 
   const { data, loading, error, reload } = useAsync(async () => {
     const match = await getMatch(matchId)
@@ -69,6 +75,19 @@ export default function AdminMatchDetail() {
 
   function updateStat(playerId: string, field: keyof StatRow, value: number) {
     setStats((prev) => ({ ...prev, [playerId]: { ...prev[playerId], [field]: value } }))
+  }
+
+  function handleApplyImport(rows: { playerId: string; kills: number; deaths: number; flags: number }[]) {
+    if (!data) return
+    const merged: Record<string, StatRow> = { ...stats }
+    for (const r of rows) merged[r.playerId] = { kills: r.kills, deaths: r.deaths, flags: r.flags }
+    setStats(merged)
+
+    const sumFlags = (roster: typeof data.teamARoster) =>
+      roster.reduce((sum, entry) => sum + (merged[entry.player.id]?.flags ?? 0), 0)
+    setTeamAScore(sumFlags(data.teamARoster))
+    setTeamBScore(sumFlags(data.teamBRoster))
+    setErrors([])
   }
 
   async function handleSave() {
@@ -122,6 +141,15 @@ export default function AdminMatchDetail() {
   const { match, teamARoster, teamBRoster } = data
   const allRosterPlayers = [...teamARoster, ...teamBRoster].map((r) => r.player)
 
+  const rosterOptions: RosterPlayerOption[] = [
+    ...teamARoster.map((r) => ({ id: r.player.id, name: r.player.name, game_name: r.player.game_name, team_id: match.team_a_id })),
+    ...teamBRoster.map((r) => ({ id: r.player.id, name: r.player.name, game_name: r.player.game_name, team_id: match.team_b_id })),
+  ]
+  const teamLabelById: Record<string, string> = {
+    [match.team_a_id]: match.team_a.short_name,
+    [match.team_b_id]: match.team_b.short_name,
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -151,6 +179,10 @@ export default function AdminMatchDetail() {
             </p>
           ))}
         </div>
+      ) : null}
+
+      {match.status !== 'CANCELLED' ? (
+        <ScreenshotImportCard roster={rosterOptions} teamLabelById={teamLabelById} onApply={handleApplyImport} />
       ) : null}
 
       <Card>
@@ -269,6 +301,169 @@ function PlayerStatsTable({
             </TableBody>
           </Table>
         )}
+      </CardContent>
+    </Card>
+  )
+}
+
+interface ImportRow {
+  entry: ExtractedStat
+  playerId: string | null
+}
+
+function ScreenshotImportCard({
+  roster,
+  teamLabelById,
+  onApply,
+}: {
+  roster: RosterPlayerOption[]
+  teamLabelById: Record<string, string>
+  onApply: (rows: { playerId: string; kills: number; deaths: number; flags: number }[]) => void
+}) {
+  const [showPrompt, setShowPrompt] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const [text, setText] = useState('')
+  const [rows, setRows] = useState<ImportRow[] | null>(null)
+  const [parseError, setParseError] = useState<string | null>(null)
+  const [applied, setApplied] = useState(false)
+
+  function handleCopyPrompt() {
+    navigator.clipboard.writeText(SCREENSHOT_EXTRACTION_PROMPT).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
+  function handleParse() {
+    setApplied(false)
+    const result = parseImportJson(text)
+    if (!result.ok) {
+      setParseError(result.error)
+      setRows(null)
+      return
+    }
+    setParseError(null)
+    setRows(result.entries.map((entry) => ({ entry, playerId: matchEntryToPlayer(entry, roster) })))
+  }
+
+  function handleRowPlayerChange(index: number, playerId: string) {
+    setRows((prev) =>
+      prev ? prev.map((r, i) => (i === index ? { ...r, playerId: playerId === 'NONE' ? null : playerId } : r)) : prev,
+    )
+  }
+
+  function handleApply() {
+    if (!rows) return
+    const applicable = rows
+      .filter((r): r is ImportRow & { playerId: string } => r.playerId !== null)
+      .map((r) => ({ playerId: r.playerId, kills: r.entry.kills, deaths: r.entry.deaths, flags: r.entry.flags }))
+    onApply(applicable)
+    setApplied(true)
+  }
+
+  const matchedCount = rows?.filter((r) => r.playerId).length ?? 0
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <ImageUp className="h-4 w-4 text-primary-600" /> Import from Screenshot
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-4">
+        <p className="text-sm text-muted-foreground">
+          Upload your match screenshot to Claude (or any AI chat) with the prompt below, then paste its JSON reply
+          here to auto-fill player stats. Player matching is exact and deterministic — it only uses each player's
+          saved in-game name, never a guess.
+        </p>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <Button type="button" variant="outline" size="sm" onClick={() => setShowPrompt((v) => !v)}>
+            <Wand2 className="h-3.5 w-3.5" /> {showPrompt ? 'Hide Prompt' : 'View Extraction Prompt'}
+          </Button>
+          {showPrompt ? (
+            <Button type="button" variant="outline" size="sm" onClick={handleCopyPrompt}>
+              {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+              {copied ? 'Copied' : 'Copy Prompt'}
+            </Button>
+          ) : null}
+        </div>
+
+        {showPrompt ? (
+          <pre className="whitespace-pre-wrap rounded-md bg-secondary/60 p-3 text-xs text-primary-900">
+            {SCREENSHOT_EXTRACTION_PROMPT}
+          </pre>
+        ) : null}
+
+        <Textarea
+          placeholder='Paste the AI JSON reply here, e.g. [{ "game_name": "xX_Slayer_Xx", "kills": 12, "deaths": 3, "flags": 4 }]'
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="min-h-[100px] font-mono text-xs"
+        />
+
+        <div className="flex items-center gap-3">
+          <Button type="button" size="sm" onClick={handleParse} disabled={!text.trim()}>
+            Parse
+          </Button>
+          {parseError ? (
+            <p className="flex items-center gap-1.5 text-sm font-medium text-destructive">
+              <AlertCircle className="h-3.5 w-3.5" /> {parseError}
+            </p>
+          ) : null}
+        </div>
+
+        {rows ? (
+          <div className="flex flex-col gap-3">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Detected Name</TableHead>
+                  <TableHead className="w-14 text-center">K</TableHead>
+                  <TableHead className="w-14 text-center">D</TableHead>
+                  <TableHead className="w-14 text-center">F</TableHead>
+                  <TableHead>Matched Player</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {rows.map((row, i) => (
+                  <TableRow key={i}>
+                    <TableCell className="font-mono text-xs">{row.entry.game_name}</TableCell>
+                    <TableCell className="text-center">{row.entry.kills}</TableCell>
+                    <TableCell className="text-center">{row.entry.deaths}</TableCell>
+                    <TableCell className="text-center">{row.entry.flags}</TableCell>
+                    <TableCell>
+                      <Select value={row.playerId ?? 'NONE'} onValueChange={(v) => handleRowPlayerChange(i, v)}>
+                        <SelectTrigger className="h-8 w-full max-w-[220px]">
+                          <SelectValue placeholder="— Select Player —" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="NONE">— Not on this match —</SelectItem>
+                          {roster.map((p) => (
+                            <SelectItem key={p.id} value={p.id}>
+                              {p.name} ({teamLabelById[p.team_id]})
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+
+            <div className="flex items-center gap-3">
+              <Button type="button" onClick={handleApply} disabled={matchedCount === 0}>
+                Apply {matchedCount} of {rows.length} to Stats
+              </Button>
+              {applied ? (
+                <p className="flex items-center gap-1.5 text-sm font-medium text-green-600">
+                  <Check className="h-3.5 w-3.5" /> Applied — review below and click Save Match.
+                </p>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
       </CardContent>
     </Card>
   )
