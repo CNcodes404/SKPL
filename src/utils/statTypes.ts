@@ -37,10 +37,8 @@ export function playerStatValue(s: PlayerSeasonStats, type: PlayerStatType): num
       return s.kills
     case 'flags':
       return s.flags
-    case 'kd': {
-      const kd = calculateKD(s.kills, s.deaths)
-      return kd === 'Perfect' ? Number.MAX_SAFE_INTEGER : kd
-    }
+    case 'kd':
+      return calculateKD(s.kills, s.deaths)
     case 'avg_kills':
       return average(s.kills, s.matchesPlayed)
     case 'avg_flags':
@@ -73,10 +71,8 @@ export function teamStatValue(s: TeamSeasonStats, type: TeamStatType): number {
       return s.kills
     case 'flags':
       return s.flags
-    case 'kd': {
-      const kd = calculateKD(s.kills, s.deaths)
-      return kd === 'Perfect' ? Number.MAX_SAFE_INTEGER : kd
-    }
+    case 'kd':
+      return calculateKD(s.kills, s.deaths)
   }
 }
 

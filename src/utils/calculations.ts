@@ -9,14 +9,13 @@ import type {
   TeamSeasonStats,
 } from '@/types'
 
-export function calculateKD(kills: number, deaths: number): number | 'Perfect' {
-  if (deaths === 0) return 'Perfect'
-  return Math.round((kills / deaths) * 100) / 100
+export function calculateKD(kills: number, deaths: number): number {
+  const effectiveDeaths = deaths === 0 ? 1 : deaths
+  return Math.round((kills / effectiveDeaths) * 100) / 100
 }
 
 export function formatKD(kills: number, deaths: number): string {
-  const kd = calculateKD(kills, deaths)
-  return kd === 'Perfect' ? 'Perfect' : kd.toFixed(2)
+  return calculateKD(kills, deaths).toFixed(2)
 }
 
 export function calculateWinRate(wins: number, played: number): number {
