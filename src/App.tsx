@@ -7,6 +7,9 @@ import Home from '@/pages/public/Home'
 import Matches from '@/pages/public/Matches'
 import Teams from '@/pages/public/Teams'
 import TeamDetail from '@/pages/public/TeamDetail'
+import Players from '@/pages/public/Players'
+import PlayerProfile from '@/pages/public/PlayerProfile'
+import MatchScorecard from '@/pages/public/MatchScorecard'
 import Standings from '@/pages/public/Standings'
 import Stats from '@/pages/public/Stats'
 import StatsPlayerFull from '@/pages/public/StatsPlayerFull'
@@ -32,6 +35,9 @@ export default function App() {
         <Route path="/matches" element={<Matches />} />
         <Route path="/teams" element={<Teams />} />
         <Route path="/teams/:teamId" element={<TeamDetail />} />
+        <Route path="/players" element={<Players />} />
+        <Route path="/players/:playerId" element={<PlayerProfile />} />
+        <Route path="/matches/:matchId" element={<MatchScorecard />} />
         <Route path="/standings" element={<Standings />} />
         <Route path="/stats" element={<Stats />} />
         <Route path="/stats/players/:statType" element={<StatsPlayerFull />} />

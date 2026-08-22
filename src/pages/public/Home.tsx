@@ -99,7 +99,7 @@ export default function Home() {
         ) : data && data.recent.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {data.recent.map((m) => (
-              <MatchCard key={m.id} match={m} linkTo="/matches" />
+              <MatchCard key={m.id} match={m} linkTo={`/matches/${m.id}`} />
             ))}
           </div>
         ) : (

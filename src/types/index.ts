@@ -1,4 +1,4 @@
-import type { Database, MatchStatus, MatchType, SeasonStatus } from './database'
+import type { Database, MatchStatus, MatchType, PlayerRole, SeasonStatus } from './database'
 
 export type Team = Database['public']['Tables']['teams']['Row']
 export type Player = Database['public']['Tables']['players']['Row']
@@ -9,7 +9,15 @@ export type Match = Database['public']['Tables']['matches']['Row']
 export type MatchPlayerStat = Database['public']['Tables']['match_player_stats']['Row']
 export type AdminProfile = Database['public']['Tables']['admin_profiles']['Row']
 
-export type { MatchStatus, MatchType, SeasonStatus }
+export type { MatchStatus, MatchType, PlayerRole, SeasonStatus }
+
+export const PLAYER_ROLE_LABELS: Record<PlayerRole, string> = {
+  FLAGGER: 'Flagger',
+  DEFENDER: 'Defender',
+  ALL_ROUNDER: 'All-Rounder',
+}
+
+export const PLAYER_ROLES: PlayerRole[] = ['FLAGGER', 'DEFENDER', 'ALL_ROUNDER']
 
 export const MATCH_TYPE_LABELS: Record<MatchType, string> = {
   REGULAR_SEASON: 'Regular Season',
@@ -67,6 +75,19 @@ export interface PlayerSeasonStats {
   kills: number
   deaths: number
   flags: number
+}
+
+export interface PlayerDetailStats {
+  matchesPlayed: number
+  kills: number
+  deaths: number
+  flags: number
+  avgKills: number
+  avgFlags: number
+  maxKillsInMatch: number
+  minKillsInMatch: number
+  maxFlagsInMatch: number
+  minFlagsInMatch: number
 }
 
 export interface TeamSeasonStats {

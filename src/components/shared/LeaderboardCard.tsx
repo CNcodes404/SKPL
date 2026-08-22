@@ -14,10 +14,12 @@ export function LeaderboardCard({
   title,
   entries,
   viewAllTo,
+  entryHref,
 }: {
   title: string
   entries: LeaderboardEntry[]
   viewAllTo: string
+  entryHref?: (entry: LeaderboardEntry) => string
 }) {
   return (
     <Card className="flex flex-col">
@@ -28,19 +30,28 @@ export function LeaderboardCard({
         {entries.length === 0 ? (
           <p className="py-6 text-center text-sm text-muted-foreground">No data yet.</p>
         ) : (
-          entries.slice(0, 5).map((entry, i) => (
-            <div key={entry.id} className="flex items-center gap-3 rounded-md px-1 py-2 hover:bg-secondary/50">
-              <span className={`w-5 text-center font-display text-sm font-extrabold ${i === 0 ? 'text-accent-500' : 'text-muted-foreground'}`}>
-                {i + 1}
-              </span>
-              <PlayerAvatar name={entry.name} className="h-8 w-8 text-xs" />
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-semibold text-primary-900">{entry.name}</p>
-                {entry.teamName ? <p className="truncate text-xs text-muted-foreground">{entry.teamName}</p> : null}
+          entries.slice(0, 5).map((entry, i) => {
+            const row = (
+              <div className="flex items-center gap-3 rounded-md px-1 py-2 hover:bg-secondary/50">
+                <span className={`w-5 text-center font-display text-sm font-extrabold ${i === 0 ? 'text-accent-500' : 'text-muted-foreground'}`}>
+                  {i + 1}
+                </span>
+                <PlayerAvatar name={entry.name} className="h-8 w-8 text-xs" />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-semibold text-primary-900">{entry.name}</p>
+                  {entry.teamName ? <p className="truncate text-xs text-muted-foreground">{entry.teamName}</p> : null}
+                </div>
+                <span className="font-display text-sm font-bold text-primary-800">{entry.value}</span>
               </div>
-              <span className="font-display text-sm font-bold text-primary-800">{entry.value}</span>
-            </div>
-          ))
+            )
+            return entryHref ? (
+              <Link key={entry.id} to={entryHref(entry)}>
+                {row}
+              </Link>
+            ) : (
+              <div key={entry.id}>{row}</div>
+            )
+          })
         )}
         <Link
           to={viewAllTo}

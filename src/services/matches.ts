@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase'
-import type { Match, MatchPlayerStat, MatchStatus, MatchType, MatchWithTeams } from '@/types'
+import type { Match, MatchPlayerStat, MatchStatus, MatchType, MatchWithTeams, Player } from '@/types'
 
 export interface MatchFilters {
   seasonId?: string
@@ -45,6 +45,19 @@ export async function getMatchStats(matchId: string): Promise<MatchPlayerStat[]>
   const { data, error } = await supabase.from('match_player_stats').select('*').eq('match_id', matchId)
   if (error) throw error
   return data ?? []
+}
+
+export interface MatchPlayerStatWithPlayer extends MatchPlayerStat {
+  player: Player
+}
+
+export async function getMatchStatsWithPlayers(matchId: string): Promise<MatchPlayerStatWithPlayer[]> {
+  const { data, error } = await supabase
+    .from('match_player_stats')
+    .select('*, player:player_id(*)')
+    .eq('match_id', matchId)
+  if (error) throw error
+  return (data ?? []) as unknown as MatchPlayerStatWithPlayer[]
 }
 
 export async function listStatsForSeason(seasonId: string): Promise<MatchPlayerStat[]> {

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
@@ -72,7 +72,11 @@ export default function StatsPlayerFull() {
             {filtered.map((s, i) => (
               <TableRow key={s.player.id}>
                 <TableCell className="font-display font-extrabold text-primary-800">{i + 1}</TableCell>
-                <TableCell className="font-semibold text-primary-900">{s.player.name}</TableCell>
+                <TableCell className="font-semibold text-primary-900">
+                  <Link to={`/players/${s.player.id}`} className="hover:text-primary-700">
+                    {s.player.name}
+                  </Link>
+                </TableCell>
                 <TableCell className="text-muted-foreground">{s.team?.name ?? '—'}</TableCell>
                 <TableCell className="text-right font-display font-bold text-primary-800">
                   {playerStatDisplay(s, statType)}

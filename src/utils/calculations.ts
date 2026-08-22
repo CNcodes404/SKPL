@@ -2,6 +2,7 @@ import type {
   Match,
   MatchPlayerStat,
   Player,
+  PlayerDetailStats,
   PlayerSeasonStats,
   Season,
   StandingRow,
@@ -110,6 +111,35 @@ export function calculatePlayerStats(
       flags,
     }
   })
+}
+
+/** Per-player detail stats (used on the public Player Profile page), including per-match extremes. */
+export function calculatePlayerDetailStats(
+  stats: MatchPlayerStat[],
+  completedMatchIds: Set<string>,
+): PlayerDetailStats {
+  const rows = stats.filter((s) => completedMatchIds.has(s.match_id))
+
+  const kills = rows.reduce((sum, r) => sum + r.kills, 0)
+  const deaths = rows.reduce((sum, r) => sum + r.deaths, 0)
+  const flags = rows.reduce((sum, r) => sum + r.flags, 0)
+  const matchesPlayed = rows.length
+
+  const killValues = rows.map((r) => r.kills)
+  const flagValues = rows.map((r) => r.flags)
+
+  return {
+    matchesPlayed,
+    kills,
+    deaths,
+    flags,
+    avgKills: average(kills, matchesPlayed),
+    avgFlags: average(flags, matchesPlayed),
+    maxKillsInMatch: killValues.length ? Math.max(...killValues) : 0,
+    minKillsInMatch: killValues.length ? Math.min(...killValues) : 0,
+    maxFlagsInMatch: flagValues.length ? Math.max(...flagValues) : 0,
+    minFlagsInMatch: flagValues.length ? Math.min(...flagValues) : 0,
+  }
 }
 
 export function calculateTeamStats(

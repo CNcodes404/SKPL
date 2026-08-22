@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Trophy } from 'lucide-react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { SeasonSelector, ALL_SEASONS } from '@/components/shared/SeasonSelector'
+import { TeamLogo } from '@/components/shared/Avatar'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorState } from '@/components/shared/ErrorState'
@@ -60,7 +61,8 @@ export default function Standings() {
               <TableRow key={row.team.id}>
                 <TableCell className="font-display font-extrabold text-primary-800">{i + 1}</TableCell>
                 <TableCell>
-                  <Link to={`/teams/${row.team.id}`} className="font-semibold text-primary-900 hover:text-primary-700">
+                  <Link to={`/teams/${row.team.id}`} className="flex items-center gap-2.5 font-semibold text-primary-900 hover:text-primary-700">
+                    <TeamLogo name={row.team.name} logoUrl={row.team.logo_url} className="h-7 w-7 shrink-0 text-[10px]" />
                     {row.team.name}
                   </Link>
                 </TableCell>

@@ -13,6 +13,8 @@ export type MatchType =
 
 export type MatchStatus = 'SCHEDULED' | 'COMPLETED' | 'CANCELLED'
 
+export type PlayerRole = 'FLAGGER' | 'DEFENDER' | 'ALL_ROUNDER'
+
 export interface Database {
   public: {
     Tables: {
@@ -46,6 +48,7 @@ export interface Database {
           name: string
           image_url: string | null
           game_name: string | null
+          role: PlayerRole | null
           is_active: boolean
           created_at: string
           updated_at: string
@@ -55,6 +58,7 @@ export interface Database {
           name: string
           image_url?: string | null
           game_name?: string | null
+          role?: PlayerRole | null
           is_active?: boolean
           created_at?: string
           updated_at?: string
@@ -78,6 +82,7 @@ export interface Database {
           matches_per_opponent: number
           mvp_player_id: string | null
           champion_team_id: string | null
+          description: string | null
           created_at: string
           updated_at: string
         }
@@ -96,6 +101,7 @@ export interface Database {
           matches_per_opponent?: number
           mvp_player_id?: string | null
           champion_team_id?: string | null
+          description?: string | null
           created_at?: string
           updated_at?: string
         }

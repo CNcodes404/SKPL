@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { FormField } from '@/components/shared/FormField'
 import { ImageUploadField } from '@/components/shared/ImageUploadField'
 import { LoadingState } from '@/components/shared/LoadingState'
@@ -14,15 +15,16 @@ import { PlayerAvatar } from '@/components/shared/Avatar'
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
 import { useAsync } from '@/hooks/useAsync'
 import { listPlayers, createPlayer, updatePlayer, setPlayerActive } from '@/services/players'
-import type { Player } from '@/types'
+import { PLAYER_ROLES, PLAYER_ROLE_LABELS, type Player, type PlayerRole } from '@/types'
 
 interface FormState {
   name: string
   image_url: string
   game_name: string
+  role: PlayerRole | 'NONE'
 }
 
-const EMPTY_FORM: FormState = { name: '', image_url: '', game_name: '' }
+const EMPTY_FORM: FormState = { name: '', image_url: '', game_name: '', role: 'NONE' }
 
 export default function AdminPlayers() {
   const { data: players, loading, error, reload } = useAsync(() => listPlayers(true), [])
@@ -43,7 +45,12 @@ export default function AdminPlayers() {
 
   function openEdit(player: Player) {
     setEditing(player)
-    setForm({ name: player.name, image_url: player.image_url ?? '', game_name: player.game_name ?? '' })
+    setForm({
+      name: player.name,
+      image_url: player.image_url ?? '',
+      game_name: player.game_name ?? '',
+      role: player.role ?? 'NONE',
+    })
     setFormError(null)
     setDialogOpen(true)
   }
@@ -61,6 +68,7 @@ export default function AdminPlayers() {
         name: form.name.trim(),
         image_url: form.image_url.trim() || null,
         game_name: form.game_name.trim() || null,
+        role: form.role === 'NONE' ? null : form.role,
       }
       if (editing) {
         await updatePlayer(editing.id, payload)
@@ -111,6 +119,7 @@ export default function AdminPlayers() {
           <TableHeader>
             <TableRow>
               <TableHead>Player</TableHead>
+              <TableHead>Role</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
@@ -123,6 +132,9 @@ export default function AdminPlayers() {
                     <PlayerAvatar name={player.name} imageUrl={player.image_url} className="h-9 w-9 text-xs" />
                     <span className="font-semibold text-primary-900">{player.name}</span>
                   </div>
+                </TableCell>
+                <TableCell className="text-muted-foreground">
+                  {player.role ? PLAYER_ROLE_LABELS[player.role] : '—'}
                 </TableCell>
                 <TableCell>
                   <Badge variant={player.is_active ? 'success' : 'outline'}>
@@ -169,13 +181,27 @@ export default function AdminPlayers() {
               label="In-Game Name"
               htmlFor="player-game-name"
               hint="Optional. Their Smash Karts nickname, used to auto-match screenshot stat imports."
-              error={formError ?? undefined}
             >
               <Input
                 id="player-game-name"
                 value={form.game_name}
                 onChange={(e) => setForm({ ...form, game_name: e.target.value })}
               />
+            </FormField>
+            <FormField label="Role" htmlFor="player-role" error={formError ?? undefined}>
+              <Select value={form.role} onValueChange={(v) => setForm({ ...form, role: v as PlayerRole | 'NONE' })}>
+                <SelectTrigger id="player-role">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="NONE">Not set</SelectItem>
+                  {PLAYER_ROLES.map((role) => (
+                    <SelectItem key={role} value={role}>
+                      {PLAYER_ROLE_LABELS[role]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </FormField>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>

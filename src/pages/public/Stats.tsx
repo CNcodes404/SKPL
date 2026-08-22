@@ -70,6 +70,7 @@ export default function Stats() {
                       value: playerStatDisplay(s, type),
                     }))}
                     viewAllTo={`/stats/players/${type}?season=${selected}`}
+                    entryHref={(entry) => `/players/${entry.id}`}
                   />
                 )
               })}
@@ -98,6 +99,7 @@ export default function Stats() {
                       value: teamStatDisplay(s, type),
                     }))}
                     viewAllTo={`/stats/teams/${type}?season=${selected}`}
+                    entryHref={(entry) => `/teams/${entry.id}`}
                   />
                 )
               })}

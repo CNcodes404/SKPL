@@ -85,6 +85,7 @@ export default function TeamDetail() {
               return (
                 <PlayerCard
                   key={player.id}
+                  playerId={player.id}
                   name={player.name}
                   imageUrl={player.image_url}
                   kills={stats.kills}

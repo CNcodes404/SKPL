@@ -80,7 +80,7 @@ export default function Matches() {
           ) : (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {list.map((m) => (
-                <MatchCard key={m.id} match={m} />
+                <MatchCard key={m.id} match={m} linkTo={m.status === 'COMPLETED' ? `/matches/${m.id}` : undefined} />
               ))}
             </div>
           )}

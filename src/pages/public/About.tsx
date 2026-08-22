@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
-import { Trophy, Crown, Skull, Flag, Info } from 'lucide-react'
+import { Trophy, Info } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { PlayerAvatar } from '@/components/shared/Avatar'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorState } from '@/components/shared/ErrorState'
@@ -20,6 +21,7 @@ export default function About() {
       seasons.map(async (season) => {
         const playerStats = await getPlayerStatsForScope(season.id)
         const mvp = season.mvp_player_id ? await getPlayer(season.mvp_player_id) : null
+        const mvpTeam = mvp ? playerStats.find((p) => p.player.id === mvp.id)?.team ?? null : null
         const topKiller = [...playerStats].sort((a, b) => b.kills - a.kills)[0]
         const topFlagger = [...playerStats].sort((a, b) => b.flags - a.flags)[0]
 
@@ -27,6 +29,7 @@ export default function About() {
           season,
           champion: season.champion_team_id ? teamById.get(season.champion_team_id) ?? null : null,
           mvp,
+          mvpTeam,
           topKiller: topKiller && topKiller.kills > 0 ? topKiller : null,
           topFlagger: topFlagger && topFlagger.flags > 0 ? topFlagger : null,
         }
@@ -57,18 +60,59 @@ export default function About() {
         ) : !data || data.length === 0 ? (
           <EmptyState title="No seasons created yet." icon={Info} />
         ) : (
-          <div className="flex flex-col gap-4">
-            {data.map(({ season, champion, mvp, topKiller, topFlagger }) => (
+          <div className="flex flex-col gap-6">
+            {data.map(({ season, champion, mvp, mvpTeam, topKiller, topFlagger }) => (
               <Card key={season.id}>
-                <CardHeader className="flex-row items-center justify-between space-y-0">
+                <CardHeader className="flex-row flex-wrap items-center justify-between gap-2 space-y-0">
                   <CardTitle>{season.name}</CardTitle>
-                  <Badge variant={season.status === 'ACTIVE' ? 'success' : 'outline'}>{season.status}</Badge>
+                  <div className="flex items-center gap-2">
+                    {champion ? (
+                      <Link
+                        to={`/teams/${champion.id}`}
+                        className="flex items-center gap-1.5 rounded-full bg-accent-100 px-3 py-1 text-xs font-bold text-accent-700"
+                      >
+                        <Trophy className="h-3.5 w-3.5" />
+                        {champion.name}
+                      </Link>
+                    ) : null}
+                    <Badge variant={season.status === 'ACTIVE' ? 'success' : 'outline'}>{season.status}</Badge>
+                  </div>
                 </CardHeader>
-                <CardContent className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-                  <InfoTile icon={Trophy} label="Champion" value={champion?.name} link={champion ? `/teams/${champion.id}` : undefined} />
-                  <InfoTile icon={Crown} label="Tournament MVP" value={mvp?.name} />
-                  <InfoTile icon={Skull} label="Top Killer" value={topKiller ? `${topKiller.player.name} (${topKiller.kills})` : undefined} />
-                  <InfoTile icon={Flag} label="Top Flagger" value={topFlagger ? `${topFlagger.player.name} (${topFlagger.flags})` : undefined} />
+                <CardContent className="flex flex-col gap-5">
+                  {season.description ? (
+                    <p className="text-sm leading-relaxed text-muted-foreground">{season.description}</p>
+                  ) : null}
+
+                  <div>
+                    <h3 className="mb-3 font-display text-sm font-bold uppercase tracking-wide text-primary-800">
+                      Player Facts
+                    </h3>
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                      <PlayerFactCard
+                        label="MVP"
+                        playerId={mvp?.id}
+                        name={mvp?.name}
+                        imageUrl={mvp?.image_url}
+                        teamName={mvpTeam?.name}
+                      />
+                      <PlayerFactCard
+                        label="Top Killer"
+                        playerId={topKiller?.player.id}
+                        name={topKiller?.player.name}
+                        imageUrl={topKiller?.player.image_url}
+                        teamName={topKiller?.team?.name}
+                        stat={topKiller ? `${topKiller.kills} kills` : undefined}
+                      />
+                      <PlayerFactCard
+                        label="Top Flagger"
+                        playerId={topFlagger?.player.id}
+                        name={topFlagger?.player.name}
+                        imageUrl={topFlagger?.player.image_url}
+                        teamName={topFlagger?.team?.name}
+                        stat={topFlagger ? `${topFlagger.flags} flags` : undefined}
+                      />
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -79,23 +123,39 @@ export default function About() {
   )
 }
 
-function InfoTile({
-  icon: Icon,
+function PlayerFactCard({
   label,
-  value,
-  link,
+  playerId,
+  name,
+  imageUrl,
+  teamName,
+  stat,
 }: {
-  icon: typeof Trophy
   label: string
-  value?: string
-  link?: string
+  playerId?: string
+  name?: string
+  imageUrl?: string | null
+  teamName?: string | null
+  stat?: string
 }) {
   const content = (
-    <div className="flex flex-col items-center gap-1 rounded-lg bg-secondary/50 p-3 text-center">
-      <Icon className="h-4 w-4 text-accent-500" />
-      <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">{label}</p>
-      <p className="truncate text-sm font-bold text-primary-900">{value ?? 'TBD'}</p>
+    <div className="flex items-center gap-3 overflow-hidden rounded-lg bg-skpl-gradient-soft p-3">
+      <PlayerAvatar name={name ?? '?'} imageUrl={imageUrl} className="h-14 w-14 shrink-0 rounded-md text-lg" />
+      <div className="min-w-0">
+        <p className="border-b border-white/30 pb-1 text-[11px] font-bold uppercase tracking-wide text-accent-200">
+          {label}
+        </p>
+        <p className="truncate pt-1 font-display text-sm font-extrabold text-white">{name ?? 'TBD'}</p>
+        {teamName ? <p className="truncate text-xs text-primary-100">From {teamName}</p> : null}
+        {stat ? <p className="truncate text-[11px] font-semibold text-accent-200">{stat}</p> : null}
+      </div>
     </div>
   )
-  return link ? <Link to={link}>{content}</Link> : content
+
+  return (
+    <div className="overflow-hidden rounded-lg shadow-card">
+      {playerId ? <Link to={`/players/${playerId}`}>{content}</Link> : content}
+      <div className="h-1 bg-accent-500" />
+    </div>
+  )
 }
