@@ -75,6 +75,9 @@ export interface PlayerSeasonStats {
   kills: number
   deaths: number
   flags: number
+  mostKillsInMatch: number
+  mostFlagsInMatch: number
+  highestKDInMatch: number
 }
 
 export interface PlayerDetailStats {

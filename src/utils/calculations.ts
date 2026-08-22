@@ -102,6 +102,10 @@ export function calculatePlayerStats(
     const deaths = rows.reduce((sum, r) => sum + r.deaths, 0)
     const flags = rows.reduce((sum, r) => sum + r.flags, 0)
 
+    const mostKillsInMatch = rows.length ? Math.max(...rows.map((r) => r.kills)) : 0
+    const mostFlagsInMatch = rows.length ? Math.max(...rows.map((r) => r.flags)) : 0
+    const highestKDInMatch = rows.length ? Math.max(...rows.map((r) => calculateKD(r.kills, r.deaths))) : 0
+
     return {
       player,
       team,
@@ -109,6 +113,9 @@ export function calculatePlayerStats(
       kills,
       deaths,
       flags,
+      mostKillsInMatch,
+      mostFlagsInMatch,
+      highestKDInMatch,
     }
   })
 }
