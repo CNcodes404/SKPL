@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Crown } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { PlayerAvatar } from '@/components/shared/Avatar'
 import { formatKD } from '@/utils/calculations'
@@ -9,6 +10,7 @@ export function PlayerCard({
   name,
   imageUrl,
   role,
+  isCaptain,
   kills,
   flags,
   deaths,
@@ -17,6 +19,7 @@ export function PlayerCard({
   name: string
   imageUrl?: string | null
   role?: PlayerRole | null
+  isCaptain?: boolean
   kills: number
   flags: number
   deaths: number
@@ -24,7 +27,14 @@ export function PlayerCard({
   return (
     <Link to={`/players/${playerId}`}>
       <Card className="flex h-full flex-col items-center gap-3 p-5 text-center transition-all hover:-translate-y-1 hover:shadow-elevated">
-        <PlayerAvatar name={name} imageUrl={imageUrl} className="h-16 w-16 text-lg" />
+        <div className="relative">
+          <PlayerAvatar name={name} imageUrl={imageUrl} className="h-16 w-16 text-lg" />
+          {isCaptain ? (
+            <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-accent-500 text-white shadow-card" title="Captain">
+              <Crown className="h-3.5 w-3.5" />
+            </span>
+          ) : null}
+        </div>
         <div>
           <p className="font-display text-base font-bold text-primary-900">{name}</p>
           {role ? (

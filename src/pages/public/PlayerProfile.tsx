@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { Skull, Flag, Trophy } from 'lucide-react'
+import { Skull, Flag, Trophy, Crown } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { PlayerAvatar, TeamLogo } from '@/components/shared/Avatar'
@@ -20,18 +20,18 @@ export default function PlayerProfile() {
 
   const { data, loading: statsLoading } = useAsync(async () => {
     if (!selected) return null
-    const [stats, team] = await Promise.all([
+    const [stats, teamInfo] = await Promise.all([
       getPlayerDetailStats(playerId, selected),
       selected === ALL_SEASONS ? getPlayerCurrentTeam(playerId) : getPlayerTeamForSeason(playerId, selected),
     ])
-    return { stats, team }
+    return { stats, teamInfo }
   }, [playerId, selected])
 
   if (playerLoading) return <LoadingState rows={6} />
   if (error || !player) return <ErrorState message="Player not found." />
 
   const stats = data?.stats
-  const team = data?.team
+  const teamInfo = data?.teamInfo
 
   return (
     <div className="flex flex-col gap-8">
@@ -43,10 +43,14 @@ export default function PlayerProfile() {
             {player.role ? <Badge variant="accent">{PLAYER_ROLE_LABELS[player.role]}</Badge> : null}
             {!player.is_active ? <Badge variant="outline">Inactive</Badge> : null}
           </div>
-          {team ? (
-            <Link to={`/teams/${team.id}`} className="flex items-center gap-2 text-sm font-semibold text-primary-100 hover:text-white">
-              <TeamLogo name={team.name} logoUrl={team.logo_url} className="h-6 w-6 text-[10px]" />
-              {team.name}
+          {teamInfo ? (
+            <Link
+              to={`/teams/${teamInfo.team.id}`}
+              className="flex items-center gap-2 text-sm font-semibold text-primary-100 hover:text-white"
+            >
+              <TeamLogo name={teamInfo.team.name} logoUrl={teamInfo.team.logo_url} className="h-6 w-6 text-[10px]" />
+              {teamInfo.team.name}
+              {teamInfo.isCaptain ? <Crown className="h-4 w-4 text-accent-300" aria-label="Captain" /> : null}
             </Link>
           ) : (
             <p className="text-sm text-primary-200">No team on record</p>

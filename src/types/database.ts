@@ -128,12 +128,14 @@ export interface Database {
           season_id: string
           team_id: string
           player_id: string
+          is_captain: boolean
         }
         Insert: {
           id?: string
           season_id: string
           team_id: string
           player_id: string
+          is_captain?: boolean
         }
         Update: Partial<Database['public']['Tables']['season_rosters']['Insert']>
         Relationships: []

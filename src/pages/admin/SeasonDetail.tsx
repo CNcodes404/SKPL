@@ -14,7 +14,15 @@ import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
-import { getSeason, getSeasonTeams, getSeasonRoster, deleteSeasonSchedule, setSeasonMvp, updateSeason } from '@/services/seasons'
+import {
+  getSeason,
+  getSeasonTeams,
+  getSeasonRoster,
+  deleteSeasonSchedule,
+  setSeasonMvp,
+  updateSeason,
+  setTeamCaptain,
+} from '@/services/seasons'
 import { listMatchesRaw, createMatch } from '@/services/matches'
 import { calculateStandings } from '@/utils/calculations'
 import { cn } from '@/lib/utils'
@@ -172,6 +180,47 @@ export default function SeasonDetail() {
           </Card>
         </div>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Roster & Captains</CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {teams.map((team) => {
+            const teamRoster = roster.filter((r) => r.team_id === team.id)
+            const captain = teamRoster.find((r) => r.is_captain)
+            return (
+              <div key={team.id} className="flex flex-col gap-3 rounded-lg border border-border p-3">
+                <p className="font-display font-bold text-primary-900">{team.name}</p>
+                <Select
+                  value={captain?.player.id ?? 'NONE'}
+                  onValueChange={(v) => setTeamCaptain(seasonId, team.id, v === 'NONE' ? null : v).then(reload)}
+                >
+                  <SelectTrigger className="h-9 text-sm">
+                    <SelectValue placeholder="No captain" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="NONE">No captain</SelectItem>
+                    {teamRoster.map((r) => (
+                      <SelectItem key={r.player.id} value={r.player.id}>
+                        {r.player.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <ul className="flex flex-col gap-1 text-sm text-muted-foreground">
+                  {teamRoster.map((r) => (
+                    <li key={r.id} className="flex items-center gap-1.5">
+                      {r.is_captain ? <Crown className="h-3.5 w-3.5 shrink-0 text-accent-500" /> : <span className="w-3.5" />}
+                      {r.player.name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          })}
+        </CardContent>
+      </Card>
 
       <ConfirmDialog
         open={deleteOpen}

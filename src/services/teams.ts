@@ -37,10 +37,10 @@ export async function setTeamActive(id: string, isActive: boolean): Promise<void
   if (error) throw error
 }
 
-export async function getTeamSquad(teamId: string): Promise<{ player: Player }[]> {
+export async function getTeamSquad(teamId: string): Promise<{ player: Player; is_captain: boolean }[]> {
   const { data, error } = await supabase
     .from('season_rosters')
-    .select('player_id, players(*), seasons(season_number)')
+    .select('player_id, is_captain, players(*), seasons(season_number)')
     .eq('team_id', teamId)
   if (error) throw error
 
@@ -50,7 +50,7 @@ export async function getTeamSquad(teamId: string): Promise<{ player: Player }[]
   const maxSeasonNumber = Math.max(...rows.map((r) => r.seasons?.season_number ?? 0))
   return rows
     .filter((r) => (r.seasons?.season_number ?? 0) === maxSeasonNumber)
-    .map((r) => ({ player: r.players }))
+    .map((r) => ({ player: r.players, is_captain: r.is_captain }))
 }
 
 export async function countChampionships(teamId: string): Promise<number> {

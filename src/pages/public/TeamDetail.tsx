@@ -80,7 +80,7 @@ export default function TeamDetail() {
           <EmptyState title="No squad on record yet." />
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {squad.map(({ player }) => {
+            {squad.map(({ player, is_captain }) => {
               const stats = careerStats[player.id] ?? { kills: 0, deaths: 0, flags: 0 }
               return (
                 <PlayerCard
@@ -89,6 +89,7 @@ export default function TeamDetail() {
                   name={player.name}
                   imageUrl={player.image_url}
                   role={player.role}
+                  isCaptain={is_captain}
                   kills={stats.kills}
                   deaths={stats.deaths}
                   flags={stats.flags}

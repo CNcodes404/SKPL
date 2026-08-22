@@ -35,13 +35,40 @@ export async function getSeasonTeams(seasonId: string): Promise<Team[]> {
   return (data ?? []).map((row: any) => row.teams).filter(Boolean)
 }
 
-export async function getSeasonRoster(seasonId: string): Promise<{ player: Player; team_id: string }[]> {
+export async function getSeasonRoster(
+  seasonId: string,
+): Promise<{ id: string; player: Player; team_id: string; is_captain: boolean }[]> {
   const { data, error } = await supabase
     .from('season_rosters')
-    .select('player_id, team_id, players(*)')
+    .select('id, player_id, team_id, is_captain, players(*)')
     .eq('season_id', seasonId)
   if (error) throw error
-  return (data ?? []).map((row: any) => ({ player: row.players as Player, team_id: row.team_id as string }))
+  return (data ?? []).map((row: any) => ({
+    id: row.id as string,
+    player: row.players as Player,
+    team_id: row.team_id as string,
+    is_captain: row.is_captain as boolean,
+  }))
+}
+
+/** Sets (or clears, if playerId is null) the captain for one team within a season. */
+export async function setTeamCaptain(seasonId: string, teamId: string, playerId: string | null): Promise<void> {
+  const { error: clearError } = await supabase
+    .from('season_rosters')
+    .update({ is_captain: false })
+    .eq('season_id', seasonId)
+    .eq('team_id', teamId)
+  if (clearError) throw clearError
+
+  if (playerId) {
+    const { error: setError } = await supabase
+      .from('season_rosters')
+      .update({ is_captain: true })
+      .eq('season_id', seasonId)
+      .eq('team_id', teamId)
+      .eq('player_id', playerId)
+    if (setError) throw setError
+  }
 }
 
 export async function getSeasonTeamRows(seasonId: string): Promise<SeasonTeam[]> {

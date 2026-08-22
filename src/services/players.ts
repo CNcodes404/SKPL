@@ -100,30 +100,36 @@ export async function listPlayersWithCurrentTeam(includeInactive = true): Promis
   })
 }
 
+export interface PlayerTeamInfo {
+  team: Team
+  isCaptain: boolean
+}
+
 /** The team a player most recently rostered for, across all seasons. */
-export async function getPlayerCurrentTeam(playerId: string): Promise<Team | null> {
+export async function getPlayerCurrentTeam(playerId: string): Promise<PlayerTeamInfo | null> {
   const { data, error } = await supabase
     .from('season_rosters')
-    .select('teams(*), seasons(season_number)')
+    .select('teams(*), seasons(season_number), is_captain')
     .eq('player_id', playerId)
   if (error) throw error
 
   const rows = (data ?? []) as any[]
   if (rows.length === 0) return null
   const latest = rows.reduce((a, b) => ((b.seasons?.season_number ?? 0) > (a.seasons?.season_number ?? 0) ? b : a))
-  return (latest.teams as Team) ?? null
+  return latest.teams ? { team: latest.teams as Team, isCaptain: Boolean(latest.is_captain) } : null
 }
 
 /** The team a player was rostered to in a specific season, or null if they weren't part of it. */
-export async function getPlayerTeamForSeason(playerId: string, seasonId: string): Promise<Team | null> {
+export async function getPlayerTeamForSeason(playerId: string, seasonId: string): Promise<PlayerTeamInfo | null> {
   const { data, error } = await supabase
     .from('season_rosters')
-    .select('teams(*)')
+    .select('teams(*), is_captain')
     .eq('player_id', playerId)
     .eq('season_id', seasonId)
     .maybeSingle()
   if (error) throw error
-  return (data as any)?.teams ?? null
+  const row = data as any
+  return row?.teams ? { team: row.teams as Team, isCaptain: Boolean(row.is_captain) } : null
 }
 
 /** Detailed stats for a single player, scoped to a season or ALL_SEASONS, including per-match extremes. */
