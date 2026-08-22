@@ -88,6 +88,7 @@ export default function TeamDetail() {
                   playerId={player.id}
                   name={player.name}
                   imageUrl={player.image_url}
+                  role={player.role}
                   kills={stats.kills}
                   deaths={stats.deaths}
                   flags={stats.flags}

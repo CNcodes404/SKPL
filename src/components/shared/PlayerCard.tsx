@@ -2,11 +2,13 @@ import { Link } from 'react-router-dom'
 import { Card } from '@/components/ui/card'
 import { PlayerAvatar } from '@/components/shared/Avatar'
 import { formatKD } from '@/utils/calculations'
+import { PLAYER_ROLE_LABELS, type PlayerRole } from '@/types'
 
 export function PlayerCard({
   playerId,
   name,
   imageUrl,
+  role,
   kills,
   flags,
   deaths,
@@ -14,6 +16,7 @@ export function PlayerCard({
   playerId: string
   name: string
   imageUrl?: string | null
+  role?: PlayerRole | null
   kills: number
   flags: number
   deaths: number
@@ -22,7 +25,12 @@ export function PlayerCard({
     <Link to={`/players/${playerId}`}>
       <Card className="flex h-full flex-col items-center gap-3 p-5 text-center transition-all hover:-translate-y-1 hover:shadow-elevated">
         <PlayerAvatar name={name} imageUrl={imageUrl} className="h-16 w-16 text-lg" />
-        <p className="font-display text-base font-bold text-primary-900">{name}</p>
+        <div>
+          <p className="font-display text-base font-bold text-primary-900">{name}</p>
+          {role ? (
+            <p className="text-xs font-semibold uppercase tracking-wide text-accent-600">{PLAYER_ROLE_LABELS[role]}</p>
+          ) : null}
+        </div>
         <div className="grid w-full grid-cols-3 gap-2 border-t border-border pt-3 text-center">
           <StatCol label="Kills" value={kills} />
           <StatCol label="Flags" value={flags} />
