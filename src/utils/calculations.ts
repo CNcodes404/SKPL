@@ -218,3 +218,80 @@ export function determineMatchWinnerId(match: Pick<Match, 'team_a_id' | 'team_b_
   if (match.team_a_score === match.team_b_score) return null
   return match.team_a_score > match.team_b_score ? match.team_a_id : match.team_b_id
 }
+
+/** Share of a player's completed matches where their team won, as a 0-100 percentage. */
+export function calculatePlayerWinRate(playerId: string, stats: MatchPlayerStat[], matches: Match[]): number {
+  const completed = matches.filter((m) => m.status === 'COMPLETED')
+  const matchById = new Map(completed.map((m) => [m.id, m]))
+  const rows = stats.filter((s) => s.player_id === playerId && matchById.has(s.match_id))
+  if (rows.length === 0) return 0
+
+  let wins = 0
+  for (const row of rows) {
+    const match = matchById.get(row.match_id)!
+    if (determineMatchWinnerId(match) === row.team_id) wins++
+  }
+  return calculateWinRate(wins, rows.length)
+}
+
+export function calculatePlayerMvpCount(playerId: string, matches: Match[]): number {
+  return matches.filter((m) => m.status === 'COMPLETED' && m.mvp_player_id === playerId).length
+}
+
+export interface PlayerAuctionRawMetrics {
+  player: Player
+  matchesPlayed: number
+  killsPerMatch: number
+  deathsPerMatch: number
+  flagsPerMatch: number
+  kd: number
+  winRate: number
+  mvpCount: number
+  /** Matches played, with diminishing returns above ~20 (saturates near 100). */
+  experienceRaw: number
+  /** Recent (last 5) average kills relative to career average kills — >1 trending up, <1 trending down. */
+  formRaw: number
+}
+
+/**
+ * Raw (not yet normalized) per-player metrics feeding the auction Player
+ * Index. Normalization against the auction pool happens one level up, in
+ * auctionValuation.ts, since it needs every pool player's raw metrics together.
+ */
+export function calculatePlayerAuctionRawMetrics(
+  player: Player,
+  stats: MatchPlayerStat[],
+  matches: Match[],
+): PlayerAuctionRawMetrics {
+  const completed = matches.filter((m) => m.status === 'COMPLETED')
+  const matchById = new Map(completed.map((m) => [m.id, m]))
+  const rows = stats
+    .filter((s) => s.player_id === player.id && matchById.has(s.match_id))
+    .map((s) => ({ ...s, match: matchById.get(s.match_id)! }))
+    .sort((a, b) => new Date(b.match.scheduled_at ?? 0).getTime() - new Date(a.match.scheduled_at ?? 0).getTime())
+
+  const matchesPlayed = rows.length
+  const totalKills = rows.reduce((sum, r) => sum + r.kills, 0)
+  const totalDeaths = rows.reduce((sum, r) => sum + r.deaths, 0)
+  const totalFlags = rows.reduce((sum, r) => sum + r.flags, 0)
+  const killsPerMatch = average(totalKills, matchesPlayed)
+
+  const recent = rows.slice(0, 5)
+  const recentAvgKills = average(
+    recent.reduce((sum, r) => sum + r.kills, 0),
+    recent.length,
+  )
+
+  return {
+    player,
+    matchesPlayed,
+    killsPerMatch,
+    deathsPerMatch: average(totalDeaths, matchesPlayed),
+    flagsPerMatch: average(totalFlags, matchesPlayed),
+    kd: calculateKD(totalKills, totalDeaths),
+    winRate: calculatePlayerWinRate(player.id, stats, matches),
+    mvpCount: calculatePlayerMvpCount(player.id, matches),
+    experienceRaw: Math.min(1, matchesPlayed / 20) * 100,
+    formRaw: killsPerMatch === 0 ? 1 : recentAvgKills / killsPerMatch,
+  }
+}

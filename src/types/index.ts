@@ -1,4 +1,13 @@
-import type { Database, MatchStatus, MatchType, PlayerRole, SeasonStatus } from './database'
+import type {
+  AuctionPlayerStatus,
+  AuctionStatus,
+  Database,
+  MatchStatus,
+  MatchType,
+  PlayerRole,
+  PlayerSkillTier,
+  SeasonStatus,
+} from './database'
 
 export type Team = Database['public']['Tables']['teams']['Row']
 export type Player = Database['public']['Tables']['players']['Row']
@@ -8,8 +17,16 @@ export type SeasonRoster = Database['public']['Tables']['season_rosters']['Row']
 export type Match = Database['public']['Tables']['matches']['Row']
 export type MatchPlayerStat = Database['public']['Tables']['match_player_stats']['Row']
 export type AdminProfile = Database['public']['Tables']['admin_profiles']['Row']
+export type TeamOwnerProfile = Database['public']['Tables']['team_owner_profiles']['Row']
+export type TeamOwnerInvite = Database['public']['Tables']['team_owner_invites']['Row']
+export type TeamOwnerStrategy = Database['public']['Tables']['team_owner_strategies']['Row']
+export type SeasonAuctionStrategyLocked = Database['public']['Tables']['season_auction_strategies_locked']['Row']
+export type SeasonAuctionPlayer = Database['public']['Tables']['season_auction_players']['Row']
+export type SeasonAuctionBid = Database['public']['Tables']['season_auction_bids']['Row']
+export type SeasonRetention = Database['public']['Tables']['season_retentions']['Row']
+export type SeasonAuction = Database['public']['Tables']['season_auctions']['Row']
 
-export type { MatchStatus, MatchType, PlayerRole, SeasonStatus }
+export type { AuctionPlayerStatus, AuctionStatus, MatchStatus, MatchType, PlayerRole, PlayerSkillTier, SeasonStatus }
 
 export const PLAYER_ROLE_LABELS: Record<PlayerRole, string> = {
   FLAGGER: 'Flagger',
@@ -18,6 +35,14 @@ export const PLAYER_ROLE_LABELS: Record<PlayerRole, string> = {
 }
 
 export const PLAYER_ROLES: PlayerRole[] = ['FLAGGER', 'DEFENDER', 'ALL_ROUNDER']
+
+export const PLAYER_SKILL_TIER_LABELS: Record<PlayerSkillTier, string> = {
+  BEGINNER: 'Beginner',
+  INTERMEDIATE: 'Intermediate',
+  EXPERT: 'Expert',
+}
+
+export const PLAYER_SKILL_TIERS: PlayerSkillTier[] = ['BEGINNER', 'INTERMEDIATE', 'EXPERT']
 
 export const MATCH_TYPE_LABELS: Record<MatchType, string> = {
   REGULAR_SEASON: 'Regular Season',
