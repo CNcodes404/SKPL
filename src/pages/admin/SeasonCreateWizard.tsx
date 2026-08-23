@@ -14,6 +14,7 @@ import { useAsync } from '@/hooks/useAsync'
 import { listTeams } from '@/services/teams'
 import { listPlayers } from '@/services/players'
 import { createSeasonWithSetup } from '@/services/seasons'
+import { applyRosterPrices, computeManualSeasonPrices } from '@/services/legacyPricing'
 import { generateSchedule, expectedMatchCount } from '@/utils/schedule'
 import { cn } from '@/lib/utils'
 import type { Team } from '@/types'
@@ -44,6 +45,9 @@ export default function SeasonCreateWizard() {
 
   // Step 3 — playerId -> teamId
   const [roster, setRoster] = useState<Record<string, string>>({})
+  const [rosterMode, setRosterMode] = useState<'MANUAL' | 'AUCTION'>('MANUAL')
+  const [maxRetentionsPerTeam, setMaxRetentionsPerTeam] = useState(2)
+  const [retentionPriceIncreasePct, setRetentionPriceIncreasePct] = useState(20)
 
   // Step 4
   const [winningPoints, setWinningPoints] = useState(3)
@@ -129,7 +133,8 @@ export default function SeasonCreateWizard() {
     setSubmitting(true)
     setSubmitError(null)
     try {
-      const rosters = Object.entries(roster).map(([player_id, team_id]) => ({ player_id, team_id }))
+      const rosters =
+        rosterMode === 'AUCTION' ? [] : Object.entries(roster).map(([player_id, team_id]) => ({ player_id, team_id }))
       const matches = schedule.map((m) => ({
         team_a_id: m.team_a_id,
         team_b_id: m.team_b_id,
@@ -150,7 +155,19 @@ export default function SeasonCreateWizard() {
         team_ids: teamIds,
         rosters,
         matches,
+        enable_auction: rosterMode === 'AUCTION',
+        max_retentions_per_team: rosterMode === 'AUCTION' ? maxRetentionsPerTeam : 0,
+        retention_price_increase_pct: rosterMode === 'AUCTION' ? retentionPriceIncreasePct : 0,
       })
+
+      if (rosterMode === 'MANUAL') {
+        const teamInputs = teamIds.map((teamId) => ({
+          teamId,
+          currentPlayerIds: rosters.filter((r) => r.team_id === teamId).map((r) => r.player_id),
+        }))
+        const prices = await computeManualSeasonPrices(seasonId, teamInputs)
+        await applyRosterPrices(seasonId, prices)
+      }
 
       navigate(`/admin/seasons/${seasonId}`)
     } catch (err) {
@@ -238,10 +255,68 @@ export default function SeasonCreateWizard() {
 
         {step === 2 ? (
           <div className="flex flex-col gap-6">
-            <p className="text-sm text-muted-foreground">
-              Assign each active player to exactly one team. Players not selected will not appear in this season.
-            </p>
-            {selectedTeams.map((team) => (
+            <div className="flex flex-col gap-2 sm:max-w-md">
+              <p className="text-sm font-semibold text-primary-900">How should rosters be decided?</p>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {(
+                  [
+                    { value: 'MANUAL', label: 'Assign Manually', desc: 'Pick every player now, like today.' },
+                    { value: 'AUCTION', label: 'Decide via Auction', desc: 'Skip this step — run an AI auction after creating the season.' },
+                  ] as const
+                ).map((opt) => (
+                  <label
+                    key={opt.value}
+                    className={cn(
+                      'flex cursor-pointer flex-col gap-1 rounded-lg border p-3',
+                      rosterMode === opt.value ? 'border-primary-600 bg-primary-50' : 'border-border hover:bg-secondary/50',
+                    )}
+                  >
+                    <span className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="roster-mode"
+                        checked={rosterMode === opt.value}
+                        onChange={() => setRosterMode(opt.value)}
+                      />
+                      <span className="font-semibold text-primary-900">{opt.label}</span>
+                    </span>
+                    <span className="text-xs text-muted-foreground">{opt.desc}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {rosterMode === 'AUCTION' ? (
+              <div className="grid grid-cols-1 gap-4 sm:max-w-md sm:grid-cols-2">
+                <FormField label="Max Retentions per Team" htmlFor="max-retentions">
+                  <Input
+                    id="max-retentions"
+                    type="number"
+                    min={0}
+                    value={maxRetentionsPerTeam}
+                    onChange={(e) => setMaxRetentionsPerTeam(Number(e.target.value))}
+                  />
+                </FormField>
+                <FormField label="Retention Price Increase %" htmlFor="retention-pct">
+                  <Input
+                    id="retention-pct"
+                    type="number"
+                    min={0}
+                    value={retentionPriceIncreasePct}
+                    onChange={(e) => setRetentionPriceIncreasePct(Number(e.target.value))}
+                  />
+                </FormField>
+                <p className="col-span-2 text-sm text-muted-foreground">
+                  Team owners will be able to submit retention picks as soon as this season is created. You'll
+                  configure purses and start the auction from the season page afterward.
+                </p>
+              </div>
+            ) : (
+              <>
+                <p className="text-sm text-muted-foreground">
+                  Assign each active player to exactly one team. Players not selected will not appear in this season.
+                </p>
+                {selectedTeams.map((team) => (
               <div key={team.id} className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
                   <TeamLogo name={team.name} logoUrl={team.logo_url} className="h-7 w-7 text-[10px]" />
@@ -278,7 +353,9 @@ export default function SeasonCreateWizard() {
                   })}
                 </div>
               </div>
-            ))}
+                ))}
+              </>
+            )}
           </div>
         ) : null}
 

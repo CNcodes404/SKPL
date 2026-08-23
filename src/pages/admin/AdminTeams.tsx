@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Plus, Pencil, Ban, CheckCircle2, Users } from 'lucide-react'
+import { Plus, Pencil, Ban, CheckCircle2, Users, KeyRound, Copy } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -15,6 +15,15 @@ import { TeamLogo } from '@/components/shared/Avatar'
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
 import { useAsync } from '@/hooks/useAsync'
 import { listTeams, createTeam, updateTeam, setTeamActive } from '@/services/teams'
+import {
+  createOwnerInvite,
+  getOwnerProfiles,
+  getPendingInvites,
+  removeOwner,
+  revokeOwnerInvite,
+  type OwnerProfileInfo,
+  type PendingInvite,
+} from '@/services/ownerInvites'
 import type { Team } from '@/types'
 
 interface FormState {
@@ -28,6 +37,13 @@ const EMPTY_FORM: FormState = { name: '', short_name: '', logo_url: '', descript
 
 export default function AdminTeams() {
   const { data: teams, loading, error, reload } = useAsync(() => listTeams(true), [])
+  const {
+    data: ownerData,
+    reload: reloadOwners,
+  } = useAsync(async () => {
+    const [profiles, invites] = await Promise.all([getOwnerProfiles(), getPendingInvites()])
+    return { profiles, invites }
+  }, [])
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editing, setEditing] = useState<Team | null>(null)
   const [form, setForm] = useState<FormState>(EMPTY_FORM)
@@ -35,6 +51,7 @@ export default function AdminTeams() {
   const [formError, setFormError] = useState<string | null>(null)
   const [toggleTarget, setToggleTarget] = useState<Team | null>(null)
   const [toggling, setToggling] = useState(false)
+  const [ownerDialogTeam, setOwnerDialogTeam] = useState<Team | null>(null)
 
   function openCreate() {
     setEditing(null)
@@ -121,38 +138,55 @@ export default function AdminTeams() {
               <TableHead>Team</TableHead>
               <TableHead>Short Name</TableHead>
               <TableHead>Status</TableHead>
+              <TableHead>Owner</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {teams.map((team) => (
-              <TableRow key={team.id}>
-                <TableCell>
-                  <div className="flex items-center gap-3">
-                    <TeamLogo name={team.name} logoUrl={team.logo_url} className="h-9 w-9 text-xs" />
-                    <span className="font-semibold text-primary-900">{team.name}</span>
-                  </div>
-                </TableCell>
-                <TableCell>{team.short_name}</TableCell>
-                <TableCell>
-                  <Badge variant={team.is_active ? 'success' : 'outline'}>{team.is_active ? 'Active' : 'Inactive'}</Badge>
-                </TableCell>
-                <TableCell className="text-right">
-                  <div className="flex justify-end gap-2">
-                    <Button size="sm" variant="outline" onClick={() => openEdit(team)}>
-                      <Pencil className="h-3.5 w-3.5" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant={team.is_active ? 'destructive' : 'secondary'}
-                      onClick={() => setToggleTarget(team)}
-                    >
-                      {team.is_active ? <Ban className="h-3.5 w-3.5" /> : <CheckCircle2 className="h-3.5 w-3.5" />}
-                    </Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
+            {teams.map((team) => {
+              const owner = ownerData?.profiles.find((o) => o.team_id === team.id)
+              const pendingInvite = ownerData?.invites.find((i) => i.team_id === team.id)
+              return (
+                <TableRow key={team.id}>
+                  <TableCell>
+                    <div className="flex items-center gap-3">
+                      <TeamLogo name={team.name} logoUrl={team.logo_url} className="h-9 w-9 text-xs" />
+                      <span className="font-semibold text-primary-900">{team.name}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell>{team.short_name}</TableCell>
+                  <TableCell>
+                    <Badge variant={team.is_active ? 'success' : 'outline'}>{team.is_active ? 'Active' : 'Inactive'}</Badge>
+                  </TableCell>
+                  <TableCell>
+                    {owner ? (
+                      <span className="text-sm">{owner.owner_email ?? 'Linked'}</span>
+                    ) : pendingInvite ? (
+                      <Badge variant="outline">Invite pending</Badge>
+                    ) : (
+                      <span className="text-sm text-muted-foreground">No owner</span>
+                    )}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex justify-end gap-2">
+                      <Button size="sm" variant="outline" onClick={() => setOwnerDialogTeam(team)}>
+                        <KeyRound className="h-3.5 w-3.5" />
+                      </Button>
+                      <Button size="sm" variant="outline" onClick={() => openEdit(team)}>
+                        <Pencil className="h-3.5 w-3.5" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant={team.is_active ? 'destructive' : 'secondary'}
+                        onClick={() => setToggleTarget(team)}
+                      >
+                        {team.is_active ? <Ban className="h-3.5 w-3.5" /> : <CheckCircle2 className="h-3.5 w-3.5" />}
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       )}
@@ -214,6 +248,156 @@ export default function AdminTeams() {
         loading={toggling}
         onConfirm={handleToggle}
       />
+
+      <OwnerManageDialog
+        team={ownerDialogTeam}
+        owner={ownerData?.profiles.find((o) => o.team_id === ownerDialogTeam?.id) ?? null}
+        pendingInvite={ownerData?.invites.find((i) => i.team_id === ownerDialogTeam?.id) ?? null}
+        onOpenChange={(open) => !open && setOwnerDialogTeam(null)}
+        onChanged={reloadOwners}
+      />
     </div>
+  )
+}
+
+function OwnerManageDialog({
+  team,
+  owner,
+  pendingInvite,
+  onOpenChange,
+  onChanged,
+}: {
+  team: Team | null
+  owner: OwnerProfileInfo | null
+  pendingInvite: PendingInvite | null
+  onOpenChange: (open: boolean) => void
+  onChanged: () => void
+}) {
+  const [invitedEmail, setInvitedEmail] = useState('')
+  const [generatedUrl, setGeneratedUrl] = useState<string | null>(null)
+  const [working, setWorking] = useState(false)
+  const [removeConfirmOpen, setRemoveConfirmOpen] = useState(false)
+
+  async function handleGenerate() {
+    if (!team) return
+    setWorking(true)
+    try {
+      const { url } = await createOwnerInvite(team.id, invitedEmail)
+      setGeneratedUrl(url)
+      setInvitedEmail('')
+      onChanged()
+    } finally {
+      setWorking(false)
+    }
+  }
+
+  async function handleRevoke() {
+    if (!pendingInvite) return
+    setWorking(true)
+    try {
+      await revokeOwnerInvite(pendingInvite.id)
+      onChanged()
+    } finally {
+      setWorking(false)
+    }
+  }
+
+  async function handleRemoveOwner() {
+    if (!team) return
+    setWorking(true)
+    try {
+      await removeOwner(team.id)
+      setRemoveConfirmOpen(false)
+      onChanged()
+    } finally {
+      setWorking(false)
+    }
+  }
+
+  return (
+    <>
+      <Dialog open={!!team} onOpenChange={onOpenChange}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Manage Owner — {team?.name}</DialogTitle>
+          </DialogHeader>
+        <div className="flex flex-col gap-4">
+          {owner ? (
+            <div className="flex items-center justify-between rounded-lg border border-border p-3">
+              <div>
+                <p className="text-xs text-muted-foreground">Current Owner</p>
+                <p className="font-semibold text-primary-900">{owner.owner_email ?? 'Linked account'}</p>
+              </div>
+              <Button size="sm" variant="destructive" onClick={() => setRemoveConfirmOpen(true)}>
+                Remove
+              </Button>
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground">This team has no owner account linked yet.</p>
+          )}
+
+          {pendingInvite ? (
+            <div className="flex flex-col gap-2 rounded-lg border border-border p-3">
+              <p className="text-xs text-muted-foreground">
+                Pending invite{pendingInvite.invited_email ? ` — sent to ${pendingInvite.invited_email}` : ''}, expires{' '}
+                {new Date(pendingInvite.expires_at).toLocaleDateString()}
+              </p>
+              <div className="flex items-center gap-2">
+                <Input readOnly value={`${window.location.origin}/owner/claim/${pendingInvite.token}`} className="text-xs" />
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => navigator.clipboard.writeText(`${window.location.origin}/owner/claim/${pendingInvite.token}`)}
+                >
+                  <Copy className="h-3.5 w-3.5" />
+                </Button>
+              </div>
+              <Button size="sm" variant="destructive" onClick={handleRevoke} disabled={working} className="self-start">
+                Revoke Invite
+              </Button>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3">
+              <FormField label="Generate a new invite (optional email note)" htmlFor="invite-email">
+                <Input
+                  id="invite-email"
+                  type="email"
+                  placeholder="owner@example.com"
+                  value={invitedEmail}
+                  onChange={(e) => setInvitedEmail(e.target.value)}
+                />
+              </FormField>
+              <Button onClick={handleGenerate} disabled={working} className="self-start">
+                {working ? 'Generating…' : 'Generate Invite Link'}
+              </Button>
+              {generatedUrl ? (
+                <div className="flex items-center gap-2">
+                  <Input readOnly value={generatedUrl} className="text-xs" />
+                  <Button size="sm" variant="outline" onClick={() => navigator.clipboard.writeText(generatedUrl)}>
+                    <Copy className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+              ) : null}
+            </div>
+          )}
+        </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => onOpenChange(false)}>
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <ConfirmDialog
+        open={removeConfirmOpen}
+        onOpenChange={setRemoveConfirmOpen}
+        title="Remove Owner"
+        description="This immediately revokes their access to this team's strategy and retention pages. Their login itself isn't deleted, just unlinked."
+        confirmLabel="Remove"
+        loading={working}
+        onConfirm={handleRemoveOwner}
+      />
+    </>
   )
 }
