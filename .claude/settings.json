@@ -4,7 +4,23 @@
       "Bash(npm -v)",
       "Bash(cp public/skpl_logo.jpeg public/skpl-logo.png && ls public/)",
       "Bash(npm install *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(npx tsc *)",
+      "Bash(echo \"EXIT CODE: $?\")",
+      "Read(//tmp/**)",
+      "Bash(disown)",
+      "Bash(sleep 2; cat /tmp/devserver.log)",
+      "Bash(curl -s http://localhost:5173/)",
+      "Bash(curl -s https://jcvmuiymyiucnqsgpoex.supabase.co/rest/v1/seasons?select=id,name,season_number -H 'apikey: sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi' -H 'Authorization: Bearer sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi')",
+      "Bash(curl -s https://jcvmuiymyiucnqsgpoex.supabase.co/rest/v1/season_auctions?select=* -H 'apikey: sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi' -H 'Authorization: Bearer sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi')",
+      "Bash(curl -s 'https://jcvmuiymyiucnqsgpoex.supabase.co/rest/v1/season_auction_bids?season_id=eq.f3762522-cca8-4d78-8ce3-90c6c24520b8&select=player_id,team_id,amount,round_no,created_at&order=round_no,created_at' -H 'apikey: sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi' -H 'Authorization: Bearer sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi')",
+      "Bash(curl -s 'https://jcvmuiymyiucnqsgpoex.supabase.co/rest/v1/season_auction_players?season_id=eq.f3762522-cca8-4d78-8ce3-90c6c24520b8&select=player_id,base_price,player_index,status,sold_team_id,sold_price,order_no&order=order_no' -H 'apikey: sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi' -H 'Authorization: Bearer sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi')",
+      "Bash(curl -s 'https://jcvmuiymyiucnqsgpoex.supabase.co/rest/v1/season_teams?season_id=eq.f3762522-cca8-4d78-8ce3-90c6c24520b8&select=team_id,purse_total,purse_remaining,retention_submitted' -H 'apikey: sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi' -H 'Authorization: Bearer sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi')",
+      "Bash(curl -s 'https://jcvmuiymyiucnqsgpoex.supabase.co/rest/v1/season_auctions?season_id=eq.f3762522-cca8-4d78-8ce3-90c6c24520b8&select=*' -H 'apikey: sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi' -H 'Authorization: Bearer sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi')",
+      "Bash(curl -s 'https://jcvmuiymyiucnqsgpoex.supabase.co/rest/v1/season_auctions?season_id=eq.f3762522-cca8-4d78-8ce3-90c6c24520b8&select=status,started_at,completed_at,round_no' -H 'apikey: sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi' -H 'Authorization: Bearer sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi')",
+      "Bash(curl -s 'https://jcvmuiymyiucnqsgpoex.supabase.co/rest/v1/season_auction_players?season_id=eq.f3762522-cca8-4d78-8ce3-90c6c24520b8&select=player_id,base_price,player_index,sold_team_id,sold_price,players\\(name\\)&order=sold_price.desc' -H 'apikey: sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi' -H 'Authorization: Bearer sb_publishable_Cl6ClD4azrin_lyw3VunWA_kYUjQ7Gi')",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ],
     "additionalDirectories": [
       "C:\\Users\\ChaitanyaNikam\\Desktop\\SKPL\\public"
