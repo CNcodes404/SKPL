@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { Trash2, Crown, Swords, Scale } from 'lucide-react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Trash2, Crown, Swords, Scale, Gavel, Calculator, Pencil } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -18,30 +18,58 @@ import {
   getSeason,
   getSeasonTeams,
   getSeasonRoster,
+  deleteSeason,
   deleteSeasonSchedule,
+  regenerateSeasonSchedule,
   setSeasonMvp,
   updateSeason,
   setTeamCaptain,
 } from '@/services/seasons'
 import { listMatchesRaw, createMatch } from '@/services/matches'
+import { getAuctionConfig } from '@/services/auction'
+import { applyRosterPrices, computeManualSeasonPrices } from '@/services/legacyPricing'
 import { calculateStandings } from '@/utils/calculations'
 import { cn } from '@/lib/utils'
 
 export default function SeasonDetail() {
   const { seasonId = '' } = useParams()
+  const navigate = useNavigate()
   const { data, loading, error, reload } = useAsync(async () => {
-    const [season, teams, roster, matches] = await Promise.all([
+    const [season, teams, roster, matches, auctionConfig] = await Promise.all([
       getSeason(seasonId),
       getSeasonTeams(seasonId),
       getSeasonRoster(seasonId),
       listMatchesRaw(seasonId),
+      getAuctionConfig(seasonId),
     ])
-    return { season, teams, roster, matches }
+    return { season, teams, roster, matches, auctionConfig }
   }, [seasonId])
 
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [tieBreakerOpen, setTieBreakerOpen] = useState(false)
+  const [recomputeOpen, setRecomputeOpen] = useState(false)
+  const [recomputing, setRecomputing] = useState(false)
+  const [deleteSeasonOpen, setDeleteSeasonOpen] = useState(false)
+  const [deletingSeason, setDeletingSeason] = useState(false)
+  const [editRulesOpen, setEditRulesOpen] = useState(false)
+
+  async function handleRecomputePrices() {
+    if (!data) return
+    setRecomputing(true)
+    try {
+      const teamInputs = data.teams.map((team) => ({
+        teamId: team.id,
+        currentPlayerIds: data.roster.filter((r) => r.team_id === team.id).map((r) => r.player.id),
+      }))
+      const prices = await computeManualSeasonPrices(seasonId, teamInputs)
+      await applyRosterPrices(seasonId, prices)
+      setRecomputeOpen(false)
+      reload()
+    } finally {
+      setRecomputing(false)
+    }
+  }
 
   async function handleDeleteSchedule() {
     setDeleting(true)
@@ -54,10 +82,20 @@ export default function SeasonDetail() {
     }
   }
 
+  async function handleDeleteSeason() {
+    setDeletingSeason(true)
+    try {
+      await deleteSeason(seasonId)
+      navigate('/admin/seasons')
+    } finally {
+      setDeletingSeason(false)
+    }
+  }
+
   if (loading) return <LoadingState rows={6} />
   if (error || !data?.season) return <ErrorState message="Season not found." />
 
-  const { season, teams, roster, matches } = data
+  const { season, teams, roster, matches, auctionConfig } = data
   const standings = calculateStandings(teams, matches, season)
   const championTeam = teams.find((t) => t.id === season.champion_team_id)
 
@@ -74,11 +112,22 @@ export default function SeasonDetail() {
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
+          <Button variant="outline" onClick={() => navigate(`/admin/seasons/${seasonId}/auction`)}>
+            <Gavel className="h-4 w-4" /> Run Auction
+          </Button>
+          {!auctionConfig ? (
+            <Button variant="outline" onClick={() => setRecomputeOpen(true)}>
+              <Calculator className="h-4 w-4" /> Recompute Prices
+            </Button>
+          ) : null}
           <Button variant="outline" onClick={() => setTieBreakerOpen(true)}>
             <Scale className="h-4 w-4" /> Create Tie-Breaker
           </Button>
           <Button variant="destructive" onClick={() => setDeleteOpen(true)}>
             <Trash2 className="h-4 w-4" /> Delete Entire Schedule
+          </Button>
+          <Button variant="destructive" onClick={() => setDeleteSeasonOpen(true)}>
+            <Trash2 className="h-4 w-4" /> Delete Season
           </Button>
         </div>
       </div>
@@ -167,8 +216,11 @@ export default function SeasonDetail() {
           <SeasonDescriptionCard seasonId={seasonId} description={season.description} onSaved={reload} />
 
           <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>League Rules</CardTitle>
+              <Button size="sm" variant="outline" onClick={() => setEditRulesOpen(true)}>
+                <Pencil className="h-3.5 w-3.5" /> Edit
+              </Button>
             </CardHeader>
             <CardContent className="grid grid-cols-2 gap-2 text-sm">
               <RuleRow label="Winning Points" value={season.winning_points} />
@@ -232,12 +284,40 @@ export default function SeasonDetail() {
         onConfirm={handleDeleteSchedule}
       />
 
+      <ConfirmDialog
+        open={recomputeOpen}
+        onOpenChange={setRecomputeOpen}
+        title="Recompute Roster Prices"
+        description="Assigns a price to every player on this manually-built roster — retained players from their team's most recent season keep their price, new players inherit a vacated price ranked by skill, and anyone left over gets a category-band price. This overwrites any prices already set here."
+        confirmLabel="Recompute"
+        destructive={false}
+        loading={recomputing}
+        onConfirm={handleRecomputePrices}
+      />
+
       <TieBreakerDialog
         open={tieBreakerOpen}
         onOpenChange={setTieBreakerOpen}
         seasonId={seasonId}
         teams={teams}
         onCreated={reload}
+      />
+
+      <ConfirmDialog
+        open={deleteSeasonOpen}
+        onOpenChange={setDeleteSeasonOpen}
+        title="Delete Season"
+        description="This permanently deletes this season and everything tied to it — teams' participation, the roster, all matches and stats, and any auction data. This cannot be undone."
+        confirmLabel="Delete Season"
+        loading={deletingSeason}
+        onConfirm={handleDeleteSeason}
+      />
+
+      <EditLeagueRulesDialog
+        open={editRulesOpen}
+        onOpenChange={setEditRulesOpen}
+        season={season}
+        onSaved={reload}
       />
     </div>
   )
@@ -291,6 +371,135 @@ function SeasonDescriptionCard({
         </div>
       </CardContent>
     </Card>
+  )
+}
+
+function EditLeagueRulesDialog({
+  open,
+  onOpenChange,
+  season,
+  onSaved,
+}: {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  season: {
+    id: string
+    winning_points: number
+    matches_per_opponent: number
+    close_loss_enabled: boolean
+    close_loss_points: number
+    close_loss_max_difference: number
+    playoff_team_count: number
+    start_date: string | null
+  }
+  onSaved: () => void
+}) {
+  const [winningPoints, setWinningPoints] = useState(season.winning_points)
+  const [matchesPerOpponent, setMatchesPerOpponent] = useState(season.matches_per_opponent)
+  const [closeLossEnabled, setCloseLossEnabled] = useState(season.close_loss_enabled)
+  const [closeLossPoints, setCloseLossPoints] = useState(season.close_loss_points)
+  const [closeLossMaxDifference, setCloseLossMaxDifference] = useState(season.close_loss_max_difference)
+  const [playoffTeamCount, setPlayoffTeamCount] = useState(season.playoff_team_count)
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const scheduleChanged = matchesPerOpponent !== season.matches_per_opponent
+
+  async function handleSave() {
+    setSaving(true)
+    setError(null)
+    try {
+      await updateSeason(season.id, {
+        winning_points: winningPoints,
+        close_loss_enabled: closeLossEnabled,
+        close_loss_points: closeLossPoints,
+        close_loss_max_difference: closeLossMaxDifference,
+        playoff_team_count: playoffTeamCount,
+      })
+      if (scheduleChanged) {
+        await regenerateSeasonSchedule(season.id, matchesPerOpponent, season.start_date)
+      }
+      onOpenChange(false)
+      onSaved()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to save changes.')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Edit League Rules</DialogTitle>
+        </DialogHeader>
+        <div className="grid grid-cols-2 gap-4">
+          <FormField label="Winning Points" htmlFor="er-win">
+            <Input id="er-win" type="number" min={0} value={winningPoints} onChange={(e) => setWinningPoints(Number(e.target.value))} />
+          </FormField>
+          <FormField label="Matches / Opponent" htmlFor="er-mpo">
+            <Input
+              id="er-mpo"
+              type="number"
+              min={1}
+              value={matchesPerOpponent}
+              onChange={(e) => setMatchesPerOpponent(Number(e.target.value))}
+            />
+          </FormField>
+          <FormField label="Playoff Teams" htmlFor="er-playoff">
+            <Input
+              id="er-playoff"
+              type="number"
+              min={0}
+              value={playoffTeamCount}
+              onChange={(e) => setPlayoffTeamCount(Number(e.target.value))}
+            />
+          </FormField>
+          <label className="col-span-2 flex items-center gap-2 text-sm font-medium">
+            <input type="checkbox" checked={closeLossEnabled} onChange={(e) => setCloseLossEnabled(e.target.checked)} />
+            Enable close-loss points
+          </label>
+          {closeLossEnabled ? (
+            <>
+              <FormField label="Close-Loss Points" htmlFor="er-clp">
+                <Input
+                  id="er-clp"
+                  type="number"
+                  min={0}
+                  value={closeLossPoints}
+                  onChange={(e) => setCloseLossPoints(Number(e.target.value))}
+                />
+              </FormField>
+              <FormField label="Max Score Difference" htmlFor="er-cld">
+                <Input
+                  id="er-cld"
+                  type="number"
+                  min={0}
+                  value={closeLossMaxDifference}
+                  onChange={(e) => setCloseLossMaxDifference(Number(e.target.value))}
+                />
+              </FormField>
+            </>
+          ) : null}
+        </div>
+        {scheduleChanged ? (
+          <p className="text-sm font-medium text-destructive">
+            Changing Matches / Opponent regenerates the entire schedule — every existing match and any scores already
+            entered for this season will be deleted and replaced.
+          </p>
+        ) : null}
+        {error ? <p className="text-sm text-destructive">{error}</p> : null}
+        <DialogFooter>
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
+            Cancel
+          </Button>
+          <Button variant={scheduleChanged ? 'destructive' : 'default'} onClick={handleSave} disabled={saving}>
+            {saving ? 'Saving…' : scheduleChanged ? 'Save & Regenerate Schedule' : 'Save'}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }
 

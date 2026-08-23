@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase'
+import { createMatches } from '@/services/matches'
 import type { Player, Season, SeasonRoster, SeasonTeam, Team } from '@/types'
-import type { GeneratedPairing } from '@/utils/schedule'
+import { generateSchedule, type GeneratedPairing } from '@/utils/schedule'
 
 export async function listSeasons(): Promise<Season[]> {
   const { data, error } = await supabase.from('seasons').select('*').order('season_number', { ascending: false })
@@ -97,6 +98,9 @@ export interface CreateSeasonInput {
   team_ids: string[]
   rosters: { team_id: string; player_id: string }[]
   matches: (GeneratedPairing & { scheduled_at: string })[]
+  enable_auction?: boolean
+  max_retentions_per_team?: number
+  retention_price_increase_pct?: number
 }
 
 export async function createSeasonWithSetup(input: CreateSeasonInput): Promise<string> {
@@ -114,6 +118,9 @@ export async function createSeasonWithSetup(input: CreateSeasonInput): Promise<s
     p_team_ids: input.team_ids,
     p_rosters: input.rosters,
     p_matches: input.matches,
+    p_enable_auction: input.enable_auction ?? false,
+    p_max_retentions_per_team: input.max_retentions_per_team ?? 0,
+    p_retention_price_increase_pct: input.retention_price_increase_pct ?? 0,
   })
   if (error) throw error
   return data as string
@@ -124,10 +131,47 @@ export async function deleteSeasonSchedule(seasonId: string): Promise<void> {
   if (error) throw error
 }
 
+/** Deletes the season entirely — teams/rosters/matches/stats/auction data all cascade via FK. */
+export async function deleteSeason(seasonId: string): Promise<void> {
+  const { error } = await supabase.from('seasons').delete().eq('id', seasonId)
+  if (error) throw error
+}
+
 export async function updateSeason(id: string, input: Partial<Season>): Promise<Season> {
   const { data, error } = await supabase.from('seasons').update(input).eq('id', id).select().single()
   if (error) throw error
   return data
+}
+
+/** Updates matches_per_opponent and regenerates the whole schedule at the new count — wipes existing matches/scores. */
+export async function regenerateSeasonSchedule(
+  seasonId: string,
+  matchesPerOpponent: number,
+  startDate: string | null,
+): Promise<void> {
+  await updateSeason(seasonId, { matches_per_opponent: matchesPerOpponent })
+  await deleteSeasonSchedule(seasonId)
+
+  const teams = await getSeasonTeams(seasonId)
+  const pairings = generateSchedule(
+    teams.map((t) => t.id),
+    matchesPerOpponent,
+  )
+
+  const base = startDate ? new Date(`${startDate}T18:00`) : new Date()
+  const matches = pairings.map((p, i) => {
+    const scheduledAt = new Date(base)
+    scheduledAt.setDate(scheduledAt.getDate() + i * 3)
+    return {
+      season_id: seasonId,
+      team_a_id: p.team_a_id,
+      team_b_id: p.team_b_id,
+      scheduled_at: scheduledAt.toISOString(),
+      match_type: 'REGULAR_SEASON' as const,
+    }
+  })
+
+  await createMatches(matches)
 }
 
 export async function setSeasonMvp(id: string, playerId: string | null): Promise<void> {

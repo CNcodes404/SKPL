@@ -94,6 +94,16 @@ export async function createMatch(input: CreateMatchInput): Promise<Match> {
   return data
 }
 
+export async function createMatches(inputs: CreateMatchInput[]): Promise<Match[]> {
+  if (inputs.length === 0) return []
+  const { data, error } = await supabase
+    .from('matches')
+    .insert(inputs.map((input) => ({ ...input, status: 'SCHEDULED' as const })))
+    .select()
+  if (error) throw error
+  return data ?? []
+}
+
 export async function updateMatchSchedule(
   id: string,
   input: { scheduled_at?: string | null; match_type?: MatchType; status?: MatchStatus; stage_label?: string | null },
