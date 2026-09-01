@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
 import { FormField } from '@/components/shared/FormField'
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
@@ -31,7 +32,9 @@ import {
 } from '@/services/auction'
 import { getRetentionSubmissionStatus } from '@/services/retention'
 import { formatLakh } from '@/utils/currency'
-import type { SeasonAuction, SeasonAuctionPlayer, Player, Team } from '@/types'
+import { ManualAuctionConfigurePanel } from '@/pages/admin/ManualAuctionConfigurePanel'
+import { ManualAuctionLivePanel } from '@/pages/admin/ManualAuctionLivePanel'
+import type { AuctionModeType, SeasonAuction, SeasonAuctionPlayer, Player, Team } from '@/types'
 
 const ORDER_STRATEGY_LABELS: Record<string, string> = {
   RANDOM: 'Random',
@@ -58,6 +61,7 @@ export default function AdminAuctionRun() {
   const [resetOpen, setResetOpen] = useState(false)
   const [resetting, setResetting] = useState(false)
   const [linkCopied, setLinkCopied] = useState(false)
+  const [draftMode, setDraftMode] = useState<AuctionModeType>('AI')
 
   function handleCopyViewerLink() {
     navigator.clipboard.writeText(`${window.location.origin}/auction/${seasonId}`)
@@ -72,7 +76,10 @@ export default function AdminAuctionRun() {
   }, [seasonId])
 
   useEffect(() => {
-    if (data?.auctionConfig?.status !== 'RUNNING') return
+    // Guarded to AI mode only — advance_auction_bid has no auction_mode
+    // check of its own, so without this a Manual auction's season_auctions
+    // row would get ticked by the AI simulation loop too.
+    if (data?.auctionConfig?.status !== 'RUNNING' || data?.auctionConfig?.auction_mode !== 'AI') return
     const interval = setInterval(() => {
       advanceAuctionTick(seasonId, driverTokenRef.current)
         .then(() => reload())
@@ -80,7 +87,7 @@ export default function AdminAuctionRun() {
     }, 1500)
     return () => clearInterval(interval)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [seasonId, data?.auctionConfig?.status])
+  }, [seasonId, data?.auctionConfig?.status, data?.auctionConfig?.auction_mode])
 
   if (loading && !data) return <LoadingState rows={8} />
   if (error || !data?.season) return <ErrorState message="Season not found." />
@@ -126,11 +133,32 @@ export default function AdminAuctionRun() {
       </div>
 
       {auctionConfig.status === 'DRAFT' ? (
-        <ConfigurePanel
+        <div className="flex flex-col gap-4">
+          <Tabs value={draftMode} onValueChange={(v) => setDraftMode(v as AuctionModeType)}>
+            <TabsList>
+              <TabsTrigger value="AI">AI / Automatic</TabsTrigger>
+              <TabsTrigger value="MANUAL">Manual / Live</TabsTrigger>
+            </TabsList>
+          </Tabs>
+          {draftMode === 'AI' ? (
+            <ConfigurePanel seasonId={seasonId} teams={teams} retentionStatus={retentionStatus} onStarted={reload} />
+          ) : (
+            <ManualAuctionConfigurePanel
+              seasonId={seasonId}
+              teams={teams}
+              retentionStatus={retentionStatus}
+              onStarted={reload}
+            />
+          )}
+        </div>
+      ) : auctionConfig.auction_mode === 'MANUAL' ? (
+        <ManualAuctionLivePanel
           seasonId={seasonId}
-          teams={teams}
-          retentionStatus={retentionStatus}
-          onStarted={reload}
+          auctionConfig={auctionConfig}
+          pool={pool}
+          teamSummaries={teamSummaries}
+          ticker={ticker}
+          onChanged={reload}
         />
       ) : (
         <LivePanel
@@ -267,7 +295,7 @@ function ConfigurePanel({
 
         <div>
           <p className="mb-2 text-sm font-semibold text-primary-900">
-            Category Base Prices (by Player Index percentile within the pool)
+            Category Base Prices (by Rating percentile within the pool)
           </p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <FormField label="Category A (top ~25%)" htmlFor="category-a">
