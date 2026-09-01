@@ -35,6 +35,7 @@ import OwnerLogin from '@/pages/owner/OwnerLogin'
 import OwnerClaim from '@/pages/owner/OwnerClaim'
 import OwnerStrategyConfig from '@/pages/owner/OwnerStrategyConfig'
 import OwnerRetention from '@/pages/owner/OwnerRetention'
+import OwnerAuction from '@/pages/owner/OwnerAuction'
 
 export default function App() {
   return (
@@ -80,6 +81,7 @@ export default function App() {
         <Route element={<OwnerLayout />}>
           <Route path="/owner/strategy" element={<OwnerStrategyConfig />} />
           <Route path="/owner/retention" element={<OwnerRetention />} />
+          <Route path="/owner/auction" element={<OwnerAuction />} />
         </Route>
       </Route>
     </Routes>
