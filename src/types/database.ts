@@ -18,6 +18,8 @@ export type PlayerRole = 'FLAGGER' | 'DEFENDER' | 'ALL_ROUNDER'
 export type PlayerSkillTier = 'BEGINNER' | 'INTERMEDIATE' | 'EXPERT'
 export type AuctionPlayerStatus = 'PENDING' | 'ON_BLOCK' | 'SOLD' | 'UNSOLD'
 export type AuctionStatus = 'DRAFT' | 'RUNNING' | 'PAUSED' | 'COMPLETED'
+export type AuctionModeType = 'AI' | 'MANUAL'
+export type PlayerDrawModeType = 'AUTO' | 'MANUAL'
 
 export interface Database {
   public: {
@@ -380,6 +382,8 @@ export interface Database {
           status: AuctionPlayerStatus
           sold_team_id: string | null
           sold_price: number | null
+          attempt_no: number
+          first_attempt_outcome: AuctionPlayerStatus | null
           created_at: string
         }
         Insert: {
@@ -393,6 +397,8 @@ export interface Database {
           status?: AuctionPlayerStatus
           sold_team_id?: string | null
           sold_price?: number | null
+          attempt_no?: number
+          first_attempt_outcome?: AuctionPlayerStatus | null
           created_at?: string
         }
         Update: Partial<Database['public']['Tables']['season_auction_players']['Insert']>
@@ -463,6 +469,14 @@ export interface Database {
           started_at: string | null
           started_by: string | null
           completed_at: string | null
+          auction_mode: AuctionModeType
+          player_draw_mode: PlayerDrawModeType
+          initial_bid_increment: number | null
+          increment_step_range: number | null
+          increment_increase: number | null
+          bid_timer_seconds: number | null
+          bid_expires_at: string | null
+          paused_bid_seconds_remaining: number | null
           created_at: string
           updated_at: string
         }
@@ -488,6 +502,14 @@ export interface Database {
           started_at?: string | null
           started_by?: string | null
           completed_at?: string | null
+          auction_mode?: AuctionModeType
+          player_draw_mode?: PlayerDrawModeType
+          initial_bid_increment?: number | null
+          increment_step_range?: number | null
+          increment_increase?: number | null
+          bid_timer_seconds?: number | null
+          bid_expires_at?: string | null
+          paused_bid_seconds_remaining?: number | null
           created_at?: string
           updated_at?: string
         }
@@ -601,6 +623,45 @@ export interface Database {
       }
       apply_roster_prices: {
         Args: { p_season_id: string; p_prices: Record<string, number> }
+        Returns: undefined
+      }
+      start_manual_auction: {
+        Args: {
+          p_season_id: string
+          p_purse_default: number
+          p_min_squad_size: number
+          p_max_squad_size: number
+          p_order_strategy: string
+          p_player_draw_mode: PlayerDrawModeType
+          p_initial_bid_increment: number
+          p_increment_step_range: number
+          p_increment_increase: number
+          p_bid_timer_seconds: number
+          p_purse_overrides?: { team_id: string; purse_total: number }[]
+          p_base_price_default?: number | null
+          p_base_price_overrides?: Record<string, number>
+          p_player_indices?: Record<string, { player_index: number; index_components: Record<string, number> }>
+        }
+        Returns: undefined
+      }
+      draw_next_player: {
+        Args: { p_season_id: string; p_player_id?: string | null }
+        Returns: Database['public']['Tables']['season_auctions']['Row']
+      }
+      place_bid: {
+        Args: { p_season_id: string; p_team_id: string; p_amount: number }
+        Returns: Database['public']['Tables']['season_auctions']['Row']
+      }
+      resolve_expired_player: {
+        Args: { p_season_id: string }
+        Returns: Database['public']['Tables']['season_auctions']['Row']
+      }
+      pause_manual_auction: {
+        Args: { p_season_id: string }
+        Returns: undefined
+      }
+      resume_manual_auction: {
+        Args: { p_season_id: string }
         Returns: undefined
       }
     }

@@ -17,6 +17,7 @@ export function OwnerLayout() {
       <header className="flex items-center justify-between border-b border-border bg-white px-4 py-3 lg:px-8">
         <nav className="flex items-center gap-1">
           {[
+            { to: '/owner/auction', label: 'Live Auction' },
             { to: '/owner/strategy', label: 'Strategy' },
             { to: '/owner/retention', label: 'Retention' },
           ].map((link) => (

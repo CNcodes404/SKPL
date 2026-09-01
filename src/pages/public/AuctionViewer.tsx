@@ -19,6 +19,7 @@ import {
   subscribeToAuction,
 } from '@/services/auction'
 import { formatLakh } from '@/utils/currency'
+import ManualAuctionSpectator from '@/pages/public/ManualAuctionSpectator'
 
 export default function AuctionViewer() {
   const { seasonId: paramSeasonId } = useParams()
@@ -60,7 +61,7 @@ export default function AuctionViewer() {
       <EmptyState
         icon={Gavel}
         title="No auctions yet"
-        description="No season has used the AI auction to build its roster yet."
+        description="No season has run a live auction yet."
       />
     )
   }
@@ -94,6 +95,19 @@ export default function AuctionViewer() {
           description={`The ${season.name} auction hasn't begun yet. Check back once it's live.`}
         />
       </div>
+    )
+  }
+
+  if (auctionConfig.auction_mode === 'MANUAL') {
+    return (
+      <ManualAuctionSpectator
+        season={season}
+        auctionConfig={auctionConfig}
+        pool={pool}
+        teamSummaries={teamSummaries}
+        ticker={ticker}
+        seasonSwitcher={seasonSwitcher}
+      />
     )
   }
 
