@@ -1,9 +1,11 @@
 import type {
+  AuctionModeType,
   AuctionPlayerStatus,
   AuctionStatus,
   Database,
   MatchStatus,
   MatchType,
+  PlayerDrawModeType,
   PlayerRole,
   PlayerSkillTier,
   SeasonStatus,
@@ -26,7 +28,27 @@ export type SeasonAuctionBid = Database['public']['Tables']['season_auction_bids
 export type SeasonRetention = Database['public']['Tables']['season_retentions']['Row']
 export type SeasonAuction = Database['public']['Tables']['season_auctions']['Row']
 
-export type { AuctionPlayerStatus, AuctionStatus, MatchStatus, MatchType, PlayerRole, PlayerSkillTier, SeasonStatus }
+export type {
+  AuctionModeType,
+  AuctionPlayerStatus,
+  AuctionStatus,
+  MatchStatus,
+  MatchType,
+  PlayerDrawModeType,
+  PlayerRole,
+  PlayerSkillTier,
+  SeasonStatus,
+}
+
+export const AUCTION_MODE_LABELS: Record<AuctionModeType, string> = {
+  AI: 'AI / Automatic',
+  MANUAL: 'Manual / Live',
+}
+
+export const PLAYER_DRAW_MODE_LABELS: Record<PlayerDrawModeType, string> = {
+  AUTO: 'Auto Draw',
+  MANUAL: 'Manual Draw',
+}
 
 export const PLAYER_ROLE_LABELS: Record<PlayerRole, string> = {
   FLAGGER: 'Flagger',
