@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { Skull, Flag, Trophy, Crown } from 'lucide-react'
+import { Skull, Flag, Swords, Trophy, Crown } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { PlayerAvatar, TeamLogo } from '@/components/shared/Avatar'
@@ -8,8 +8,9 @@ import { LoadingState } from '@/components/shared/LoadingState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
 import { useSeasonFilter } from '@/hooks/useSeasonFilter'
-import { getPlayer, getPlayerDetailStats, getPlayerCurrentTeam, getPlayerTeamForSeason } from '@/services/players'
-import { formatKD } from '@/utils/calculations'
+import { getPlayer, getPlayerDetailStats, getPlayerCurrentTeam, getPlayerTeamForSeason, getPlayersCareerStats } from '@/services/players'
+import { computePlayerTier } from '@/utils/playerTier'
+import { formatKD, calculateKD, average } from '@/utils/calculations'
 import { PLAYER_ROLE_LABELS } from '@/types'
 
 export default function PlayerProfile() {
@@ -27,6 +28,16 @@ export default function PlayerProfile() {
     return { stats, teamInfo }
   }, [playerId, selected])
 
+  // Tier is a career-wide grade from the player's own raw stats — computed
+  // independent of the page's own season filter, same as the auction UI.
+  const { data: tier } = useAsync(async () => {
+    if (!player) return null
+    const careerStats = await getPlayersCareerStats([playerId])
+    const totals = careerStats[playerId]
+    const raw = totals ? { kd: calculateKD(totals.kills, totals.deaths), flagsPerMatch: average(totals.flags, totals.matchesPlayed) } : null
+    return computePlayerTier(player.role, raw, totals?.matchesPlayed ?? 0)
+  }, [playerId, player])
+
   if (playerLoading) return <LoadingState rows={6} />
   if (error || !player) return <ErrorState message="Player not found." />
 
@@ -41,6 +52,7 @@ export default function PlayerProfile() {
           <h1 className="font-display text-3xl font-extrabold text-white">{player.name}</h1>
           <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
             {player.role ? <Badge variant="accent">{PLAYER_ROLE_LABELS[player.role]}</Badge> : null}
+            {tier ? <Badge variant="outline">{tier.label}</Badge> : null}
             {!player.is_active ? <Badge variant="outline">Inactive</Badge> : null}
           </div>
           {teamInfo ? (
@@ -74,16 +86,17 @@ export default function PlayerProfile() {
                 <Trophy className="h-4 w-4 text-accent-500" /> Overview
               </CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-2 gap-4 sm:grid-cols-5">
+            <CardContent className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
               <Stat label="Matches Played" value={stats.matchesPlayed} />
               <Stat label="Flags" value={stats.flags} />
               <Stat label="Kills" value={stats.kills} />
+              <Stat label="Win Rate" value={`${stats.winRate}%`} />
               <Stat label="Deaths" value={stats.deaths} />
               <Stat label="KD" value={formatKD(stats.kills, stats.deaths)} />
             </CardContent>
           </Card>
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -101,7 +114,7 @@ export default function PlayerProfile() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Skull className="h-4 w-4 text-primary-600" /> Defensive
+                  <Swords className="h-4 w-4 text-primary-600" /> Aggression
                 </CardTitle>
               </CardHeader>
               <CardContent className="grid grid-cols-2 gap-4">
@@ -109,6 +122,20 @@ export default function PlayerProfile() {
                 <Stat label="Kills / Match" value={stats.avgKills.toFixed(2)} />
                 <Stat label="Max in a Match" value={stats.maxKillsInMatch} />
                 <Stat label="Min in a Match" value={stats.minKillsInMatch} />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Skull className="h-4 w-4 text-primary-600" /> Defensive
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-2 gap-4">
+                <Stat label="Total Deaths" value={stats.deaths} />
+                <Stat label="Deaths / Match" value={stats.avgDeaths.toFixed(2)} />
+                <Stat label="Max in a Match" value={stats.maxDeathsInMatch} />
+                <Stat label="Min in a Match" value={stats.minDeathsInMatch} />
               </CardContent>
             </Card>
           </div>

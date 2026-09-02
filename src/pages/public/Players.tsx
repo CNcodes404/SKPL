@@ -12,9 +12,11 @@ import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
 import { useSeasonFilter } from '@/hooks/useSeasonFilter'
-import { listPlayersWithCurrentTeam, type PlayerWithCurrentTeam } from '@/services/players'
+import { listPlayersWithCurrentTeam, listPlayers, getPlayersCareerStats, type PlayerWithCurrentTeam } from '@/services/players'
 import { getSeasonRoster, getSeasonTeams } from '@/services/seasons'
 import { listTeams } from '@/services/teams'
+import { computePlayerTier } from '@/utils/playerTier'
+import { calculateKD, average } from '@/utils/calculations'
 import { PLAYER_ROLE_LABELS } from '@/types'
 import type { Team } from '@/types'
 
@@ -36,6 +38,22 @@ export default function Players() {
     const teamById = new Map(teams.map((t) => [t.id, t] as [string, Team]))
     return roster.map((r) => ({ player: r.player, currentTeam: teamById.get(r.team_id) ?? null }))
   }, [selected])
+
+  // Tier is career-wide and normalized against every player in the league,
+  // so it's fetched once, independent of the season/team/status filters —
+  // the same player should show the same Tier no matter how this list is filtered.
+  const { data: tierByPlayerId } = useAsync(async () => {
+    const allPlayers = await listPlayers(true)
+    const careerStats = await getPlayersCareerStats(allPlayers.map((p) => p.id))
+    const result: Record<string, string> = {}
+    for (const p of allPlayers) {
+      const totals = careerStats[p.id]
+      const raw = totals ? { kd: calculateKD(totals.kills, totals.deaths), flagsPerMatch: average(totals.flags, totals.matchesPlayed) } : null
+      const tier = computePlayerTier(p.role, raw, totals?.matchesPlayed ?? 0)
+      if (tier) result[p.id] = tier.label
+    }
+    return result
+  }, [])
 
   const filtered = (rows ?? [])
     .filter((r) => (teamFilter === 'ALL' ? true : r.currentTeam?.id === teamFilter))
@@ -93,11 +111,14 @@ export default function Players() {
                 <PlayerAvatar name={player.name} imageUrl={player.image_url} className="h-20 w-20 text-2xl" />
                 <div>
                   <p className="font-display text-base font-bold text-primary-900">{player.name}</p>
-                  {player.role ? (
-                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                      {PLAYER_ROLE_LABELS[player.role]}
-                    </p>
-                  ) : null}
+                  <div className="flex flex-wrap items-center justify-center gap-1.5">
+                    {player.role ? (
+                      <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                        {PLAYER_ROLE_LABELS[player.role]}
+                      </p>
+                    ) : null}
+                    {tierByPlayerId?.[player.id] ? <Badge variant="outline">{tierByPlayerId[player.id]}</Badge> : null}
+                  </div>
                 </div>
                 {currentTeam ? (
                   <div className="flex items-center gap-1.5 text-xs font-semibold text-primary-700">
