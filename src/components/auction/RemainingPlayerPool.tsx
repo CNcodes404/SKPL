@@ -135,7 +135,11 @@ export function RemainingPlayerPool({
                     <TableCell className="text-xs text-muted-foreground">
                       {entry.player.role ? PLAYER_ROLE_LABELS[entry.player.role] : '—'}
                       {' · '}
-                      {computePlayerTier(entry.player.role, entry.index_components, stats?.matchesPlayed ?? 0)?.label ?? '—'}
+                      {computePlayerTier(
+                        entry.player.role,
+                        stats ? { kd: stats.kd, flagsPerMatch: stats.avgFlags } : null,
+                        stats?.matchesPlayed ?? 0,
+                      )?.label ?? '—'}
                     </TableCell>
                     <TableCell className="text-right">
                       {entry.player_index != null ? entry.player_index.toFixed(0) : '—'}

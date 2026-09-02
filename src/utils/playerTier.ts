@@ -2,57 +2,103 @@ import type { PlayerRole } from '@/types'
 
 export interface PlayerTierResult {
   label: string
-  score: number
+}
+
+const ROOKIE_MATCH_THRESHOLD = 3
+
+const TIER_ORDER = ['Beginner', 'Expert', 'Elite', 'Legend'] as const
+type TierLabel = (typeof TIER_ORDER)[number]
+
+interface Band {
+  min: number
+  label: TierLabel
+}
+
+function bandLookup(value: number, bands: Band[]): TierLabel {
+  let result: TierLabel = 'Beginner'
+  for (const b of bands) if (value >= b.min) result = b.label
+  return result
+}
+
+function weaker(a: TierLabel, b: TierLabel): TierLabel {
+  return TIER_ORDER.indexOf(a) <= TIER_ORDER.indexOf(b) ? a : b
 }
 
 /**
- * V1 Player Tier formula, confirmed 2026-09-01. Role-specific weighted
- * blend of the already-normalized Rating components (kills/deaths/flags/kd
- * per match, each 0-100 against the pool — see computePlayerIndices in
- * auctionValuation.ts) — deliberately excludes win rate and MVP, which the
- * source spec said don't matter here:
- *   FLAGGER:     55% Flags + 30% Deaths + 15% K/D (kills unweighted)
- *   DEFENDER:    35% K/D + 30% Kills + 25% Deaths + 10% Flags
- *   ALL_ROUNDER: even 50/50 blend of the Flagger and Defender scores above
- *   (no role):   25% each of kills/deaths/flags/kd, as a neutral default
+ * V3 Player Tier formula, retuned 2026-09-02 directly from user-specified
+ * raw-stat bands per role (moved away from the pool-normalized composite
+ * score, which was too sensitive to who else happened to be in the
+ * comparison pool). K/D and Flags/Match here are the player's own raw
+ * per-match rates — no normalization against other players at all.
+ *
+ * DEFENDER — K/D alone decides it ("K/D always tells the truth"; Kills/Match
+ * only has "slight importance" per the source feedback, so it isn't
+ * factored in as its own gate in this version):
+ *   <0.70 Beginner · 0.70-1.10 Expert · 1.10-1.50 Elite · 1.50+ Legend
+ *
+ * FLAGGER — Flags/Match alone decides it (K/D and Deaths/Match explicitly
+ * "matter little" per the source feedback):
+ *   <0.5 Beginner · 0.5-1.3 Expert · 1.3-1.7 Elite · 1.7+ Legend
+ *
+ * ALL_ROUNDER (and no role, as the generalist default) — both Flags/Match
+ * and K/D are graded independently on their own (lower, All-Rounder-specific)
+ * bands, and the final tier is the WEAKER of the two. This is an inference,
+ * not something stated outright: it's the only rule that reproduces every
+ * worked example given (a high-K/D/modest-flags player capped at Elite by
+ * flags, not pulled up to Legend by K/D; a modest-K/D/solid-flags player
+ * capped at Expert by K/D). The stated Flags bands had an unaddressed gap
+ * between Expert's "up to 1.1" and Elite's "1.2 and up" — closed here at
+ * 1.15 so a 1.18 flags/match example lands in Elite as intended:
+ *   Flags/Match: <0.40 Beginner · 0.40-1.15 Expert · 1.15-1.6 Elite · 1.6+ Legend
+ *   K/D:         <0.50 Beginner · 0.50-0.70 Expert · 0.70-1.0 Elite · 1.0+ Legend
  *
  * Below the rookie match threshold there isn't enough per-match signal to
  * trust any of this, so those players are Unranked (returns null) rather
  * than assigned a tier — same cutoff as Rating's own rookie handling.
  */
-const ROOKIE_MATCH_THRESHOLD = 3
-
-type Components = Record<string, number>
-
-function weighted(c: Components, w: { kills?: number; deaths?: number; flags?: number; kd?: number }): number {
-  return (c.kills ?? 0) * (w.kills ?? 0) + (c.deaths ?? 0) * (w.deaths ?? 0) + (c.flags ?? 0) * (w.flags ?? 0) + (c.kd ?? 0) * (w.kd ?? 0)
-}
-
-const FLAGGER_WEIGHTS = { flags: 0.55, deaths: 0.3, kd: 0.15 }
-const DEFENDER_WEIGHTS = { kd: 0.35, kills: 0.3, deaths: 0.25, flags: 0.1 }
-const NEUTRAL_WEIGHTS = { kills: 0.25, deaths: 0.25, flags: 0.25, kd: 0.25 }
-
-function tierScore(role: PlayerRole | null, c: Components): number {
-  if (role === 'FLAGGER') return weighted(c, FLAGGER_WEIGHTS)
-  if (role === 'DEFENDER') return weighted(c, DEFENDER_WEIGHTS)
-  if (role === 'ALL_ROUNDER') return 0.5 * weighted(c, FLAGGER_WEIGHTS) + 0.5 * weighted(c, DEFENDER_WEIGHTS)
-  return weighted(c, NEUTRAL_WEIGHTS)
-}
-
-const TIER_BANDS: { min: number; label: string }[] = [
-  { min: 80, label: 'Legend' },
-  { min: 65, label: 'Elite' },
-  { min: 45, label: 'Expert' },
+const DEFENDER_KD_BANDS: Band[] = [
   { min: 0, label: 'Beginner' },
+  { min: 0.7, label: 'Expert' },
+  { min: 1.1, label: 'Elite' },
+  { min: 1.5, label: 'Legend' },
+]
+
+const FLAGGER_FLAGS_BANDS: Band[] = [
+  { min: 0, label: 'Beginner' },
+  { min: 0.5, label: 'Expert' },
+  { min: 1.3, label: 'Elite' },
+  { min: 1.7, label: 'Legend' },
+]
+
+const ALL_ROUNDER_FLAGS_BANDS: Band[] = [
+  { min: 0, label: 'Beginner' },
+  { min: 0.4, label: 'Expert' },
+  { min: 1.15, label: 'Elite' },
+  { min: 1.6, label: 'Legend' },
+]
+
+const ALL_ROUNDER_KD_BANDS: Band[] = [
+  { min: 0, label: 'Beginner' },
+  { min: 0.5, label: 'Expert' },
+  { min: 0.7, label: 'Elite' },
+  { min: 1.0, label: 'Legend' },
 ]
 
 export function computePlayerTier(
   role: PlayerRole | null,
-  components: Components | null | undefined,
+  raw: { kd: number; flagsPerMatch: number } | null | undefined,
   matchesPlayed: number,
 ): PlayerTierResult | null {
-  if (!components || matchesPlayed < ROOKIE_MATCH_THRESHOLD) return null
-  const score = tierScore(role, components)
-  const band = TIER_BANDS.find((b) => score >= b.min)!
-  return { label: band.label, score }
+  if (!raw || matchesPlayed < ROOKIE_MATCH_THRESHOLD) return null
+
+  if (role === 'DEFENDER') {
+    return { label: bandLookup(raw.kd, DEFENDER_KD_BANDS) }
+  }
+  if (role === 'FLAGGER') {
+    return { label: bandLookup(raw.flagsPerMatch, FLAGGER_FLAGS_BANDS) }
+  }
+
+  const flagsTier = bandLookup(raw.flagsPerMatch, ALL_ROUNDER_FLAGS_BANDS)
+  const kdTier = bandLookup(raw.kd, ALL_ROUNDER_KD_BANDS)
+  return { label: weaker(flagsTier, kdTier) }
 }

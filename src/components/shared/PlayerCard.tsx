@@ -14,6 +14,7 @@ export function PlayerCard({
   kills,
   flags,
   deaths,
+  tier,
 }: {
   playerId: string
   name: string
@@ -23,6 +24,8 @@ export function PlayerCard({
   kills: number
   flags: number
   deaths: number
+  /** Optional — shown as a small badge when the caller wants Tier visible (e.g. a rating-sorted list). */
+  tier?: string | null
 }) {
   return (
     <Link to={`/players/${playerId}`}>
@@ -37,9 +40,14 @@ export function PlayerCard({
         </div>
         <div>
           <p className="font-display text-base font-bold text-primary-900">{name}</p>
-          {role ? (
-            <p className="text-xs font-semibold uppercase tracking-wide text-accent-600">{PLAYER_ROLE_LABELS[role]}</p>
-          ) : null}
+          <div className="flex flex-wrap items-center justify-center gap-1.5">
+            {role ? (
+              <p className="text-xs font-semibold uppercase tracking-wide text-accent-600">{PLAYER_ROLE_LABELS[role]}</p>
+            ) : null}
+            {tier ? (
+              <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold text-primary-700">{tier}</span>
+            ) : null}
+          </div>
         </div>
         <div className="grid w-full grid-cols-3 gap-2 border-t border-border pt-3 text-center">
           <StatCol label="Kills" value={kills} />

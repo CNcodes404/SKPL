@@ -25,7 +25,11 @@ export function PlayerShowcaseCard({
   poolEntry: SeasonAuctionPlayer
   stats?: AuctionPlayerStats
 }) {
-  const tier = computePlayerTier(player.role, poolEntry.index_components, stats?.matchesPlayed ?? 0)
+  const tier = computePlayerTier(
+    player.role,
+    stats ? { kd: stats.kd, flagsPerMatch: stats.avgFlags } : null,
+    stats?.matchesPlayed ?? 0,
+  )
 
   return (
     <Card className="overflow-hidden border-2 border-primary-200">
