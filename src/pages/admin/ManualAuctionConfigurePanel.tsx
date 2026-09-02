@@ -21,11 +21,13 @@ export function ManualAuctionConfigurePanel({
   seasonId,
   teams,
   retentionStatus,
+  maxRetentionsPerTeam,
   onStarted,
 }: {
   seasonId: string
   teams: Team[]
   retentionStatus: { team_id: string; retention_submitted: boolean }[]
+  maxRetentionsPerTeam: number
   onStarted: () => void
 }) {
   const [purseDefault, setPurseDefault] = useState(40_000_000)
@@ -43,8 +45,9 @@ export function ManualAuctionConfigurePanel({
   const [starting, setStarting] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
 
+  const retentionDisabled = maxRetentionsPerTeam === 0
   const submittedCount = retentionStatus.filter((r) => r.retention_submitted).length
-  const allSubmitted = teams.length > 0 && submittedCount === teams.length
+  const allSubmitted = retentionDisabled || (teams.length > 0 && submittedCount === teams.length)
 
   const { data: assignmentPickerData } = useAsync(async () => {
     const [players, retentions] = await Promise.all([listPlayers(false), getSeasonRetentions(seasonId)])
@@ -89,10 +92,16 @@ export function ManualAuctionConfigurePanel({
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <div className="rounded-lg border border-border p-3 text-sm">
-          Retention decisions: {submittedCount} / {teams.length} teams submitted
-          {!allSubmitted ? (
-            <p className="text-muted-foreground">All teams must submit a retention decision before you can start.</p>
-          ) : null}
+          {retentionDisabled ? (
+            <p className="text-muted-foreground">Retention is disabled for this season (0 allowed) — no submissions required.</p>
+          ) : (
+            <>
+              Retention decisions: {submittedCount} / {teams.length} teams submitted
+              {!allSubmitted ? (
+                <p className="text-muted-foreground">All teams must submit a retention decision before you can start.</p>
+              ) : null}
+            </>
+          )}
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
