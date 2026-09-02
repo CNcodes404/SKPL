@@ -641,6 +641,7 @@ export interface Database {
           p_base_price_default?: number | null
           p_base_price_overrides?: Record<string, number>
           p_player_indices?: Record<string, { player_index: number; index_components: Record<string, number> }>
+          p_direct_assignments?: { team_id: string; player_id: string; price: number }[]
         }
         Returns: undefined
       }

@@ -60,6 +60,14 @@ export async function getOwnerRetentionSelections(seasonId: string, teamId: stri
   return (data ?? []).map((r) => r.player_id)
 }
 
+/** Every player retained by any team this season — used to keep the admin's
+ * direct player-owner assignment picker from offering an already-retained player. */
+export async function getSeasonRetentions(seasonId: string): Promise<{ team_id: string; player_id: string }[]> {
+  const { data, error } = await supabase.from('season_retentions').select('team_id, player_id').eq('season_id', seasonId)
+  if (error) throw error
+  return data ?? []
+}
+
 export async function saveOwnerRetentions(seasonId: string, teamId: string, playerIds: string[]): Promise<void> {
   const { error } = await supabase.rpc('save_owner_retentions', {
     p_season_id: seasonId,

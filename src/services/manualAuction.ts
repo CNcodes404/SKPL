@@ -18,6 +18,11 @@ export interface StartManualAuctionParams {
   purseOverrides?: { team_id: string; purse_total: number }[]
   basePriceDefault?: number
   basePriceOverrides?: Record<string, number>
+  /** Players assigned straight onto a team's roster at auction start, skipping
+   * the pool entirely — for the team's own bidding player-owner, since SKPL
+   * has no separate non-playing owner. One per team; mutually exclusive with
+   * that player also being retained this season. */
+  directAssignments?: { team_id: string; player_id: string; price: number }[]
 }
 
 /** Activates a DRAFT season_auctions row as a Manual/Live auction. Never
@@ -48,6 +53,7 @@ export async function startManualAuction(params: StartManualAuctionParams): Prom
     p_base_price_default: params.basePriceDefault ?? null,
     p_base_price_overrides: params.basePriceOverrides ?? {},
     p_player_indices: playerIndices,
+    p_direct_assignments: params.directAssignments ?? [],
   })
   if (error) throw error
 }

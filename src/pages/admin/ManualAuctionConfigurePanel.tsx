@@ -4,7 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { FormField } from '@/components/shared/FormField'
+import { useAsync } from '@/hooks/useAsync'
 import { startManualAuction, describeAuctionError } from '@/services/manualAuction'
+import { listPlayers } from '@/services/players'
+import { getSeasonRetentions } from '@/services/retention'
 import { formatLakh } from '@/utils/currency'
 import type { PlayerDrawModeType, Team } from '@/types'
 
@@ -36,11 +39,17 @@ export function ManualAuctionConfigurePanel({
   const [incrementIncrease, setIncrementIncrease] = useState(100_000)
   const [bidTimerSeconds, setBidTimerSeconds] = useState(30)
   const [purseOverrides, setPurseOverrides] = useState<Record<string, string>>({})
+  const [directAssignments, setDirectAssignments] = useState<Record<string, { playerId: string; price: string }>>({})
   const [starting, setStarting] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
 
   const submittedCount = retentionStatus.filter((r) => r.retention_submitted).length
   const allSubmitted = teams.length > 0 && submittedCount === teams.length
+
+  const { data: assignmentPickerData } = useAsync(async () => {
+    const [players, retentions] = await Promise.all([listPlayers(false), getSeasonRetentions(seasonId)])
+    return { players, retainedPlayerIds: new Set(retentions.map((r) => r.player_id)) }
+  }, [seasonId])
 
   async function handleStart() {
     setStarting(true)
@@ -61,6 +70,9 @@ export function ManualAuctionConfigurePanel({
         purseOverrides: Object.entries(purseOverrides)
           .filter(([, v]) => v.trim() !== '')
           .map(([team_id, v]) => ({ team_id, purse_total: Number(v) })),
+        directAssignments: Object.entries(directAssignments)
+          .filter(([, a]) => a.playerId && a.price.trim() !== '')
+          .map(([team_id, a]) => ({ team_id, player_id: a.playerId, price: Number(a.price) })),
       })
       onStarted()
     } catch (err) {
@@ -211,6 +223,63 @@ export function ManualAuctionConfigurePanel({
                 />
               </FormField>
             ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="mb-1 text-sm font-semibold text-primary-900">Direct Player-Owner Assignment (optional)</p>
+          <p className="mb-2 text-xs text-muted-foreground">
+            SKPL has no separate team owner — one of the team's own players bids on its behalf. Assign that player
+            straight to their team here at a set price; they skip the auction pool entirely and can't also be a
+            retained player this season.
+          </p>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {teams.map((team) => {
+              const assignment = directAssignments[team.id] ?? { playerId: '', price: '' }
+              const pickedElsewhere = new Set(
+                Object.entries(directAssignments)
+                  .filter(([tid]) => tid !== team.id)
+                  .map(([, a]) => a.playerId)
+                  .filter(Boolean),
+              )
+              const eligiblePlayers = (assignmentPickerData?.players ?? []).filter(
+                (p) => !assignmentPickerData?.retainedPlayerIds.has(p.id) && !pickedElsewhere.has(p.id),
+              )
+              return (
+                <div key={team.id} className="flex flex-col gap-2 rounded-lg border border-border p-3">
+                  <p className="text-sm font-semibold text-primary-900">{team.name}</p>
+                  <Select
+                    value={assignment.playerId || 'NONE'}
+                    onValueChange={(v) =>
+                      setDirectAssignments((d) => ({ ...d, [team.id]: { ...assignment, playerId: v === 'NONE' ? '' : v } }))
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="No direct assignment" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="NONE">No direct assignment</SelectItem>
+                      {eligiblePlayers.map((p) => (
+                        <SelectItem key={p.id} value={p.id}>
+                          {p.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Input
+                    type="number"
+                    min={0}
+                    placeholder="Price"
+                    disabled={!assignment.playerId}
+                    value={assignment.price}
+                    onChange={(e) => setDirectAssignments((d) => ({ ...d, [team.id]: { ...assignment, price: e.target.value } }))}
+                  />
+                  {assignment.playerId && assignment.price.trim() === '' ? (
+                    <p className="text-xs text-destructive">Enter a price, or this assignment won't be applied.</p>
+                  ) : null}
+                </div>
+              )
+            })}
           </div>
         </div>
 
