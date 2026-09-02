@@ -89,6 +89,7 @@ export function calculateStandings(teams: Team[], allMatches: Match[], season: S
 export interface RosterMember {
   player: Player
   team: Team | null
+  is_captain: boolean
 }
 
 export function calculatePlayerStats(
@@ -96,7 +97,7 @@ export function calculatePlayerStats(
   stats: MatchPlayerStat[],
   completedMatchIds: Set<string>,
 ): PlayerSeasonStats[] {
-  return roster.map(({ player, team }) => {
+  return roster.map(({ player, team, is_captain }) => {
     const rows = stats.filter((s) => s.player_id === player.id && completedMatchIds.has(s.match_id))
     const kills = rows.reduce((sum, r) => sum + r.kills, 0)
     const deaths = rows.reduce((sum, r) => sum + r.deaths, 0)
@@ -109,6 +110,7 @@ export function calculatePlayerStats(
     return {
       player,
       team,
+      is_captain,
       matchesPlayed: rows.length,
       kills,
       deaths,
@@ -122,8 +124,10 @@ export function calculatePlayerStats(
 
 /** Per-player detail stats (used on the public Player Profile page), including per-match extremes. */
 export function calculatePlayerDetailStats(
+  playerId: string,
   stats: MatchPlayerStat[],
   completedMatchIds: Set<string>,
+  matches: Pick<Match, 'id' | 'status' | 'team_a_id' | 'team_b_id' | 'team_a_score' | 'team_b_score'>[],
 ): PlayerDetailStats {
   const rows = stats.filter((s) => completedMatchIds.has(s.match_id))
 
@@ -133,6 +137,7 @@ export function calculatePlayerDetailStats(
   const matchesPlayed = rows.length
 
   const killValues = rows.map((r) => r.kills)
+  const deathValues = rows.map((r) => r.deaths)
   const flagValues = rows.map((r) => r.flags)
 
   return {
@@ -140,21 +145,35 @@ export function calculatePlayerDetailStats(
     kills,
     deaths,
     flags,
+    winRate: calculatePlayerWinRate(playerId, stats, matches),
     avgKills: average(kills, matchesPlayed),
+    avgDeaths: average(deaths, matchesPlayed),
     avgFlags: average(flags, matchesPlayed),
     maxKillsInMatch: killValues.length ? Math.max(...killValues) : 0,
     minKillsInMatch: killValues.length ? Math.min(...killValues) : 0,
+    maxDeathsInMatch: deathValues.length ? Math.max(...deathValues) : 0,
+    minDeathsInMatch: deathValues.length ? Math.min(...deathValues) : 0,
     maxFlagsInMatch: flagValues.length ? Math.max(...flagValues) : 0,
     minFlagsInMatch: flagValues.length ? Math.min(...flagValues) : 0,
   }
 }
 
+/**
+ * Team Statistics vs. standings/ranking are deliberately different scopes:
+ * standings (and any ranking derived from this) must stay REGULAR_SEASON
+ * only, so callers computing a rank should call this with the default
+ * (no options) even where the Team Statistics totals shown elsewhere on
+ * the same page use `includeAllMatchTypes: true`.
+ */
 export function calculateTeamStats(
   teams: Team[],
   allMatches: Match[],
   stats: MatchPlayerStat[],
+  options?: { includeAllMatchTypes?: boolean },
 ): TeamSeasonStats[] {
-  const matches = regularSeasonCompleted(allMatches)
+  const matches = options?.includeAllMatchTypes
+    ? allMatches.filter((m) => m.status === 'COMPLETED')
+    : regularSeasonCompleted(allMatches)
 
   return teams.map((team) => {
     const teamMatches = matches.filter((m) => m.team_a_id === team.id || m.team_b_id === team.id)
@@ -220,7 +239,11 @@ export function determineMatchWinnerId(match: Pick<Match, 'team_a_id' | 'team_b_
 }
 
 /** Share of a player's completed matches where their team won, as a 0-100 percentage. */
-export function calculatePlayerWinRate(playerId: string, stats: MatchPlayerStat[], matches: Match[]): number {
+export function calculatePlayerWinRate(
+  playerId: string,
+  stats: MatchPlayerStat[],
+  matches: Pick<Match, 'id' | 'status' | 'team_a_id' | 'team_b_id' | 'team_a_score' | 'team_b_score'>[],
+): number {
   const completed = matches.filter((m) => m.status === 'COMPLETED')
   const matchById = new Map(completed.map((m) => [m.id, m]))
   const rows = stats.filter((s) => s.player_id === playerId && matchById.has(s.match_id))

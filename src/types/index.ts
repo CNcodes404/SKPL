@@ -118,6 +118,7 @@ export interface StandingRow {
 export interface PlayerSeasonStats {
   player: Player
   team: Team | null
+  is_captain: boolean
   matchesPlayed: number
   kills: number
   deaths: number
@@ -132,10 +133,14 @@ export interface PlayerDetailStats {
   kills: number
   deaths: number
   flags: number
+  winRate: number
   avgKills: number
+  avgDeaths: number
   avgFlags: number
   maxKillsInMatch: number
   minKillsInMatch: number
+  maxDeathsInMatch: number
+  minDeathsInMatch: number
   maxFlagsInMatch: number
   minFlagsInMatch: number
 }

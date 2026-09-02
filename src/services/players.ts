@@ -136,7 +136,7 @@ export async function getPlayerTeamForSeason(playerId: string, seasonId: string)
 export async function getPlayerDetailStats(playerId: string, seasonId: string): Promise<PlayerDetailStats> {
   let query = supabase
     .from('match_player_stats')
-    .select('*, matches!inner(status, season_id)')
+    .select('*, matches!inner(status, season_id, team_a_id, team_b_id, team_a_score, team_b_score)')
     .eq('player_id', playerId)
   if (seasonId !== ALL_SEASONS) query = query.eq('matches.season_id', seasonId)
 
@@ -145,5 +145,13 @@ export async function getPlayerDetailStats(playerId: string, seasonId: string): 
 
   const rows = (data ?? []) as any[]
   const completedMatchIds = new Set(rows.filter((r) => r.matches.status === 'COMPLETED').map((r) => r.match_id))
-  return calculatePlayerDetailStats(rows, completedMatchIds)
+  const matches = rows.map((r) => ({
+    id: r.match_id as string,
+    status: r.matches.status,
+    team_a_id: r.matches.team_a_id,
+    team_b_id: r.matches.team_b_id,
+    team_a_score: r.matches.team_a_score,
+    team_b_score: r.matches.team_b_score,
+  }))
+  return calculatePlayerDetailStats(playerId, rows, completedMatchIds, matches)
 }

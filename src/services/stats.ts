@@ -10,7 +10,7 @@ import type { PlayerSeasonStats, Team, TeamSeasonStats } from '@/types'
 async function getAllRosterMembers(): Promise<RosterMember[]> {
   const { data, error } = await supabase
     .from('season_rosters')
-    .select('player_id, players(*), team_id, teams(*), seasons(season_number)')
+    .select('player_id, players(*), team_id, teams(*), is_captain, seasons(season_number)')
   if (error) throw error
 
   const bySeasonDesc = [...((data ?? []) as any[])].sort(
@@ -21,7 +21,7 @@ async function getAllRosterMembers(): Promise<RosterMember[]> {
   for (const row of bySeasonDesc) {
     if (seen.has(row.player_id)) continue
     seen.add(row.player_id)
-    members.push({ player: row.players, team: row.teams ?? null })
+    members.push({ player: row.players, team: row.teams ?? null, is_captain: Boolean(row.is_captain) })
   }
   return members
 }
@@ -43,7 +43,7 @@ export async function getPlayerStatsForScope(seasonId: string): Promise<PlayerSe
       listStatsForSeason(seasonId),
     ])
     const teamById = new Map(teams.map((t) => [t.id, t] as [string, Team]))
-    members = roster.map((r) => ({ player: r.player, team: teamById.get(r.team_id) ?? null }))
+    members = roster.map((r) => ({ player: r.player, team: teamById.get(r.team_id) ?? null, is_captain: r.is_captain }))
     matches = seasonMatches
     stats = seasonStats
   }
