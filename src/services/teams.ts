@@ -37,20 +37,21 @@ export async function setTeamActive(id: string, isActive: boolean): Promise<void
   if (error) throw error
 }
 
-export async function getTeamSquad(teamId: string): Promise<{ player: Player; is_captain: boolean }[]> {
-  const { data, error } = await supabase
-    .from('season_rosters')
-    .select('player_id, is_captain, players(*), seasons(season_number)')
-    .eq('team_id', teamId)
+/**
+ * Every player who has ever been on this team's roster in any season,
+ * deduped. No captain flag here on purpose — captaincy is a per-season
+ * fact and this list deliberately doesn't infer or aggregate it across
+ * seasons.
+ */
+export async function getTeamHistoricalSquad(teamId: string): Promise<{ player: Player }[]> {
+  const { data, error } = await supabase.from('season_rosters').select('player_id, players(*)').eq('team_id', teamId)
   if (error) throw error
 
-  const rows = (data ?? []) as any[]
-  if (rows.length === 0) return []
-
-  const maxSeasonNumber = Math.max(...rows.map((r) => r.seasons?.season_number ?? 0))
-  return rows
-    .filter((r) => (r.seasons?.season_number ?? 0) === maxSeasonNumber)
-    .map((r) => ({ player: r.players, is_captain: r.is_captain }))
+  const byPlayer = new Map<string, { player: Player }>()
+  for (const row of (data ?? []) as any[]) {
+    if (!byPlayer.has(row.player_id)) byPlayer.set(row.player_id, { player: row.players as Player })
+  }
+  return [...byPlayer.values()]
 }
 
 export async function countChampionships(teamId: string): Promise<number> {
