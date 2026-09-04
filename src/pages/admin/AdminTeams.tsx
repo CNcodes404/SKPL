@@ -393,7 +393,7 @@ function OwnerManageDialog({
         open={removeConfirmOpen}
         onOpenChange={setRemoveConfirmOpen}
         title="Remove Owner"
-        description="This immediately revokes their access to this team's strategy and retention pages. Their login itself isn't deleted, just unlinked."
+        description="This permanently deletes their login account along with its email, and revokes their access to this team's strategy and retention pages. This cannot be undone."
         confirmLabel="Remove"
         loading={working}
         onConfirm={handleRemoveOwner}

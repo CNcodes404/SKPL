@@ -61,7 +61,7 @@ export async function revokeOwnerInvite(inviteId: string): Promise<void> {
 }
 
 export async function removeOwner(teamId: string): Promise<void> {
-  const { error } = await supabase.from('team_owner_profiles').delete().eq('team_id', teamId)
+  const { error } = await supabase.rpc('remove_team_owner', { p_team_id: teamId })
   if (error) throw error
 }
 

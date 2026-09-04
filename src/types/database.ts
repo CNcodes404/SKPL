@@ -621,6 +621,10 @@ export interface Database {
         Args: { p_token: string; p_user_id: string; p_email: string }
         Returns: undefined
       }
+      remove_team_owner: {
+        Args: { p_team_id: string }
+        Returns: undefined
+      }
       apply_roster_prices: {
         Args: { p_season_id: string; p_prices: Record<string, number> }
         Returns: undefined
