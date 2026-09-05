@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Trophy, Percent, Skull, Flag } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TeamLogo } from '@/components/shared/Avatar'
 import { PlayerCard } from '@/components/shared/PlayerCard'
 import { SeasonSelector, ALL_SEASONS } from '@/components/shared/SeasonSelector'
@@ -20,10 +22,19 @@ import { computePlayerTier } from '@/utils/playerTier'
 import { calculateTeamStats, calculateWinRate, calculateKD, average } from '@/utils/calculations'
 import type { PlayerSeasonStats } from '@/types'
 
+type StatsScope = 'SEASON' | 'ALL_TIME'
+
 export default function TeamDetail() {
   const { teamId = '' } = useParams()
   const { seasons, selected, setSelected, selectedSeason } = useSeasonFilter()
   const isAll = selected === ALL_SEASONS
+  // The squad selector (which roster to show) and this toggle (which stats
+  // to show for that roster) are independent — this lets a team see its
+  // current squad alongside each player's all-time career numbers. Squad ·
+  // All Seasons already shows career stats inherently, so the toggle only
+  // applies, and only renders, when a specific season's squad is selected.
+  const [statsScope, setStatsScope] = useState<StatsScope>('SEASON')
+  const effectiveScope: StatsScope = isAll ? 'ALL_TIME' : statsScope
 
   const { data: base, loading: baseLoading, error: baseError } = useAsync(async () => {
     const team = await getTeam(teamId)
@@ -40,24 +51,34 @@ export default function TeamDetail() {
       isAll ? Promise.resolve<PlayerSeasonStats[]>([]) : getPlayerStatsForScope(selected),
     ])
 
-    // Team Statistics: every completed match, regardless of match type.
-    const allTeamStats = calculateTeamStats(teams, matches, stats, { includeAllMatchTypes: true })
-    const mine = allTeamStats.find((s) => s.team.id === teamId)
-    if (!mine) return null
-
-    // Ranking must stay regular-season-only, independent of the Team
-    // Statistics totals above — a separate calculateTeamStats() call with
-    // its default (no options) scope.
+    // Ranking always reflects the squad selector's own scope (regular-season
+    // matches within it) — it never moves with the stats-scope toggle below,
+    // since a rank blending career totals across seasons wouldn't mean
+    // anything consistent.
     const standingsTeamStats = calculateTeamStats(teams, matches, stats)
     const byWins = [...standingsTeamStats].sort((a, b) => b.wins - a.wins)
     const winsRank = byWins.findIndex((s) => s.team.id === teamId) + 1
     const byKills = [...standingsTeamStats].sort((a, b) => b.kills - a.kills)
     const killsRank = byKills.findIndex((s) => s.team.id === teamId) + 1
 
+    // Team Statistics totals: this squad-season's numbers, unless the
+    // toggle asks for all-time — in which case fetch every season's data
+    // instead of just this one (isAll already fetched all-time data above).
+    let mine: ReturnType<typeof calculateTeamStats>[number] | undefined
+    if (effectiveScope === 'ALL_TIME' && !isAll) {
+      const [allTeams, allMatches, allStats] = await Promise.all([listTeams(true), listMatchesRaw(), listAllStats()])
+      mine = calculateTeamStats(allTeams, allMatches, allStats, { includeAllMatchTypes: true }).find(
+        (s) => s.team.id === teamId,
+      )
+    } else {
+      mine = calculateTeamStats(teams, matches, stats, { includeAllMatchTypes: true }).find((s) => s.team.id === teamId)
+    }
+    if (!mine) return null
+
     const seasonSquad = isAll ? [] : playerStats.filter((p) => p.team?.id === teamId)
 
-    return { mine, winsRank, killsRank, totalTeams: allTeamStats.length, seasonSquad }
-  }, [selected, teamId, isAll])
+    return { mine, winsRank, killsRank, totalTeams: standingsTeamStats.length, seasonSquad }
+  }, [selected, teamId, isAll, effectiveScope])
 
   // Rating/Tier are career-wide and normalized against every player in the
   // league, fetched once independent of the season filter, roster, or
@@ -103,6 +124,22 @@ export default function TeamDetail() {
       .sort((a, b) => (b.rating ?? -1) - (a.rating ?? -1))
   }, [isAll, teamId, leagueGrades])
 
+  // This season's squad, but with each player's career (all-time) numbers
+  // instead of their stats for just this season. Only relevant when a
+  // specific season is selected and the toggle asks for all-time stats —
+  // Squad · All Seasons already shows career stats via historicalSquad.
+  const { data: seasonSquadAllTime, loading: seasonSquadAllTimeLoading } = useAsync(async () => {
+    if (isAll || effectiveScope !== 'ALL_TIME' || !seasonData?.seasonSquad) return null
+    const ids = seasonData.seasonSquad.map((p) => p.player.id)
+    if (ids.length === 0) return []
+
+    const careerStats = await getPlayersCareerStats(ids)
+    return seasonData.seasonSquad.map((p) => {
+      const totals = careerStats[p.player.id] ?? { kills: 0, deaths: 0, flags: 0, matchesPlayed: 0 }
+      return { player: p.player, is_captain: p.is_captain, kills: totals.kills, deaths: totals.deaths, flags: totals.flags }
+    })
+  }, [isAll, effectiveScope, seasonData?.seasonSquad])
+
   if (baseLoading) return <LoadingState rows={6} />
   if (baseError || !base?.team) return <ErrorState message="Team not found." />
 
@@ -131,7 +168,15 @@ export default function TeamDetail() {
         </div>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex flex-wrap items-center justify-end gap-3">
+        {!isAll ? (
+          <Tabs value={statsScope} onValueChange={(v) => setStatsScope(v as StatsScope)}>
+            <TabsList>
+              <TabsTrigger value="SEASON">This Season</TabsTrigger>
+              <TabsTrigger value="ALL_TIME">All-Time</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        ) : null}
         <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} />
       </div>
 
@@ -150,7 +195,9 @@ export default function TeamDetail() {
                 </span>
               </div>
             ) : (
-              <h2 className="font-display text-2xl font-bold text-primary-900">Squad</h2>
+              <h2 className="font-display text-2xl font-bold text-primary-900">
+                Squad{effectiveScope === 'ALL_TIME' ? ' · All-Time Stats' : ''}
+              </h2>
             )}
 
             {isAll ? (
@@ -177,6 +224,29 @@ export default function TeamDetail() {
                   </div>
                 </div>
               )
+            ) : effectiveScope === 'ALL_TIME' ? (
+              seasonSquadAllTimeLoading ? (
+                <LoadingState rows={4} />
+              ) : !seasonSquadAllTime || seasonSquadAllTime.length === 0 ? (
+                <EmptyState title="No squad on record for this season." />
+              ) : (
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  {seasonSquadAllTime.map(({ player, is_captain, kills, deaths, flags }) => (
+                    <PlayerCard
+                      key={player.id}
+                      playerId={player.id}
+                      name={player.name}
+                      imageUrl={player.image_url}
+                      role={player.role}
+                      isCaptain={is_captain}
+                      kills={kills}
+                      deaths={deaths}
+                      flags={flags}
+                      tier={leagueGrades?.[player.id]?.tier}
+                    />
+                  ))}
+                </div>
+              )
             ) : !seasonData.seasonSquad || seasonData.seasonSquad.length === 0 ? (
               <EmptyState title="No squad on record for this season." />
             ) : (
@@ -201,7 +271,9 @@ export default function TeamDetail() {
 
           <section className="flex flex-col gap-4">
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="font-display text-2xl font-bold text-primary-900">Season Statistics</h2>
+              <h2 className="font-display text-2xl font-bold text-primary-900">
+                {effectiveScope === 'ALL_TIME' ? 'All-Time Statistics' : 'Season Statistics'}
+              </h2>
               {isChampion ? (
                 <Badge variant="accent" className="flex items-center gap-1">
                   <Trophy className="h-3.5 w-3.5" /> Champion
