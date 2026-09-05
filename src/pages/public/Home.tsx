@@ -6,16 +6,15 @@ import { MatchCard } from '@/components/shared/MatchCard'
 import { LoadingGrid } from '@/components/shared/LoadingState'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { useAsync } from '@/hooks/useAsync'
-import { getLatestSeason } from '@/services/seasons'
+import { getLatestSeason, getSeasonTeams } from '@/services/seasons'
 import { listMatches } from '@/services/matches'
-import { listTeams } from '@/services/teams'
 import { getPlayer } from '@/services/players'
 
 export default function Home() {
   const { data, loading } = useAsync(async () => {
     const season = await getLatestSeason()
     const [teams, upcoming, recent] = await Promise.all([
-      listTeams(),
+      season ? getSeasonTeams(season.id) : Promise.resolve([]),
       season ? listMatches({ seasonId: season.id, status: 'SCHEDULED' }) : Promise.resolve([]),
       season ? listMatches({ seasonId: season.id, status: 'COMPLETED' }) : Promise.resolve([]),
     ])

@@ -10,7 +10,18 @@ export type PlayerStatType =
   | 'most_kills_match'
   | 'most_flags_match'
   | 'highest_kd_match'
-export type TeamStatType = 'wins' | 'win_rate' | 'kills' | 'flags' | 'kd'
+export type TeamStatType =
+  | 'wins'
+  | 'losses'
+  | 'win_rate'
+  | 'kills'
+  | 'flags'
+  | 'kd'
+  | 'avg_kills'
+  | 'avg_flags'
+  | 'biggest_win_margin'
+  | 'most_kills_match'
+  | 'most_flags_match'
 
 export const PLAYER_STAT_LABELS: Record<PlayerStatType, string> = {
   kills: 'Total Kills',
@@ -25,10 +36,16 @@ export const PLAYER_STAT_LABELS: Record<PlayerStatType, string> = {
 
 export const TEAM_STAT_LABELS: Record<TeamStatType, string> = {
   wins: 'Most Wins',
+  losses: 'Most Losses',
   win_rate: 'Win Rate',
   kills: 'Total Kills',
   flags: 'Total Flags',
   kd: 'Team KD',
+  avg_kills: 'Average Kills / Match',
+  avg_flags: 'Average Flags / Match',
+  biggest_win_margin: 'Biggest Win Margin',
+  most_kills_match: 'Most Kills in a Match',
+  most_flags_match: 'Most Flags in a Match',
 }
 
 export const PLAYER_STAT_TYPES: PlayerStatType[] = [
@@ -41,7 +58,19 @@ export const PLAYER_STAT_TYPES: PlayerStatType[] = [
   'most_flags_match',
   'highest_kd_match',
 ]
-export const TEAM_STAT_TYPES: TeamStatType[] = ['wins', 'win_rate', 'kills', 'flags', 'kd']
+export const TEAM_STAT_TYPES: TeamStatType[] = [
+  'wins',
+  'losses',
+  'win_rate',
+  'kills',
+  'flags',
+  'kd',
+  'avg_kills',
+  'avg_flags',
+  'biggest_win_margin',
+  'most_kills_match',
+  'most_flags_match',
+]
 
 export function isPlayerStatType(v: string): v is PlayerStatType {
   return (PLAYER_STAT_TYPES as string[]).includes(v)
@@ -97,6 +126,8 @@ export function teamStatValue(s: TeamSeasonStats, type: TeamStatType): number {
   switch (type) {
     case 'wins':
       return s.wins
+    case 'losses':
+      return s.losses
     case 'win_rate':
       return calculateWinRate(s.wins, s.matchesPlayed)
     case 'kills':
@@ -105,6 +136,16 @@ export function teamStatValue(s: TeamSeasonStats, type: TeamStatType): number {
       return s.flags
     case 'kd':
       return calculateKD(s.kills, s.deaths)
+    case 'avg_kills':
+      return average(s.kills, s.matchesPlayed)
+    case 'avg_flags':
+      return average(s.flags, s.matchesPlayed)
+    case 'biggest_win_margin':
+      return s.highestWinMargin
+    case 'most_kills_match':
+      return s.mostKillsInMatch
+    case 'most_flags_match':
+      return s.maxFlags
   }
 }
 
@@ -112,6 +153,8 @@ export function teamStatDisplay(s: TeamSeasonStats, type: TeamStatType): string 
   switch (type) {
     case 'wins':
       return String(s.wins)
+    case 'losses':
+      return String(s.losses)
     case 'win_rate':
       return `${calculateWinRate(s.wins, s.matchesPlayed)}%`
     case 'kills':
@@ -120,5 +163,15 @@ export function teamStatDisplay(s: TeamSeasonStats, type: TeamStatType): string 
       return String(s.flags)
     case 'kd':
       return formatKD(s.kills, s.deaths)
+    case 'avg_kills':
+      return average(s.kills, s.matchesPlayed).toFixed(2)
+    case 'avg_flags':
+      return average(s.flags, s.matchesPlayed).toFixed(2)
+    case 'biggest_win_margin':
+      return String(s.highestWinMargin)
+    case 'most_kills_match':
+      return String(s.mostKillsInMatch)
+    case 'most_flags_match':
+      return String(s.maxFlags)
   }
 }

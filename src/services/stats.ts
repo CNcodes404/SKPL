@@ -61,5 +61,5 @@ export async function getTeamStatsForScope(seasonId: string): Promise<TeamSeason
     isAll ? listAllStats() : listStatsForSeason(seasonId),
   ])
 
-  return calculateTeamStats(teams, matches, stats)
+  return calculateTeamStats(teams, matches, stats, { includeAllMatchTypes: true })
 }
