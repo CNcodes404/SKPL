@@ -18,7 +18,7 @@ export function LeaderboardCard({
 }: {
   title: string
   entries: LeaderboardEntry[]
-  viewAllTo: string
+  viewAllTo?: string
   entryHref?: (entry: LeaderboardEntry) => string
 }) {
   return (
@@ -53,12 +53,14 @@ export function LeaderboardCard({
             )
           })
         )}
-        <Link
-          to={viewAllTo}
-          className="mt-3 flex items-center justify-center gap-1 rounded-md border border-border py-2 text-sm font-semibold text-primary-700 hover:bg-primary-50"
-        >
-          View Full List <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
+        {viewAllTo ? (
+          <Link
+            to={viewAllTo}
+            className="mt-3 flex items-center justify-center gap-1 rounded-md border border-border py-2 text-sm font-semibold text-primary-700 hover:bg-primary-50"
+          >
+            View Full List <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        ) : null}
       </CardContent>
     </Card>
   )

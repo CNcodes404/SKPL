@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { Skull, Flag, Swords, Trophy, Crown } from 'lucide-react'
+import { Skull, Flag, Swords, Trophy, Crown, Star } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { PlayerAvatar, TeamLogo } from '@/components/shared/Avatar'
@@ -8,7 +8,14 @@ import { LoadingState } from '@/components/shared/LoadingState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
 import { useSeasonFilter } from '@/hooks/useSeasonFilter'
-import { getPlayer, getPlayerDetailStats, getPlayerCurrentTeam, getPlayerTeamForSeason, getPlayersCareerStats } from '@/services/players'
+import {
+  getPlayer,
+  getPlayerDetailStats,
+  getPlayerCurrentTeam,
+  getPlayerTeamForSeason,
+  getPlayersCareerStats,
+  getPlayerHonors,
+} from '@/services/players'
 import { computePlayerTier } from '@/utils/playerTier'
 import { formatKD, calculateKD, average } from '@/utils/calculations'
 import { PLAYER_ROLE_LABELS } from '@/types'
@@ -38,6 +45,13 @@ export default function PlayerProfile() {
     return computePlayerTier(player.role, raw, totals?.matchesPlayed ?? 0)
   }, [playerId, player])
 
+  // Trophies and MVP counts are career-wide honors, same as Tier above —
+  // independent of the season filter.
+  const { data: honors } = useAsync(async () => {
+    const all = await getPlayerHonors()
+    return all[playerId] ?? { goldTrophies: 0, silverTrophies: 0, matchMvps: 0, seasonMvps: 0 }
+  }, [playerId])
+
   if (playerLoading) return <LoadingState rows={6} />
   if (error || !player) return <ErrorState message="Player not found." />
 
@@ -52,9 +66,33 @@ export default function PlayerProfile() {
           <h1 className="font-display text-3xl font-extrabold text-white">{player.name}</h1>
           <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
             {player.role ? <Badge variant="accent">{PLAYER_ROLE_LABELS[player.role]}</Badge> : null}
-            {tier ? <Badge variant="outline">{tier.label}</Badge> : null}
+            {tier ? <Badge variant="accent">{tier.label}</Badge> : null}
             {!player.is_active ? <Badge variant="outline">Inactive</Badge> : null}
           </div>
+          {honors && (honors.goldTrophies > 0 || honors.silverTrophies > 0 || honors.matchMvps > 0 || honors.seasonMvps > 0) ? (
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+              {honors.goldTrophies > 0 ? (
+                <Badge variant="outline" className="flex items-center gap-1 border-yellow-500 bg-yellow-200 text-yellow-900">
+                  <Trophy className="h-3.5 w-3.5" /> ×{honors.goldTrophies}
+                </Badge>
+              ) : null}
+              {honors.silverTrophies > 0 ? (
+                <Badge variant="outline" className="flex items-center gap-1 border-gray-400 bg-gray-300 text-gray-800">
+                  <Trophy className="h-3.5 w-3.5" /> ×{honors.silverTrophies}
+                </Badge>
+              ) : null}
+              {honors.matchMvps > 0 ? (
+                <Badge variant="accent" className="flex items-center gap-1">
+                  <Star className="h-3.5 w-3.5" /> Match MVP ×{honors.matchMvps}
+                </Badge>
+              ) : null}
+              {honors.seasonMvps > 0 ? (
+                <Badge variant="accent" className="flex items-center gap-1">
+                  <Star className="h-3.5 w-3.5" /> Season MVP ×{honors.seasonMvps}
+                </Badge>
+              ) : null}
+            </div>
+          ) : null}
           {teamInfo ? (
             <Link
               to={`/teams/${teamInfo.team.id}`}

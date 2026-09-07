@@ -72,6 +72,73 @@ export async function getPlayersCareerStats(playerIds: string[]): Promise<Record
   return totals
 }
 
+export interface PlayerHonors {
+  goldTrophies: number
+  silverTrophies: number
+  matchMvps: number
+  seasonMvps: number
+}
+
+/**
+ * Career-wide trophy and MVP counts for every player who has at least one,
+ * independent of any season filter. Gold/silver come from each season's
+ * champion (stored) and runner-up (derived from that season's Final match,
+ * since there's no stored runner-up column) rosters.
+ */
+export async function getPlayerHonors(): Promise<Record<string, PlayerHonors>> {
+  const honors: Record<string, PlayerHonors> = {}
+  const bump = (playerId: string, key: keyof PlayerHonors) => {
+    if (!honors[playerId]) honors[playerId] = { goldTrophies: 0, silverTrophies: 0, matchMvps: 0, seasonMvps: 0 }
+    honors[playerId][key]++
+  }
+
+  const { data: seasons, error: seasonsError } = await supabase.from('seasons').select('id, champion_team_id, mvp_player_id')
+  if (seasonsError) throw seasonsError
+
+  for (const s of seasons ?? []) {
+    if (s.mvp_player_id) bump(s.mvp_player_id, 'seasonMvps')
+  }
+
+  const { data: finals, error: finalsError } = await supabase
+    .from('matches')
+    .select('season_id, team_a_id, team_b_id, team_a_score, team_b_score')
+    .eq('match_type', 'FINAL')
+    .eq('status', 'COMPLETED')
+  if (finalsError) throw finalsError
+
+  const runnerUpTeamBySeasonId = new Map<string, string>()
+  for (const m of finals ?? []) {
+    if (m.team_a_score == null || m.team_b_score == null || m.team_a_score === m.team_b_score) continue
+    runnerUpTeamBySeasonId.set(m.season_id, m.team_a_score > m.team_b_score ? m.team_b_id : m.team_a_id)
+  }
+
+  const championTeamBySeasonId = new Map(
+    (seasons ?? []).filter((s) => s.champion_team_id).map((s) => [s.id, s.champion_team_id as string]),
+  )
+  const relevantSeasonIds = [...new Set([...championTeamBySeasonId.keys(), ...runnerUpTeamBySeasonId.keys()])]
+
+  if (relevantSeasonIds.length > 0) {
+    const { data: rosters, error: rostersError } = await supabase
+      .from('season_rosters')
+      .select('season_id, team_id, player_id')
+      .in('season_id', relevantSeasonIds)
+    if (rostersError) throw rostersError
+
+    for (const r of rosters ?? []) {
+      if (championTeamBySeasonId.get(r.season_id) === r.team_id) bump(r.player_id, 'goldTrophies')
+      if (runnerUpTeamBySeasonId.get(r.season_id) === r.team_id) bump(r.player_id, 'silverTrophies')
+    }
+  }
+
+  const { data: matchMvps, error: mvpError } = await supabase.from('matches').select('mvp_player_id').not('mvp_player_id', 'is', null)
+  if (mvpError) throw mvpError
+  for (const m of matchMvps ?? []) {
+    if (m.mvp_player_id) bump(m.mvp_player_id, 'matchMvps')
+  }
+
+  return honors
+}
+
 export interface PlayerWithCurrentTeam {
   player: Player
   currentTeam: Team | null

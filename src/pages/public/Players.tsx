@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { UserRound } from 'lucide-react'
+import { UserRound, Trophy } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -12,7 +12,13 @@ import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
 import { useSeasonFilter } from '@/hooks/useSeasonFilter'
-import { listPlayersWithCurrentTeam, listPlayers, getPlayersCareerStats, type PlayerWithCurrentTeam } from '@/services/players'
+import {
+  listPlayersWithCurrentTeam,
+  listPlayers,
+  getPlayersCareerStats,
+  getPlayerHonors,
+  type PlayerWithCurrentTeam,
+} from '@/services/players'
 import { getSeasonRoster, getSeasonTeams } from '@/services/seasons'
 import { listTeams } from '@/services/teams'
 import { computePlayerTier } from '@/utils/playerTier'
@@ -54,6 +60,10 @@ export default function Players() {
     }
     return result
   }, [])
+
+  // Trophies are career-wide, same as Tier above — independent of the
+  // season/team/status filters this grid otherwise applies.
+  const { data: honorsByPlayerId } = useAsync(() => getPlayerHonors(), [])
 
   const filtered = (rows ?? [])
     .filter((r) => (teamFilter === 'ALL' ? true : r.currentTeam?.id === teamFilter))
@@ -119,6 +129,24 @@ export default function Players() {
                     ) : null}
                     {tierByPlayerId?.[player.id] ? <Badge variant="outline">{tierByPlayerId[player.id]}</Badge> : null}
                   </div>
+                  {(() => {
+                    const honors = honorsByPlayerId?.[player.id]
+                    if (!honors || (honors.goldTrophies === 0 && honors.silverTrophies === 0)) return null
+                    return (
+                      <div className="mt-1 flex flex-wrap items-center justify-center gap-1.5">
+                        {honors.goldTrophies > 0 ? (
+                          <Badge variant="outline" className="flex items-center gap-1 border-yellow-500 bg-yellow-200 text-yellow-900">
+                            <Trophy className="h-3 w-3" /> ×{honors.goldTrophies}
+                          </Badge>
+                        ) : null}
+                        {honors.silverTrophies > 0 ? (
+                          <Badge variant="outline" className="flex items-center gap-1 border-gray-400 bg-gray-300 text-gray-800">
+                            <Trophy className="h-3 w-3" /> ×{honors.silverTrophies}
+                          </Badge>
+                        ) : null}
+                      </div>
+                    )
+                  })()}
                 </div>
                 {currentTeam ? (
                   <div className="flex items-center gap-1.5 text-xs font-semibold text-primary-700">

@@ -7,6 +7,7 @@ import { EmptyState } from '@/components/shared/EmptyState'
 import { useSeasonFilter } from '@/hooks/useSeasonFilter'
 import { useAsync } from '@/hooks/useAsync'
 import { getPlayerStatsForScope, getTeamStatsForScope } from '@/services/stats'
+import { getPlayerHonors, listPlayersWithCurrentTeam } from '@/services/players'
 import {
   PLAYER_STAT_TYPES,
   PLAYER_STAT_LABELS,
@@ -31,6 +32,25 @@ export default function Stats() {
     if (!selected) return []
     return getTeamStatsForScope(selected)
   }, [selected])
+
+  // MVP counts are career-wide honors, not season-scoped stats — fetched
+  // once, independent of the season selector above.
+  const { data: mvpBoards } = useAsync(async () => {
+    const [honors, roster] = await Promise.all([getPlayerHonors(), listPlayersWithCurrentTeam(true)])
+    const withHonors = roster
+      .map((r) => ({ player: r.player, teamName: r.currentTeam?.name, honors: honors[r.player.id] }))
+      .filter((r) => r.honors)
+    return {
+      matchMvps: withHonors
+        .filter((r) => r.honors!.matchMvps > 0)
+        .sort((a, b) => b.honors!.matchMvps - a.honors!.matchMvps)
+        .map((r) => ({ id: r.player.id, name: r.player.name, teamName: r.teamName, value: String(r.honors!.matchMvps) })),
+      seasonMvps: withHonors
+        .filter((r) => r.honors!.seasonMvps > 0)
+        .sort((a, b) => b.honors!.seasonMvps - a.honors!.seasonMvps)
+        .map((r) => ({ id: r.player.id, name: r.player.name, teamName: r.teamName, value: String(r.honors!.seasonMvps) })),
+    }
+  }, [])
 
   return (
     <div className="flex flex-col gap-6">
@@ -76,6 +96,16 @@ export default function Stats() {
               })}
             </div>
           )}
+
+          {mvpBoards && (mvpBoards.matchMvps.length > 0 || mvpBoards.seasonMvps.length > 0) ? (
+            <div className="mt-6 flex flex-col gap-4">
+              <h2 className="font-display text-xl font-bold text-primary-900">Career Honors</h2>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <LeaderboardCard title="Most Match MVPs" entries={mvpBoards.matchMvps} entryHref={(entry) => `/players/${entry.id}`} />
+                <LeaderboardCard title="Most Season MVPs" entries={mvpBoards.seasonMvps} entryHref={(entry) => `/players/${entry.id}`} />
+              </div>
+            </div>
+          ) : null}
         </TabsContent>
 
         <TabsContent value="team">
