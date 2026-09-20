@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Save, Ban, AlertCircle, ImageUp, Copy, Check, Wand2 } from 'lucide-react'
+import { Save, Ban, AlertCircle, ImageUp, Copy, Check, Wand2, UserPlus, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -12,10 +12,10 @@ import { PlayerAvatar } from '@/components/shared/Avatar'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
-import { getMatch, getMatchStats, saveMatchResult, updateMatchSchedule } from '@/services/matches'
-import { getSeasonRoster } from '@/services/seasons'
+import { getMatch, getMatchStatsWithPlayers, saveMatchResult, updateMatchSchedule } from '@/services/matches'
+import { listPlayers } from '@/services/players'
 import { formatDateTime } from '@/lib/utils'
-import { MATCH_TYPE_LABELS } from '@/types'
+import type { Player } from '@/types'
 import { validateMatchEntry } from '@/utils/validation'
 import {
   parseImportJson,
@@ -31,20 +31,22 @@ interface StatRow {
   flags: number
 }
 
-export default function AdminMatchDetail() {
+export default function AdminExhibitionDetail() {
   const { matchId = '' } = useParams()
 
   const { data, loading, error, reload } = useAsync(async () => {
     const match = await getMatch(matchId)
-    if (!match || !match.season_id) return null
-    const [roster, existingStats] = await Promise.all([getSeasonRoster(match.season_id), getMatchStats(matchId)])
+    if (!match) return null
+    const existingStats = await getMatchStatsWithPlayers(matchId)
 
-    const teamARoster = roster.filter((r) => r.team_id === match.team_a_id)
-    const teamBRoster = roster.filter((r) => r.team_id === match.team_b_id)
+    const teamARoster = existingStats.filter((s) => s.team_id === match.team_a_id).map((s) => ({ player: s.player }))
+    const teamBRoster = existingStats.filter((s) => s.team_id === match.team_b_id).map((s) => ({ player: s.player }))
 
     return { match, teamARoster, teamBRoster, existingStats }
   }, [matchId])
 
+  const [teamARoster, setTeamARoster] = useState<{ player: Player }[]>([])
+  const [teamBRoster, setTeamBRoster] = useState<{ player: Player }[]>([])
   const [teamAScore, setTeamAScore] = useState<number | ''>('')
   const [teamBScore, setTeamBScore] = useState<number | ''>('')
   const [stats, setStats] = useState<Record<string, StatRow>>({})
@@ -53,21 +55,15 @@ export default function AdminMatchDetail() {
   const [saving, setSaving] = useState(false)
   const [initialized, setInitialized] = useState(false)
 
-  const rosterPlayerIds = useMemo(
-    () => new Set([...(data?.teamARoster ?? []), ...(data?.teamBRoster ?? [])].map((r) => r.player.id)),
-    [data],
-  )
-
   if (!loading && data && !initialized) {
+    setTeamARoster(data.teamARoster)
+    setTeamBRoster(data.teamBRoster)
     setTeamAScore(data.match.team_a_score ?? '')
     setTeamBScore(data.match.team_b_score ?? '')
     setMvpPlayerId(data.match.mvp_player_id ?? 'NONE')
     const initialStats: Record<string, StatRow> = {}
-    for (const playerId of rosterPlayerIds) {
-      const existing = data.existingStats.find((s) => s.player_id === playerId)
-      initialStats[playerId] = existing
-        ? { kills: existing.kills, deaths: existing.deaths, flags: existing.flags }
-        : { kills: 0, deaths: 0, flags: 0 }
+    for (const s of data.existingStats) {
+      initialStats[s.player_id] = { kills: s.kills, deaths: s.deaths, flags: s.flags }
     }
     setStats(initialStats)
     setInitialized(true)
@@ -77,23 +73,34 @@ export default function AdminMatchDetail() {
     setStats((prev) => ({ ...prev, [playerId]: { ...prev[playerId], [field]: value } }))
   }
 
+  function handleAddPlayer(side: 'A' | 'B', player: Player) {
+    setStats((prev) => (prev[player.id] ? prev : { ...prev, [player.id]: { kills: 0, deaths: 0, flags: 0 } }))
+    if (side === 'A') setTeamARoster((prev) => (prev.some((r) => r.player.id === player.id) ? prev : [...prev, { player }]))
+    else setTeamBRoster((prev) => (prev.some((r) => r.player.id === player.id) ? prev : [...prev, { player }]))
+  }
+
+  function handleRemovePlayer(side: 'A' | 'B', playerId: string) {
+    if (side === 'A') setTeamARoster((prev) => prev.filter((r) => r.player.id !== playerId))
+    else setTeamBRoster((prev) => prev.filter((r) => r.player.id !== playerId))
+    if (mvpPlayerId === playerId) setMvpPlayerId('NONE')
+  }
+
   function handleApplyImport(rows: { playerId: string; kills: number; deaths: number; flags: number }[]) {
-    if (!data) return
     const merged: Record<string, StatRow> = { ...stats }
     for (const r of rows) merged[r.playerId] = { kills: r.kills, deaths: r.deaths, flags: r.flags }
     setStats(merged)
 
-    const sumFlags = (roster: typeof data.teamARoster) =>
+    const sumFlags = (roster: { player: Player }[]) =>
       roster.reduce((sum, entry) => sum + (merged[entry.player.id]?.flags ?? 0), 0)
-    setTeamAScore(sumFlags(data.teamARoster))
-    setTeamBScore(sumFlags(data.teamBRoster))
+    setTeamAScore(sumFlags(teamARoster))
+    setTeamBScore(sumFlags(teamBRoster))
     setErrors([])
   }
 
   async function handleSave() {
     if (!data) return
-    const teamAStats = data.teamARoster.map((r) => ({ player_id: r.player.id, ...stats[r.player.id] }))
-    const teamBStats = data.teamBRoster.map((r) => ({ player_id: r.player.id, ...stats[r.player.id] }))
+    const teamAStats = teamARoster.map((r) => ({ player_id: r.player.id, ...stats[r.player.id] }))
+    const teamBStats = teamBRoster.map((r) => ({ player_id: r.player.id, ...stats[r.player.id] }))
 
     const validationErrors = validateMatchEntry({
       teamAScore: Number(teamAScore) || 0,
@@ -138,7 +145,7 @@ export default function AdminMatchDetail() {
   if (loading) return <LoadingState rows={6} />
   if (error || !data) return <ErrorState message="Match not found." />
 
-  const { match, teamARoster, teamBRoster } = data
+  const { match } = data
   const allRosterPlayers = [...teamARoster, ...teamBRoster].map((r) => r.player)
 
   const rosterOptions: RosterPlayerOption[] = [
@@ -157,9 +164,7 @@ export default function AdminMatchDetail() {
           <h1 className="font-display text-2xl font-bold text-primary-900">
             {match.team_a.name} vs {match.team_b.name}
           </h1>
-          <p className="text-sm text-muted-foreground">
-            {formatDateTime(match.scheduled_at)} · {MATCH_TYPE_LABELS[match.match_type]}
-          </p>
+          <p className="text-sm text-muted-foreground">{formatDateTime(match.scheduled_at)} · Exhibition Match</p>
         </div>
         <div className="flex items-center gap-2">
           <StatusBadge status={match.status} />
@@ -197,8 +202,24 @@ export default function AdminMatchDetail() {
       </Card>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <PlayerStatsTable teamLabel={match.team_a.name} roster={teamARoster} stats={stats} onChange={updateStat} />
-        <PlayerStatsTable teamLabel={match.team_b.name} roster={teamBRoster} stats={stats} onChange={updateStat} />
+        <PlayerStatsTable
+          teamLabel={match.team_a.name}
+          roster={teamARoster}
+          stats={stats}
+          onChange={updateStat}
+          onRemove={(playerId) => handleRemovePlayer('A', playerId)}
+          onAddPlayer={(player) => handleAddPlayer('A', player)}
+          excludeIds={new Set(allRosterPlayers.map((p) => p.id))}
+        />
+        <PlayerStatsTable
+          teamLabel={match.team_b.name}
+          roster={teamBRoster}
+          stats={stats}
+          onChange={updateStat}
+          onRemove={(playerId) => handleRemovePlayer('B', playerId)}
+          onAddPlayer={(player) => handleAddPlayer('B', player)}
+          excludeIds={new Set(allRosterPlayers.map((p) => p.id))}
+        />
       </div>
 
       <Card>
@@ -249,20 +270,56 @@ function PlayerStatsTable({
   roster,
   stats,
   onChange,
+  onRemove,
+  onAddPlayer,
+  excludeIds,
 }: {
   teamLabel: string
-  roster: { player: { id: string; name: string; image_url: string | null } }[]
+  roster: { player: Player }[]
   stats: Record<string, StatRow>
   onChange: (playerId: string, field: keyof StatRow, value: number) => void
+  onRemove: (playerId: string) => void
+  onAddPlayer: (player: Player) => void
+  excludeIds: Set<string>
 }) {
+  const { data: allPlayers } = useAsync(() => listPlayers(true), [])
+  const [adding, setAdding] = useState(false)
+  const addablePlayers = (allPlayers ?? []).filter((p) => !excludeIds.has(p.id))
+
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <CardTitle>{teamLabel}</CardTitle>
+        <Button type="button" size="sm" variant="outline" onClick={() => setAdding((v) => !v)}>
+          <UserPlus className="h-3.5 w-3.5" /> Add Player
+        </Button>
       </CardHeader>
-      <CardContent className="p-0">
+      <CardContent className="flex flex-col gap-3 p-0">
+        {adding ? (
+          <div className="px-5 pt-4">
+            <Select
+              value=""
+              onValueChange={(playerId) => {
+                const player = addablePlayers.find((p) => p.id === playerId)
+                if (player) onAddPlayer(player)
+                setAdding(false)
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select a player to add" />
+              </SelectTrigger>
+              <SelectContent>
+                {addablePlayers.map((p) => (
+                  <SelectItem key={p.id} value={p.id}>
+                    {p.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        ) : null}
         {roster.length === 0 ? (
-          <p className="px-5 pb-5 text-sm text-muted-foreground">No roster found for this team.</p>
+          <p className="px-5 pb-5 text-sm text-muted-foreground">No players added for this team yet.</p>
         ) : (
           <Table>
             <TableHeader>
@@ -271,6 +328,7 @@ function PlayerStatsTable({
                 <TableHead className="w-20 text-center">Kills</TableHead>
                 <TableHead className="w-20 text-center">Deaths</TableHead>
                 <TableHead className="w-20 text-center">Flags</TableHead>
+                <TableHead className="w-10" />
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -295,6 +353,11 @@ function PlayerStatsTable({
                         />
                       </TableCell>
                     ))}
+                    <TableCell className="p-2 text-center">
+                      <Button type="button" size="sm" variant="ghost" onClick={() => onRemove(player.id)}>
+                        <X className="h-3.5 w-3.5" />
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 )
               })}

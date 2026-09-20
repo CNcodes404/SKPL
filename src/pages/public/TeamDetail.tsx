@@ -7,6 +7,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TeamLogo } from '@/components/shared/Avatar'
 import { PlayerCard } from '@/components/shared/PlayerCard'
 import { SeasonSelector, ALL_SEASONS } from '@/components/shared/SeasonSelector'
+import { ExhibitionsToggle } from '@/components/shared/ExhibitionsToggle'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { EmptyState } from '@/components/shared/EmptyState'
@@ -35,6 +36,9 @@ export default function TeamDetail() {
   // applies, and only renders, when a specific season's squad is selected.
   const [statsScope, setStatsScope] = useState<StatsScope>('SEASON')
   const effectiveScope: StatsScope = isAll ? 'ALL_TIME' : statsScope
+  // A third, independent axis from statsScope/season: whether exhibition
+  // matches' stats are blended into whatever scope is already selected.
+  const [includeExhibitions, setIncludeExhibitions] = useState(false)
 
   const { data: base, loading: baseLoading, error: baseError } = useAsync(async () => {
     const team = await getTeam(teamId)
@@ -46,9 +50,9 @@ export default function TeamDetail() {
 
     const [teams, matches, stats, playerStats] = await Promise.all([
       isAll ? listTeams(true) : getSeasonTeams(selected),
-      isAll ? listMatchesRaw() : listMatchesRaw(selected),
-      isAll ? listAllStats() : listStatsForSeason(selected),
-      isAll ? Promise.resolve<PlayerSeasonStats[]>([]) : getPlayerStatsForScope(selected),
+      isAll ? listMatchesRaw(undefined, includeExhibitions) : listMatchesRaw(selected),
+      isAll ? listAllStats(includeExhibitions) : listStatsForSeason(selected),
+      isAll ? Promise.resolve<PlayerSeasonStats[]>([]) : getPlayerStatsForScope(selected, includeExhibitions),
     ])
 
     // Ranking always reflects the squad selector's own scope (regular-season
@@ -66,7 +70,11 @@ export default function TeamDetail() {
     // instead of just this one (isAll already fetched all-time data above).
     let mine: ReturnType<typeof calculateTeamStats>[number] | undefined
     if (effectiveScope === 'ALL_TIME' && !isAll) {
-      const [allTeams, allMatches, allStats] = await Promise.all([listTeams(true), listMatchesRaw(), listAllStats()])
+      const [allTeams, allMatches, allStats] = await Promise.all([
+        listTeams(true),
+        listMatchesRaw(undefined, includeExhibitions),
+        listAllStats(includeExhibitions),
+      ])
       mine = calculateTeamStats(allTeams, allMatches, allStats, { includeAllMatchTypes: true }).find(
         (s) => s.team.id === teamId,
       )
@@ -78,7 +86,7 @@ export default function TeamDetail() {
     const seasonSquad = isAll ? [] : playerStats.filter((p) => p.team?.id === teamId)
 
     return { mine, winsRank, killsRank, totalTeams: standingsTeamStats.length, seasonSquad }
-  }, [selected, teamId, isAll, effectiveScope])
+  }, [selected, teamId, isAll, effectiveScope, includeExhibitions])
 
   // Rating/Tier are career-wide and normalized against every player in the
   // league, fetched once independent of the season filter, roster, or
@@ -86,7 +94,7 @@ export default function TeamDetail() {
   const { data: leagueGrades } = useAsync(async () => {
     const allPlayers = await listPlayers(true)
     const [careerStats, ratings] = await Promise.all([
-      getPlayersCareerStats(allPlayers.map((p) => p.id)),
+      getPlayersCareerStats(allPlayers.map((p) => p.id), includeExhibitions),
       computePlayerIndices(allPlayers),
     ])
     const result: Record<string, { rating: number | null; tier: string | null }> = {}
@@ -97,7 +105,7 @@ export default function TeamDetail() {
       result[p.id] = { rating: ratings[p.id]?.player_index ?? null, tier: tier?.label ?? null }
     }
     return result
-  }, [])
+  }, [includeExhibitions])
 
   // Historical (All Seasons) squad: every player who ever represented this
   // team, deduped, sorted by the existing auction Rating.
@@ -106,7 +114,7 @@ export default function TeamDetail() {
     const roster = await getTeamHistoricalSquad(teamId)
     if (roster.length === 0) return []
 
-    const careerStats = await getPlayersCareerStats(roster.map((r) => r.player.id))
+    const careerStats = await getPlayersCareerStats(roster.map((r) => r.player.id), includeExhibitions)
 
     return roster
       .map((r) => {
@@ -122,7 +130,7 @@ export default function TeamDetail() {
         }
       })
       .sort((a, b) => (b.rating ?? -1) - (a.rating ?? -1))
-  }, [isAll, teamId, leagueGrades])
+  }, [isAll, teamId, leagueGrades, includeExhibitions])
 
   // This season's squad, but with each player's career (all-time) numbers
   // instead of their stats for just this season. Only relevant when a
@@ -133,12 +141,12 @@ export default function TeamDetail() {
     const ids = seasonData.seasonSquad.map((p) => p.player.id)
     if (ids.length === 0) return []
 
-    const careerStats = await getPlayersCareerStats(ids)
+    const careerStats = await getPlayersCareerStats(ids, includeExhibitions)
     return seasonData.seasonSquad.map((p) => {
       const totals = careerStats[p.player.id] ?? { kills: 0, deaths: 0, flags: 0, matchesPlayed: 0 }
       return { player: p.player, is_captain: p.is_captain, kills: totals.kills, deaths: totals.deaths, flags: totals.flags }
     })
-  }, [isAll, effectiveScope, seasonData?.seasonSquad])
+  }, [isAll, effectiveScope, seasonData?.seasonSquad, includeExhibitions])
 
   if (baseLoading) return <LoadingState rows={6} />
   if (baseError || !base?.team) return <ErrorState message="Team not found." />
@@ -177,6 +185,7 @@ export default function TeamDetail() {
             </TabsList>
           </Tabs>
         ) : null}
+        <ExhibitionsToggle value={includeExhibitions} onChange={setIncludeExhibitions} />
         <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} />
       </div>
 

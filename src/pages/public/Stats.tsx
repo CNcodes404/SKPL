@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { SeasonSelector } from '@/components/shared/SeasonSelector'
+import { ExhibitionsToggle } from '@/components/shared/ExhibitionsToggle'
 import { LeaderboardCard } from '@/components/shared/LeaderboardCard'
 import { LoadingGrid } from '@/components/shared/LoadingState'
 import { ErrorState } from '@/components/shared/ErrorState'
@@ -22,21 +24,23 @@ import { BarChart3 } from 'lucide-react'
 
 export default function Stats() {
   const { seasons, selected, setSelected } = useSeasonFilter()
+  const [includeExhibitions, setIncludeExhibitions] = useState(false)
 
   const { data: playerStats, loading: playersLoading, error: playersError } = useAsync(async () => {
     if (!selected) return []
-    return getPlayerStatsForScope(selected)
-  }, [selected])
+    return getPlayerStatsForScope(selected, includeExhibitions)
+  }, [selected, includeExhibitions])
 
   const { data: teamStats, loading: teamsLoading, error: teamsError } = useAsync(async () => {
     if (!selected) return []
-    return getTeamStatsForScope(selected)
-  }, [selected])
+    return getTeamStatsForScope(selected, includeExhibitions)
+  }, [selected, includeExhibitions])
 
   // MVP counts are career-wide honors, not season-scoped stats — fetched
-  // once, independent of the season selector above.
+  // independent of the season selector above, but still respects the
+  // exhibitions toggle.
   const { data: mvpBoards } = useAsync(async () => {
-    const [honors, roster] = await Promise.all([getPlayerHonors(), listPlayersWithCurrentTeam(true)])
+    const [honors, roster] = await Promise.all([getPlayerHonors(includeExhibitions), listPlayersWithCurrentTeam(true)])
     const withHonors = roster
       .map((r) => ({ player: r.player, teamName: r.currentTeam?.name, honors: honors[r.player.id] }))
       .filter((r) => r.honors)
@@ -50,7 +54,7 @@ export default function Stats() {
         .sort((a, b) => b.honors!.seasonMvps - a.honors!.seasonMvps)
         .map((r) => ({ id: r.player.id, name: r.player.name, teamName: r.teamName, value: String(r.honors!.seasonMvps) })),
     }
-  }, [])
+  }, [includeExhibitions])
 
   return (
     <div className="flex flex-col gap-6">
@@ -59,7 +63,10 @@ export default function Stats() {
           <h1 className="font-display text-3xl font-bold text-primary-900">Statistics</h1>
           <p className="text-sm text-muted-foreground">League leaders across every category.</p>
         </div>
-        <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} />
+        <div className="flex flex-wrap items-center gap-3">
+          <ExhibitionsToggle value={includeExhibitions} onChange={setIncludeExhibitions} />
+          <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} />
+        </div>
       </div>
 
       <Tabs defaultValue="player">

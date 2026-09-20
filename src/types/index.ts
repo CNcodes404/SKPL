@@ -76,6 +76,7 @@ export const MATCH_TYPE_LABELS: Record<MatchType, string> = {
   THIRD_PLACE: 'Third Place',
   TIE_BREAKER: 'Tie Breaker',
   CUSTOM: 'Custom',
+  EXHIBITION: 'Exhibition',
 }
 
 export const MATCH_TYPES: MatchType[] = [

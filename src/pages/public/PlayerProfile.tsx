@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Skull, Flag, Swords, Trophy, Crown, Star } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { PlayerAvatar, TeamLogo } from '@/components/shared/Avatar'
 import { SeasonSelector, ALL_SEASONS } from '@/components/shared/SeasonSelector'
+import { ExhibitionsToggle } from '@/components/shared/ExhibitionsToggle'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
@@ -23,34 +25,35 @@ import { PLAYER_ROLE_LABELS } from '@/types'
 export default function PlayerProfile() {
   const { playerId = '' } = useParams()
   const { seasons, selected, setSelected } = useSeasonFilter()
+  const [includeExhibitions, setIncludeExhibitions] = useState(false)
 
   const { data: player, loading: playerLoading, error } = useAsync(() => getPlayer(playerId), [playerId])
 
   const { data, loading: statsLoading } = useAsync(async () => {
     if (!selected) return null
     const [stats, teamInfo] = await Promise.all([
-      getPlayerDetailStats(playerId, selected),
+      getPlayerDetailStats(playerId, selected, includeExhibitions),
       selected === ALL_SEASONS ? getPlayerCurrentTeam(playerId) : getPlayerTeamForSeason(playerId, selected),
     ])
     return { stats, teamInfo }
-  }, [playerId, selected])
+  }, [playerId, selected, includeExhibitions])
 
   // Tier is a career-wide grade from the player's own raw stats — computed
   // independent of the page's own season filter, same as the auction UI.
   const { data: tier } = useAsync(async () => {
     if (!player) return null
-    const careerStats = await getPlayersCareerStats([playerId])
+    const careerStats = await getPlayersCareerStats([playerId], includeExhibitions)
     const totals = careerStats[playerId]
     const raw = totals ? { kd: calculateKD(totals.kills, totals.deaths), flagsPerMatch: average(totals.flags, totals.matchesPlayed) } : null
     return computePlayerTier(player.role, raw, totals?.matchesPlayed ?? 0)
-  }, [playerId, player])
+  }, [playerId, player, includeExhibitions])
 
   // Trophies and MVP counts are career-wide honors, same as Tier above —
-  // independent of the season filter.
+  // independent of the season filter, but they do respect the exhibitions toggle.
   const { data: honors } = useAsync(async () => {
-    const all = await getPlayerHonors()
+    const all = await getPlayerHonors(includeExhibitions)
     return all[playerId] ?? { goldTrophies: 0, silverTrophies: 0, matchMvps: 0, seasonMvps: 0 }
-  }, [playerId])
+  }, [playerId, includeExhibitions])
 
   if (playerLoading) return <LoadingState rows={6} />
   if (error || !player) return <ErrorState message="Player not found." />
@@ -108,7 +111,8 @@ export default function PlayerProfile() {
         </div>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex flex-wrap items-center justify-end gap-3">
+        <ExhibitionsToggle value={includeExhibitions} onChange={setIncludeExhibitions} />
         <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} />
       </div>
 

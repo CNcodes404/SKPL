@@ -7,6 +7,7 @@ import { RequireOwner } from '@/components/layout/RequireOwner'
 
 import Home from '@/pages/public/Home'
 import Matches from '@/pages/public/Matches'
+import Exhibitions from '@/pages/public/Exhibitions'
 import Teams from '@/pages/public/Teams'
 import TeamDetail from '@/pages/public/TeamDetail'
 import Players from '@/pages/public/Players'
@@ -30,6 +31,8 @@ import AdminTeams from '@/pages/admin/AdminTeams'
 import AdminPlayers from '@/pages/admin/AdminPlayers'
 import AdminMatches from '@/pages/admin/AdminMatches'
 import AdminMatchDetail from '@/pages/admin/AdminMatchDetail'
+import AdminExhibitions from '@/pages/admin/AdminExhibitions'
+import AdminExhibitionDetail from '@/pages/admin/AdminExhibitionDetail'
 
 import OwnerLogin from '@/pages/owner/OwnerLogin'
 import OwnerClaim from '@/pages/owner/OwnerClaim'
@@ -43,6 +46,8 @@ export default function App() {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/matches" element={<Matches />} />
+        <Route path="/exhibitions" element={<Exhibitions />} />
+        <Route path="/exhibitions/:matchId" element={<MatchScorecard />} />
         <Route path="/teams" element={<Teams />} />
         <Route path="/teams/:teamId" element={<TeamDetail />} />
         <Route path="/players" element={<Players />} />
@@ -71,6 +76,8 @@ export default function App() {
           <Route path="/admin/players" element={<AdminPlayers />} />
           <Route path="/admin/matches" element={<AdminMatches />} />
           <Route path="/admin/matches/:matchId" element={<AdminMatchDetail />} />
+          <Route path="/admin/exhibitions" element={<AdminExhibitions />} />
+          <Route path="/admin/exhibitions/:matchId" element={<AdminExhibitionDetail />} />
         </Route>
       </Route>
 

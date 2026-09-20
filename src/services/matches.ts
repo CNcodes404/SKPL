@@ -27,9 +27,10 @@ export async function listMatches(filters: MatchFilters = {}): Promise<MatchWith
   return (data ?? []) as unknown as MatchWithTeams[]
 }
 
-export async function listMatchesRaw(seasonId?: string): Promise<Match[]> {
+export async function listMatchesRaw(seasonId?: string, includeExhibitions = false): Promise<Match[]> {
   let query = supabase.from('matches').select('*')
   if (seasonId) query = query.eq('season_id', seasonId)
+  else if (!includeExhibitions) query = query.neq('match_type', 'EXHIBITION')
   const { data, error } = await query
   if (error) throw error
   return data ?? []
@@ -69,10 +70,14 @@ export async function listStatsForSeason(seasonId: string): Promise<MatchPlayerS
   return (data ?? []) as unknown as MatchPlayerStat[]
 }
 
-export async function listAllStats(): Promise<MatchPlayerStat[]> {
-  const { data, error } = await supabase.from('match_player_stats').select('*')
+export async function listAllStats(includeExhibitions = false): Promise<MatchPlayerStat[]> {
+  let query = supabase.from('match_player_stats').select('*, matches!inner(match_type)')
+  if (!includeExhibitions) query = query.neq('matches.match_type', 'EXHIBITION')
+  const { data, error } = await query
   if (error) throw error
-  return data ?? []
+  return ((data ?? []) as unknown as (MatchPlayerStat & { matches: { match_type: MatchType } })[]).map(
+    ({ matches: _matches, ...stat }) => stat,
+  )
 }
 
 export interface CreateMatchInput {
@@ -102,6 +107,34 @@ export async function createMatches(inputs: CreateMatchInput[]): Promise<Match[]
     .select()
   if (error) throw error
   return data ?? []
+}
+
+export interface CreateExhibitionMatchInput {
+  team_a_id: string
+  team_b_id: string
+  scheduled_at: string | null
+  team_a_player_ids: string[]
+  team_b_player_ids: string[]
+}
+
+export async function createExhibitionMatch(input: CreateExhibitionMatchInput): Promise<string> {
+  const { data, error } = await supabase.rpc('create_exhibition_match', {
+    p_team_a_id: input.team_a_id,
+    p_team_b_id: input.team_b_id,
+    p_scheduled_at: input.scheduled_at,
+    p_team_a_players: input.team_a_player_ids,
+    p_team_b_players: input.team_b_player_ids,
+  })
+  if (error) throw error
+  return data
+}
+
+export async function listExhibitionMatches(): Promise<MatchWithTeams[]> {
+  const { data, error } = await withTeamsSelect()
+    .eq('match_type', 'EXHIBITION')
+    .order('scheduled_at', { ascending: false })
+  if (error) throw error
+  return (data ?? []) as unknown as MatchWithTeams[]
 }
 
 export async function updateMatchSchedule(

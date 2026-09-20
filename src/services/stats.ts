@@ -26,7 +26,10 @@ async function getAllRosterMembers(): Promise<RosterMember[]> {
   return members
 }
 
-export async function getPlayerStatsForScope(seasonId: string): Promise<PlayerSeasonStats[]> {
+export async function getPlayerStatsForScope(
+  seasonId: string,
+  includeExhibitions = false,
+): Promise<PlayerSeasonStats[]> {
   const isAll = seasonId === ALL_SEASONS
 
   let members: RosterMember[]
@@ -34,7 +37,11 @@ export async function getPlayerStatsForScope(seasonId: string): Promise<PlayerSe
   let stats: Awaited<ReturnType<typeof listAllStats>>
 
   if (isAll) {
-    ;[members, matches, stats] = await Promise.all([getAllRosterMembers(), listMatchesRaw(), listAllStats()])
+    ;[members, matches, stats] = await Promise.all([
+      getAllRosterMembers(),
+      listMatchesRaw(undefined, includeExhibitions),
+      listAllStats(includeExhibitions),
+    ])
   } else {
     const [roster, teams, seasonMatches, seasonStats] = await Promise.all([
       getSeasonRoster(seasonId),
@@ -52,13 +59,16 @@ export async function getPlayerStatsForScope(seasonId: string): Promise<PlayerSe
   return calculatePlayerStats(members, stats, completedMatchIds)
 }
 
-export async function getTeamStatsForScope(seasonId: string): Promise<TeamSeasonStats[]> {
+export async function getTeamStatsForScope(
+  seasonId: string,
+  includeExhibitions = false,
+): Promise<TeamSeasonStats[]> {
   const isAll = seasonId === ALL_SEASONS
 
   const [teams, matches, stats] = await Promise.all([
     isAll ? listTeams(true) : getSeasonTeams(seasonId),
-    isAll ? listMatchesRaw() : listMatchesRaw(seasonId),
-    isAll ? listAllStats() : listStatsForSeason(seasonId),
+    isAll ? listMatchesRaw(undefined, includeExhibitions) : listMatchesRaw(seasonId),
+    isAll ? listAllStats(includeExhibitions) : listStatsForSeason(seasonId),
   ])
 
   return calculateTeamStats(teams, matches, stats, { includeAllMatchTypes: true })

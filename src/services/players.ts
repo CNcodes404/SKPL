@@ -47,14 +47,20 @@ export interface CareerTotals {
 }
 
 /** Aggregates a player's stats across every completed match, in every season. */
-export async function getPlayersCareerStats(playerIds: string[]): Promise<Record<string, CareerTotals>> {
+export async function getPlayersCareerStats(
+  playerIds: string[],
+  includeExhibitions = false,
+): Promise<Record<string, CareerTotals>> {
   if (playerIds.length === 0) return {}
 
-  const { data, error } = await supabase
+  let query = supabase
     .from('match_player_stats')
-    .select('player_id, kills, deaths, flags, matches!inner(status)')
+    .select('player_id, kills, deaths, flags, matches!inner(status, match_type)')
     .in('player_id', playerIds)
     .eq('matches.status', 'COMPLETED')
+  if (!includeExhibitions) query = query.neq('matches.match_type', 'EXHIBITION')
+
+  const { data, error } = await query
   if (error) throw error
 
   const totals: Record<string, CareerTotals> = {}
@@ -85,7 +91,7 @@ export interface PlayerHonors {
  * champion (stored) and runner-up (derived from that season's Final match,
  * since there's no stored runner-up column) rosters.
  */
-export async function getPlayerHonors(): Promise<Record<string, PlayerHonors>> {
+export async function getPlayerHonors(includeExhibitions = false): Promise<Record<string, PlayerHonors>> {
   const honors: Record<string, PlayerHonors> = {}
   const bump = (playerId: string, key: keyof PlayerHonors) => {
     if (!honors[playerId]) honors[playerId] = { goldTrophies: 0, silverTrophies: 0, matchMvps: 0, seasonMvps: 0 }
@@ -108,7 +114,7 @@ export async function getPlayerHonors(): Promise<Record<string, PlayerHonors>> {
 
   const runnerUpTeamBySeasonId = new Map<string, string>()
   for (const m of finals ?? []) {
-    if (m.team_a_score == null || m.team_b_score == null || m.team_a_score === m.team_b_score) continue
+    if (!m.season_id || m.team_a_score == null || m.team_b_score == null || m.team_a_score === m.team_b_score) continue
     runnerUpTeamBySeasonId.set(m.season_id, m.team_a_score > m.team_b_score ? m.team_b_id : m.team_a_id)
   }
 
@@ -130,7 +136,9 @@ export async function getPlayerHonors(): Promise<Record<string, PlayerHonors>> {
     }
   }
 
-  const { data: matchMvps, error: mvpError } = await supabase.from('matches').select('mvp_player_id').not('mvp_player_id', 'is', null)
+  let mvpQuery = supabase.from('matches').select('mvp_player_id').not('mvp_player_id', 'is', null)
+  if (!includeExhibitions) mvpQuery = mvpQuery.neq('match_type', 'EXHIBITION')
+  const { data: matchMvps, error: mvpError } = await mvpQuery
   if (mvpError) throw mvpError
   for (const m of matchMvps ?? []) {
     if (m.mvp_player_id) bump(m.mvp_player_id, 'matchMvps')
@@ -200,12 +208,17 @@ export async function getPlayerTeamForSeason(playerId: string, seasonId: string)
 }
 
 /** Detailed stats for a single player, scoped to a season or ALL_SEASONS, including per-match extremes. */
-export async function getPlayerDetailStats(playerId: string, seasonId: string): Promise<PlayerDetailStats> {
+export async function getPlayerDetailStats(
+  playerId: string,
+  seasonId: string,
+  includeExhibitions = false,
+): Promise<PlayerDetailStats> {
   let query = supabase
     .from('match_player_stats')
-    .select('*, matches!inner(status, season_id, team_a_id, team_b_id, team_a_score, team_b_score)')
+    .select('*, matches!inner(status, season_id, match_type, team_a_id, team_b_id, team_a_score, team_b_score)')
     .eq('player_id', playerId)
   if (seasonId !== ALL_SEASONS) query = query.eq('matches.season_id', seasonId)
+  else if (!includeExhibitions) query = query.neq('matches.match_type', 'EXHIBITION')
 
   const { data, error } = await query
   if (error) throw error

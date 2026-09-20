@@ -6,6 +6,7 @@ import {
   Users,
   UserRound,
   Swords,
+  Zap,
   Globe,
   LogOut,
   Menu,
@@ -20,6 +21,7 @@ const LINKS = [
   { to: '/admin/teams', label: 'Teams', icon: Users },
   { to: '/admin/players', label: 'Players', icon: UserRound },
   { to: '/admin/matches', label: 'Matches', icon: Swords },
+  { to: '/admin/exhibitions', label: 'Exhibitions', icon: Zap },
 ]
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {

@@ -10,6 +10,7 @@ export type MatchType =
   | 'THIRD_PLACE'
   | 'TIE_BREAKER'
   | 'CUSTOM'
+  | 'EXHIBITION'
 
 export type MatchStatus = 'SCHEDULED' | 'COMPLETED' | 'CANCELLED'
 
@@ -163,7 +164,7 @@ export interface Database {
       matches: {
         Row: {
           id: string
-          season_id: string
+          season_id: string | null
           team_a_id: string
           team_b_id: string
           scheduled_at: string | null
@@ -178,7 +179,7 @@ export interface Database {
         }
         Insert: {
           id?: string
-          season_id: string
+          season_id?: string | null
           team_a_id: string
           team_b_id: string
           scheduled_at?: string | null
@@ -543,6 +544,16 @@ export interface Database {
       delete_season_schedule: {
         Args: { p_season_id: string }
         Returns: undefined
+      }
+      create_exhibition_match: {
+        Args: {
+          p_team_a_id: string
+          p_team_b_id: string
+          p_scheduled_at: string | null
+          p_team_a_players: string[]
+          p_team_b_players: string[]
+        }
+        Returns: string
       }
       save_match_result: {
         Args: {
