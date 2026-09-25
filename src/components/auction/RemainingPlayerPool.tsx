@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
 import { PlayerAvatar } from '@/components/shared/Avatar'
+import { GameName } from '@/components/shared/GameName'
 import { formatLakh } from '@/utils/currency'
 import { PLAYER_ROLE_LABELS, PLAYER_ROLES } from '@/types'
 import { computePlayerTier } from '@/utils/playerTier'
@@ -42,7 +43,11 @@ export function RemainingPlayerPool({
     return pool
       .filter((p) => (showSold ? true : p.status !== 'SOLD'))
       .filter((p) => (roleFilter === 'ALL' ? true : p.player.role === roleFilter))
-      .filter((p) => (term === '' ? true : p.player.name.toLowerCase().includes(term)))
+      .filter((p) =>
+        term === ''
+          ? true
+          : p.player.name.toLowerCase().includes(term) || (p.player.game_name ?? '').toLowerCase().includes(term),
+      )
       .sort((a, b) => {
         const diff = STATUS_ORDER[a.status] - STATUS_ORDER[b.status]
         if (diff !== 0) return diff
@@ -72,7 +77,7 @@ export function RemainingPlayerPool({
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search player…"
+              placeholder="Search name or in-game name…"
               className="h-8 w-40 pl-8 text-xs"
             />
           </div>
@@ -129,7 +134,10 @@ export function RemainingPlayerPool({
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <PlayerAvatar name={entry.player.name} imageUrl={entry.player.image_url} className="h-8 w-8 text-xs" />
-                        <span className="font-medium">{entry.player.name}</span>
+                        <div className="flex min-w-0 flex-col">
+                          <span className="font-medium">{entry.player.name}</span>
+                          <GameName player={entry.player} />
+                        </div>
                       </div>
                     </TableCell>
                     <TableCell className="text-xs text-muted-foreground">

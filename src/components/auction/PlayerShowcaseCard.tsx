@@ -1,4 +1,5 @@
 import { PlayerAvatar } from '@/components/shared/Avatar'
+import { GameName } from '@/components/shared/GameName'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { formatKD } from '@/utils/calculations'
@@ -43,6 +44,7 @@ export function PlayerShowcaseCard({
               </Badge>
             ) : null}
             <p className="font-display text-2xl font-extrabold text-primary-900">{player.name}</p>
+            <GameName player={player} className="text-sm" />
             <div className="mt-1.5 flex flex-wrap gap-1.5">
               {player.role ? <Badge variant="outline">{PLAYER_ROLE_LABELS[player.role]}</Badge> : null}
               {tier ? <Badge variant="outline">{tier.label}</Badge> : null}

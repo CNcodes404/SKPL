@@ -271,6 +271,9 @@ export function ManualAuctionConfigurePanel({
                       {eligiblePlayers.map((p) => (
                         <SelectItem key={p.id} value={p.id}>
                           {p.name}
+                          {p.game_name && p.game_name.trim().toLowerCase() !== p.name.trim().toLowerCase()
+                            ? ` (${p.game_name.trim()})`
+                            : ''}
                         </SelectItem>
                       ))}
                     </SelectContent>

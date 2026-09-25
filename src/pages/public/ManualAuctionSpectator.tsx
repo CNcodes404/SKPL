@@ -9,6 +9,7 @@ import { TeamStandingsTable } from '@/components/auction/TeamStandingsTable'
 import { RemainingPlayerPool } from '@/components/auction/RemainingPlayerPool'
 import { RoundIndicator } from '@/components/auction/RoundIndicator'
 import { PlayerAvatar, TeamLogo } from '@/components/shared/Avatar'
+import { GameName } from '@/components/shared/GameName'
 import { useAsync } from '@/hooks/useAsync'
 import { getAuctionPlayerStats, type AuctionPlayerStats } from '@/utils/auctionPlayerStats'
 import { computeTeamStrengths } from '@/utils/teamStrength'
@@ -162,7 +163,10 @@ export default function ManualAuctionSpectator({
             </p>
             <div className="flex items-center gap-2">
               <PlayerAvatar name={lastResult.player.name} imageUrl={lastResult.player.image_url} className="h-10 w-10 text-sm" />
-              <p className="font-display text-lg font-bold text-primary-900">{lastResult.player.name}</p>
+              <div className="flex flex-col">
+                <p className="font-display text-lg font-bold text-primary-900">{lastResult.player.name}</p>
+                <GameName player={lastResult.player} />
+              </div>
             </div>
             {lastResult.sold ? (
               <>

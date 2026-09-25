@@ -3,6 +3,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { TeamLogo } from '@/components/shared/Avatar'
+import { GameName } from '@/components/shared/GameName'
 import { TeamStrengthDisplay } from '@/components/auction/TeamStrengthDisplay'
 import { formatLakh } from '@/utils/currency'
 import { cn } from '@/lib/utils'
@@ -106,6 +107,7 @@ function TeamOverviewCard({
                   className="rounded-full border border-border bg-secondary/50 px-2.5 py-1 text-xs font-medium text-primary-800"
                 >
                   {r.player.name}
+                  <GameName player={r.player} className="ml-1.5 text-[11px]" />
                   {r.price != null ? <span className="text-muted-foreground"> · {formatLakh(r.price)}</span> : null}
                 </span>
               ))

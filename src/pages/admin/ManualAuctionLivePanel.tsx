@@ -9,6 +9,7 @@ import { TeamOverviewGrid } from '@/components/auction/TeamOverviewGrid'
 import { RemainingPlayerPool } from '@/components/auction/RemainingPlayerPool'
 import { RoundIndicator } from '@/components/auction/RoundIndicator'
 import { PlayerAvatar } from '@/components/shared/Avatar'
+import { GameName } from '@/components/shared/GameName'
 import { useAsync } from '@/hooks/useAsync'
 import {
   drawNextPlayer,
@@ -237,11 +238,14 @@ export function ManualAuctionLivePanel({
         <Card className={lastResult.sold ? 'border-green-300 bg-green-50' : 'border-red-300 bg-red-50'}>
           <CardContent className="flex items-center gap-3 p-4">
             <PlayerAvatar name={lastResult.player.name} imageUrl={lastResult.player.image_url} className="h-10 w-10 text-sm" />
-            <p className="text-sm font-semibold">
-              {lastResult.sold
-                ? `${lastResult.player.name} SOLD to ${lastResult.team?.name ?? 'a team'} for ${formatLakh(lastResult.price)}`
-                : `${lastResult.player.name} went UNSOLD`}
-            </p>
+            <div className="flex flex-col">
+              <p className="text-sm font-semibold">
+                {lastResult.sold
+                  ? `${lastResult.player.name} SOLD to ${lastResult.team?.name ?? 'a team'} for ${formatLakh(lastResult.price)}`
+                  : `${lastResult.player.name} went UNSOLD`}
+              </p>
+              <GameName player={lastResult.player} />
+            </div>
           </CardContent>
         </Card>
       ) : null}
@@ -307,7 +311,10 @@ export function ManualAuctionLivePanel({
                 >
                   <span className="flex items-center gap-2">
                     <PlayerAvatar name={entry.player.name} imageUrl={entry.player.image_url} className="h-8 w-8 text-xs" />
-                    <span className="font-medium">{entry.player.name}</span>
+                    <span className="flex flex-col">
+                      <span className="font-medium">{entry.player.name}</span>
+                      <GameName player={entry.player} />
+                    </span>
                     {entry.attempt_no === 2 ? <Badge variant="accent">Round 2</Badge> : null}
                   </span>
                   <span className="text-muted-foreground">{formatLakh(entry.base_price)}</span>

@@ -12,6 +12,7 @@ import { FormField } from '@/components/shared/FormField'
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { ErrorState } from '@/components/shared/ErrorState'
+import { GameName } from '@/components/shared/GameName'
 import { useAsync } from '@/hooks/useAsync'
 import { getSeason, getSeasonTeams } from '@/services/seasons'
 import {
@@ -436,6 +437,7 @@ function LivePanel({
             <div className="flex items-center justify-between">
               <div>
                 <p className="font-display text-xl font-bold text-primary-900">{currentPlayerEntry.player.name}</p>
+                <GameName player={currentPlayerEntry.player} className="text-sm" />
                 <p className="text-sm text-muted-foreground">{currentPlayerEntry.player.role ?? 'Unassigned role'}</p>
               </div>
               <div className="text-right">
@@ -472,7 +474,8 @@ function LivePanel({
               <ul className="flex flex-col gap-1 text-xs text-muted-foreground">
                 {ts.roster.map((r) => (
                   <li key={r.player.id}>
-                    {r.player.name} {r.price != null ? `— ${formatLakh(r.price)}` : ''}
+                    {r.player.name} <GameName player={r.player} className="text-[11px]" />{' '}
+                    {r.price != null ? `— ${formatLakh(r.price)}` : ''}
                   </li>
                 ))}
               </ul>
@@ -500,7 +503,12 @@ function LivePanel({
               <TableBody>
                 {ticker.map((b) => (
                   <TableRow key={b.id}>
-                    <TableCell>{b.player.name}</TableCell>
+                    <TableCell>
+                      <div className="flex flex-col">
+                        <span>{b.player.name}</span>
+                        <GameName player={b.player} className="text-[11px]" />
+                      </div>
+                    </TableCell>
                     <TableCell>{b.team.name}</TableCell>
                     <TableCell className="text-right">{formatLakh(b.amount)}</TableCell>
                   </TableRow>

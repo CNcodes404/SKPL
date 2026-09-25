@@ -1,4 +1,5 @@
 import { PlayerAvatar, TeamLogo } from '@/components/shared/Avatar'
+import { GameName } from '@/components/shared/GameName'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { CountdownTimer } from '@/components/auction/CountdownTimer'
@@ -42,6 +43,7 @@ export function CurrentPlayerPanel({
             <PlayerAvatar name={player.name} imageUrl={player.image_url} className="h-14 w-14 text-base" />
             <div>
               <p className="font-display text-lg font-extrabold text-primary-900">{player.name}</p>
+              <GameName player={player} />
               <div className="mt-1 flex flex-wrap gap-1">
                 {player.role ? <Badge variant="outline">{PLAYER_ROLE_LABELS[player.role]}</Badge> : null}
                 {tier ? <Badge variant="outline">{tier.label}</Badge> : null}

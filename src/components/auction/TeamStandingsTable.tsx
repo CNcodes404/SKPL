@@ -3,6 +3,7 @@ import { ChevronDown } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { TeamLogo } from '@/components/shared/Avatar'
+import { GameName } from '@/components/shared/GameName'
 import { formatLakh } from '@/utils/currency'
 import { cn } from '@/lib/utils'
 import type { AuctionTeamSummary } from '@/services/auction'
@@ -110,6 +111,7 @@ export function TeamStandingsTable({
                                 className="rounded-full border border-border bg-white px-2.5 py-1 text-xs font-medium text-primary-800"
                               >
                                 {r.player.name}
+                                <GameName player={r.player} className="ml-1.5 text-[11px]" />
                                 {r.price != null ? <span className="text-muted-foreground"> · {formatLakh(r.price)}</span> : null}
                               </span>
                             ))}

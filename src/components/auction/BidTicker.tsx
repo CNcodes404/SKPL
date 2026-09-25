@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { TeamLogo } from '@/components/shared/Avatar'
+import { GameName } from '@/components/shared/GameName'
 import { formatLakh } from '@/utils/currency'
 import { cn } from '@/lib/utils'
 import type { AuctionBidTickerEntry } from '@/services/auction'
@@ -69,7 +70,12 @@ export function BidTicker({
                       <span className={cn('font-medium', i === 0 && 'font-bold text-accent-700')}>{entry.team.name}</span>
                     </div>
                   </TableCell>
-                  <TableCell className="text-muted-foreground">{entry.player.name}</TableCell>
+                  <TableCell className="text-muted-foreground">
+                    <div className="flex flex-col">
+                      <span>{entry.player.name}</span>
+                      <GameName player={entry.player} className="text-[11px]" />
+                    </div>
+                  </TableCell>
                   <TableCell className={cn('text-right font-semibold', i === 0 && 'text-accent-700')}>
                     {formatLakh(entry.amount)}
                   </TableCell>
