@@ -27,6 +27,8 @@ export type SeasonAuctionPlayer = Database['public']['Tables']['season_auction_p
 export type SeasonAuctionBid = Database['public']['Tables']['season_auction_bids']['Row']
 export type SeasonRetention = Database['public']['Tables']['season_retentions']['Row']
 export type SeasonAuction = Database['public']['Tables']['season_auctions']['Row']
+export type MatchLiveSession = Database['public']['Tables']['match_live_sessions']['Row']
+export type MatchLiveStat = Database['public']['Tables']['match_live_stats']['Row']
 
 export type {
   AuctionModeType,

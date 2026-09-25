@@ -95,6 +95,49 @@ There is no public "make me admin" button — admins are provisioned manually:
 
 4. Sign in at `/admin/login` with that email and password.
 
+## Live Match Tracking (Scorekeepers)
+
+A **scorekeeper** is a spectator who tracks a match live from `/scorekeeper`. They share their Smash Karts tab
+with the SKPL page; every few seconds the page crops the in-game scoreboard, and when its numbers change it
+sends the image to the `extract-scoreboard` Edge Function, which reads it with Gemini. Stats are saved live
+(players who leave keep theirs; reconnects are added up), and after the match the scorekeeper adds the
+end-of-match results screenshot and submits. The match becomes Completed; an admin sets the MVP and can edit
+the result as usual.
+
+A scorekeeper login can only claim, track and submit **Scheduled** matches. It has no table write access and
+cannot delete anything or touch Completed/Cancelled matches (see `0021_scorekeeper_live_tracking.sql`).
+
+**One-time setup**
+
+1. Apply `supabase/migrations/0021_scorekeeper_live_tracking.sql` in the SQL Editor.
+2. Deploy the Edge Function and set its Gemini key (free key from Google AI Studio):
+
+   ```bash
+   npx supabase login
+   npx supabase link --project-ref your-project-ref
+   npx supabase secrets set GEMINI_API_KEY=your-gemini-key
+   npx supabase functions deploy extract-scoreboard --no-verify-jwt
+   ```
+
+   (`--no-verify-jwt` is intended: the function verifies the caller's session itself and only answers
+   scorekeepers and admins.)
+3. For each spectator: Authentication → Users → **Add user**, copy the UUID, then run:
+
+   ```sql
+   insert into scorekeeper_profiles (user_id, display_name) values ('paste-the-uuid-here', 'Spectator 1');
+   ```
+
+To undo the database part, run `supabase/backups/0021_scorekeeper_live_tracking_rollback.sql`.
+
+**On match day (spectator)**
+
+1. Open Smash Karts in its own window, join the room as a spectator, click the scoreboard icon (top-left).
+2. In another window, sign in at `/scorekeeper/login`, pick the match, **Share Smash Karts tab**, check the
+   green crop box covers the scoreboard, run **Test capture**, then **Start live tracking**.
+3. Keep both windows visible and don't type in the game window (any key closes the scoreboard).
+4. When the match ends, click **End match**, add the results screenshot from a player, check the table, and
+   **Submit result**.
+
 ## Demo Data (optional)
 
 A small seed script creates 6 teams, ~24 players, one sample season and a handful of matches (some completed
@@ -114,6 +157,7 @@ Supabase dashboard at any time.
 npm run dev       # start the Vite dev server
 npm run build     # type-check and build for production
 npm run preview   # preview the production build locally
+npm test          # unit tests (live-tracking merge rules)
 ```
 
 ## Deployment

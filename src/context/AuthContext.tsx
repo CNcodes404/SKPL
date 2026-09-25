@@ -3,12 +3,14 @@ import type { Session, User } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase'
 import { checkIsAdmin } from '@/services/auth'
 import { checkOwnerTeam } from '@/services/ownerAuth'
+import { checkIsScorekeeper } from '@/services/scorekeeper'
 
 interface AuthContextValue {
   session: Session | null
   user: User | null
   isAdmin: boolean
   ownerTeamId: string | null
+  isScorekeeper: boolean
   loading: boolean
 }
 
@@ -17,6 +19,7 @@ const AuthContext = createContext<AuthContextValue>({
   user: null,
   isAdmin: false,
   ownerTeamId: null,
+  isScorekeeper: false,
   loading: true,
 })
 
@@ -24,6 +27,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const [ownerTeamId, setOwnerTeamId] = useState<string | null>(null)
+  const [isScorekeeper, setIsScorekeeper] = useState(false)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -34,9 +38,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (active) {
           setIsAdmin(false)
           setOwnerTeamId(null)
+          setIsScorekeeper(false)
         }
         return
       }
+      // Resolved on its own (and it never throws) so a scorekeeper lookup
+      // problem can't affect admin or owner access.
+      const scorekeeper = checkIsScorekeeper(currentSession.user.id)
       try {
         const [admin, teamId] = await Promise.all([
           checkIsAdmin(currentSession.user.id),
@@ -52,6 +60,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           setOwnerTeamId(null)
         }
       }
+      const isKeeper = await scorekeeper
+      if (active) setIsScorekeeper(isKeeper)
     }
 
     supabase.auth.getSession().then(async ({ data }) => {
@@ -73,7 +83,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ session, user: session?.user ?? null, isAdmin, ownerTeamId, loading }}>
+    <AuthContext.Provider value={{ session, user: session?.user ?? null, isAdmin, ownerTeamId, isScorekeeper, loading }}>
       {children}
     </AuthContext.Provider>
   )

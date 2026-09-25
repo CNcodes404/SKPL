@@ -22,6 +22,8 @@ export type AuctionStatus = 'DRAFT' | 'RUNNING' | 'PAUSED' | 'COMPLETED'
 export type AuctionModeType = 'AI' | 'MANUAL'
 export type PlayerDrawModeType = 'AUTO' | 'MANUAL'
 
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
+
 export interface Database {
   public: {
     Tables: {
@@ -517,6 +519,91 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['season_auctions']['Insert']>
         Relationships: []
       }
+      scorekeeper_profiles: {
+        Row: {
+          user_id: string
+          display_name: string | null
+          created_at: string
+        }
+        Insert: {
+          user_id: string
+          display_name?: string | null
+          created_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['scorekeeper_profiles']['Insert']>
+        Relationships: []
+      }
+      match_live_sessions: {
+        Row: {
+          match_id: string
+          scorekeeper_id: string | null
+          status: 'LIVE' | 'SUBMITTED'
+          started_at: string
+          heartbeat_at: string
+          submitted_at: string | null
+        }
+        Insert: {
+          match_id: string
+          scorekeeper_id?: string | null
+          status?: 'LIVE' | 'SUBMITTED'
+          started_at?: string
+          heartbeat_at?: string
+          submitted_at?: string | null
+        }
+        Update: Partial<Database['public']['Tables']['match_live_sessions']['Insert']>
+        Relationships: []
+      }
+      match_live_stats: {
+        Row: {
+          match_id: string
+          player_id: string
+          team_id: string
+          banked_kills: number
+          banked_deaths: number
+          banked_flags: number
+          cur_kills: number
+          cur_deaths: number
+          cur_flags: number
+          sessions: number
+          on_board: boolean
+          updated_at: string
+        }
+        Insert: {
+          match_id: string
+          player_id: string
+          team_id: string
+          banked_kills?: number
+          banked_deaths?: number
+          banked_flags?: number
+          cur_kills?: number
+          cur_deaths?: number
+          cur_flags?: number
+          sessions?: number
+          on_board?: boolean
+          updated_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['match_live_stats']['Insert']>
+        Relationships: []
+      }
+      match_live_snapshots: {
+        Row: {
+          id: number
+          match_id: string
+          scorekeeper_id: string | null
+          source: 'LIVE' | 'FINAL'
+          extracted: Json
+          created_at: string
+        }
+        Insert: {
+          match_id: string
+          scorekeeper_id?: string | null
+          source: 'LIVE' | 'FINAL'
+          extracted: Json
+          created_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['match_live_snapshots']['Insert']>
+        Relationships: []
+      }
     }
     Views: Record<string, never>
     Functions: {
@@ -678,6 +765,40 @@ export interface Database {
       }
       resume_manual_auction: {
         Args: { p_season_id: string }
+        Returns: undefined
+      }
+      is_scorekeeper: {
+        Args: Record<string, never>
+        Returns: boolean
+      }
+      claim_live_match: {
+        Args: { p_match_id: string }
+        Returns: Database['public']['Tables']['match_live_sessions']['Row']
+      }
+      record_live_stats: {
+        Args: {
+          p_match_id: string
+          p_stats: {
+            player_id: string
+            banked_kills: number
+            banked_deaths: number
+            banked_flags: number
+            cur_kills: number
+            cur_deaths: number
+            cur_flags: number
+            sessions: number
+            on_board: boolean
+          }[]
+          p_extracted: Json | null
+        }
+        Returns: undefined
+      }
+      submit_live_result: {
+        Args: {
+          p_match_id: string
+          p_stats: { player_id: string; kills: number; deaths: number; flags: number }[]
+          p_extracted: Json | null
+        }
         Returns: undefined
       }
     }

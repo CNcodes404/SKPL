@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
@@ -7,6 +8,7 @@ import { LoadingState } from '@/components/shared/LoadingState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
 import { getMatch, getMatchStatsWithPlayers, type MatchPlayerStatWithPlayer } from '@/services/matches'
+import { getPublicLiveView, subscribeLiveStats, type LiveStatWithPlayer } from '@/services/scorekeeper'
 import { formatDateTime, cn } from '@/lib/utils'
 import { formatKD } from '@/utils/calculations'
 import { MATCH_TYPE_LABELS } from '@/types'
@@ -14,7 +16,7 @@ import { MATCH_TYPE_LABELS } from '@/types'
 export default function MatchScorecard() {
   const { matchId = '' } = useParams()
 
-  const { data, loading, error } = useAsync(async () => {
+  const { data, loading, error, reload } = useAsync(async () => {
     const match = await getMatch(matchId)
     if (!match) return null
     const stats = await getMatchStatsWithPlayers(matchId)
@@ -25,11 +27,19 @@ export default function MatchScorecard() {
     }
   }, [matchId])
 
-  if (loading) return <LoadingState rows={6} />
+  const liveRows = useLiveRows(matchId, data?.match.status === 'SCHEDULED', reload)
+
+  if (loading && !data) return <LoadingState rows={6} />
   if (error || !data) return <ErrorState message="Match not found." />
 
-  const { match, teamAStats, teamBStats } = data
+  const { match } = data
   const isCompleted = match.status === 'COMPLETED'
+  const isLive = !isCompleted && liveRows.length > 0
+
+  // While a scorekeeper is tracking the match, show the live numbers instead.
+  const teamAStats = isLive ? liveRows.filter((s) => s.team_id === match.team_a_id) : data.teamAStats
+  const teamBStats = isLive ? liveRows.filter((s) => s.team_id === match.team_b_id) : data.teamBStats
+  const showScores = isCompleted || isLive
 
   const teamATotals = sumStats(teamAStats)
   const teamBTotals = sumStats(teamBStats)
@@ -51,14 +61,20 @@ export default function MatchScorecard() {
           </div>
           <div className="flex items-center justify-center gap-2 sm:gap-6">
             <TeamHero team={match.team_a} />
-            {isCompleted ? <ScoreValue value={match.team_a_score} /> : null}
+            {showScores ? <ScoreValue value={isLive ? teamATotals.flags : match.team_a_score} /> : null}
             <div className="flex shrink-0 flex-col items-center gap-2">
               <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white/40 font-display text-sm font-extrabold text-white sm:h-12 sm:w-12">
                 {isCompleted ? 'FT' : 'VS'}
               </span>
-              <StatusBadge status={match.status} />
+              {isLive ? (
+                <span className="flex items-center gap-1.5 rounded-full bg-red-600 px-2.5 py-0.5 text-xs font-bold text-white">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-white" /> LIVE
+                </span>
+              ) : (
+                <StatusBadge status={match.status} />
+              )}
             </div>
-            {isCompleted ? <ScoreValue value={match.team_b_score} accent /> : null}
+            {showScores ? <ScoreValue value={isLive ? teamBTotals.flags : match.team_b_score} accent /> : null}
             <TeamHero team={match.team_b} />
           </div>
           {isCompleted && match.team_a_score != null && match.team_b_score != null && match.team_a_score !== match.team_b_score ? (
@@ -73,10 +89,15 @@ export default function MatchScorecard() {
               Match MVP: {match.mvp_player.name}
             </p>
           ) : null}
+          {isLive ? (
+            <p className="mt-4 text-center text-xs font-semibold text-primary-100">
+              Live stats from the match spectator — updating automatically. Final result after the match.
+            </p>
+          ) : null}
         </div>
       </Card>
 
-      {isCompleted ? (
+      {showScores ? (
         <Card>
           <CardHeader>
             <CardTitle>Team Comparison</CardTitle>
@@ -179,6 +200,57 @@ function TeamStatBar({
       </div>
     </div>
   )
+}
+
+/**
+ * Live rows (banked + current session) for a match a scorekeeper is tracking,
+ * kept up to date over Realtime. When the session is submitted the page data
+ * is reloaded so the final result replaces the live view.
+ */
+function useLiveRows(matchId: string, enabled: boolean, onSubmitted: () => void): MatchPlayerStatWithPlayer[] {
+  const [rows, setRows] = useState<MatchPlayerStatWithPlayer[]>([])
+
+  useEffect(() => {
+    if (!enabled) {
+      setRows([])
+      return
+    }
+    let active = true
+    const load = async () => {
+      const view = await getPublicLiveView(matchId)
+      if (!active) return
+      if (view.session?.status === 'SUBMITTED') {
+        setRows([])
+        onSubmitted()
+        return
+      }
+      setRows(view.session ? view.rows.map(toStatRow) : [])
+    }
+    load()
+    const unsubscribe = subscribeLiveStats(matchId, load)
+    return () => {
+      active = false
+      unsubscribe()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [matchId, enabled])
+
+  return rows
+}
+
+function toStatRow(r: LiveStatWithPlayer): MatchPlayerStatWithPlayer {
+  return {
+    id: `live-${r.player_id}`,
+    match_id: r.match_id,
+    player_id: r.player_id,
+    team_id: r.team_id,
+    kills: r.banked_kills + r.cur_kills,
+    deaths: r.banked_deaths + r.cur_deaths,
+    flags: r.banked_flags + r.cur_flags,
+    created_at: r.updated_at,
+    updated_at: r.updated_at,
+    player: r.player,
+  }
 }
 
 function sumStats(rows: MatchPlayerStatWithPlayer[]) {

@@ -4,6 +4,8 @@ import { AdminLayout } from '@/layouts/AdminLayout'
 import { OwnerLayout } from '@/layouts/OwnerLayout'
 import { RequireAdmin } from '@/components/layout/RequireAdmin'
 import { RequireOwner } from '@/components/layout/RequireOwner'
+import { RequireScorekeeper } from '@/components/layout/RequireScorekeeper'
+import { ScorekeeperLayout } from '@/layouts/ScorekeeperLayout'
 
 import Home from '@/pages/public/Home'
 import Matches from '@/pages/public/Matches'
@@ -39,6 +41,10 @@ import OwnerClaim from '@/pages/owner/OwnerClaim'
 import OwnerStrategyConfig from '@/pages/owner/OwnerStrategyConfig'
 import OwnerRetention from '@/pages/owner/OwnerRetention'
 import OwnerAuction from '@/pages/owner/OwnerAuction'
+
+import ScorekeeperLogin from '@/pages/scorekeeper/ScorekeeperLogin'
+import ScorekeeperMatches from '@/pages/scorekeeper/ScorekeeperMatches'
+import ScorekeeperTracker from '@/pages/scorekeeper/ScorekeeperTracker'
 
 export default function App() {
   return (
@@ -89,6 +95,15 @@ export default function App() {
           <Route path="/owner/strategy" element={<OwnerStrategyConfig />} />
           <Route path="/owner/retention" element={<OwnerRetention />} />
           <Route path="/owner/auction" element={<OwnerAuction />} />
+        </Route>
+      </Route>
+
+      <Route path="/scorekeeper/login" element={<ScorekeeperLogin />} />
+
+      <Route element={<RequireScorekeeper />}>
+        <Route element={<ScorekeeperLayout />}>
+          <Route path="/scorekeeper" element={<ScorekeeperMatches />} />
+          <Route path="/scorekeeper/matches/:matchId" element={<ScorekeeperTracker />} />
         </Route>
       </Route>
     </Routes>
