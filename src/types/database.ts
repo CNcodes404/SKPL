@@ -523,14 +523,44 @@ export interface Database {
         Row: {
           user_id: string
           display_name: string | null
+          email: string | null
           created_at: string
         }
         Insert: {
           user_id: string
           display_name?: string | null
+          email?: string | null
           created_at?: string
         }
         Update: Partial<Database['public']['Tables']['scorekeeper_profiles']['Insert']>
+        Relationships: []
+      }
+      scorekeeper_invites: {
+        Row: {
+          id: string
+          token: string
+          email: string
+          display_name: string | null
+          created_at: string
+          created_by: string | null
+          expires_at: string
+          used_at: string | null
+          used_by: string | null
+          revoked_at: string | null
+        }
+        Insert: {
+          id?: string
+          token?: string
+          email: string
+          display_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string
+          used_at?: string | null
+          used_by?: string | null
+          revoked_at?: string | null
+        }
+        Update: Partial<Database['public']['Tables']['scorekeeper_invites']['Insert']>
         Relationships: []
       }
       match_live_sessions: {
@@ -770,6 +800,18 @@ export interface Database {
       is_scorekeeper: {
         Args: Record<string, never>
         Returns: boolean
+      }
+      get_scorekeeper_invite_info: {
+        Args: { p_token: string }
+        Returns: { email: string | null; display_name: string | null; valid: boolean; reason: string | null }[]
+      }
+      claim_scorekeeper_invite: {
+        Args: { p_token: string; p_user_id: string }
+        Returns: undefined
+      }
+      remove_scorekeeper: {
+        Args: { p_user_id: string }
+        Returns: undefined
       }
       claim_live_match: {
         Args: { p_match_id: string }

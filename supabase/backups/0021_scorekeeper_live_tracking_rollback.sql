@@ -1,12 +1,21 @@
--- Rollback for migrations/0021_scorekeeper_live_tracking.sql.
+-- Rollback for migrations/0021_scorekeeper_live_tracking.sql and
+-- migrations/0022_scorekeeper_invites.sql.
 --
 -- 0021 only adds new objects, so undoing it is just dropping them. Existing
 -- tables (matches, match_player_stats, …) are untouched by this script: any
 -- result a scorekeeper already submitted stays, and can be edited or cleared
 -- from the admin match page as usual.
 --
--- Run in the Supabase SQL Editor.
+-- Run in the Supabase SQL Editor. It also undoes 0022_scorekeeper_invites.sql
+-- (safe to run whether or not 0022 was applied).
 
+-- 0022: spectator invites
+drop function if exists remove_scorekeeper(uuid);
+drop function if exists claim_scorekeeper_invite(uuid, uuid);
+drop function if exists get_scorekeeper_invite_info(uuid);
+drop table if exists scorekeeper_invites;
+
+-- 0021: live tracking
 alter publication supabase_realtime drop table match_live_stats;
 alter publication supabase_realtime drop table match_live_sessions;
 

@@ -109,7 +109,8 @@ cannot delete anything or touch Completed/Cancelled matches (see `0021_scorekeep
 
 **One-time setup**
 
-1. Apply `supabase/migrations/0021_scorekeeper_live_tracking.sql` in the SQL Editor.
+1. Apply `supabase/migrations/0021_scorekeeper_live_tracking.sql` and then
+   `supabase/migrations/0022_scorekeeper_invites.sql` in the SQL Editor.
 2. Deploy the Edge Function and set its Gemini key (free key from Google AI Studio):
 
    ```bash
@@ -121,13 +122,13 @@ cannot delete anything or touch Completed/Cancelled matches (see `0021_scorekeep
 
    (`--no-verify-jwt` is intended: the function verifies the caller's session itself and only answers
    scorekeepers and admins.)
-3. For each spectator: Authentication → Users → **Add user**, copy the UUID, then run:
+3. Add spectators from the admin panel: **Admin → Spectators**, enter their email (and optionally a name), and
+   send them the invite link. They open it, set a password, and can sign in at `/scorekeeper/login`. The link
+   works for 7 days, only for that email, and only once. **Remove** deletes the spectator's login (if the same
+   login is also an admin or team owner, only the spectator access is removed).
 
-   ```sql
-   insert into scorekeeper_profiles (user_id, display_name) values ('paste-the-uuid-here', 'Spectator 1');
-   ```
-
-To undo the database part, run `supabase/backups/0021_scorekeeper_live_tracking_rollback.sql`.
+To undo the database part, run `supabase/backups/0021_scorekeeper_live_tracking_rollback.sql` (covers 0021 and
+0022).
 
 **On match day (spectator)**
 

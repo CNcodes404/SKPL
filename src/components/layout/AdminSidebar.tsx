@@ -8,6 +8,7 @@ import {
   Swords,
   Zap,
   Globe,
+  Radio,
   LogOut,
   Menu,
   X,
@@ -22,6 +23,7 @@ const LINKS = [
   { to: '/admin/players', label: 'Players', icon: UserRound },
   { to: '/admin/matches', label: 'Matches', icon: Swords },
   { to: '/admin/exhibitions', label: 'Exhibitions', icon: Zap },
+  { to: '/admin/spectators', label: 'Spectators', icon: Radio },
 ]
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {

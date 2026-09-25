@@ -35,6 +35,7 @@ import AdminMatches from '@/pages/admin/AdminMatches'
 import AdminMatchDetail from '@/pages/admin/AdminMatchDetail'
 import AdminExhibitions from '@/pages/admin/AdminExhibitions'
 import AdminExhibitionDetail from '@/pages/admin/AdminExhibitionDetail'
+import AdminSpectators from '@/pages/admin/AdminSpectators'
 
 import OwnerLogin from '@/pages/owner/OwnerLogin'
 import OwnerClaim from '@/pages/owner/OwnerClaim'
@@ -43,6 +44,7 @@ import OwnerRetention from '@/pages/owner/OwnerRetention'
 import OwnerAuction from '@/pages/owner/OwnerAuction'
 
 import ScorekeeperLogin from '@/pages/scorekeeper/ScorekeeperLogin'
+import ScorekeeperClaim from '@/pages/scorekeeper/ScorekeeperClaim'
 import ScorekeeperMatches from '@/pages/scorekeeper/ScorekeeperMatches'
 import ScorekeeperTracker from '@/pages/scorekeeper/ScorekeeperTracker'
 
@@ -84,6 +86,7 @@ export default function App() {
           <Route path="/admin/matches/:matchId" element={<AdminMatchDetail />} />
           <Route path="/admin/exhibitions" element={<AdminExhibitions />} />
           <Route path="/admin/exhibitions/:matchId" element={<AdminExhibitionDetail />} />
+          <Route path="/admin/spectators" element={<AdminSpectators />} />
         </Route>
       </Route>
 
@@ -99,6 +102,7 @@ export default function App() {
       </Route>
 
       <Route path="/scorekeeper/login" element={<ScorekeeperLogin />} />
+      <Route path="/scorekeeper/claim/:token" element={<ScorekeeperClaim />} />
 
       <Route element={<RequireScorekeeper />}>
         <Route element={<ScorekeeperLayout />}>
