@@ -29,6 +29,7 @@ export type SeasonRetention = Database['public']['Tables']['season_retentions'][
 export type SeasonAuction = Database['public']['Tables']['season_auctions']['Row']
 export type MatchLiveSession = Database['public']['Tables']['match_live_sessions']['Row']
 export type MatchLiveStat = Database['public']['Tables']['match_live_stats']['Row']
+export type MatchSubstitute = Database['public']['Tables']['match_substitutes']['Row']
 
 export type {
   AuctionModeType,
@@ -122,6 +123,8 @@ export interface PlayerSeasonStats {
   player: Player
   team: Team | null
   is_captain: boolean
+  /** Played for this team as a substitute (not on its season roster). */
+  is_sub?: boolean
   matchesPlayed: number
   kills: number
   deaths: number

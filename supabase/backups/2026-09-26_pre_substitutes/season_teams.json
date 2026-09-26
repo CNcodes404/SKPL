@@ -1,0 +1,114 @@
+[
+ {
+  "id": "02a642c6-9361-4035-8d5a-6b20dc92cc67",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "purse_total": 0,
+  "purse_remaining": 0,
+  "retention_submitted": false
+ },
+ {
+  "id": "25079f14-a72a-4ce0-bac0-0e10b3222419",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "purse_total": 0,
+  "purse_remaining": 0,
+  "retention_submitted": false
+ },
+ {
+  "id": "2b14ec19-a2a4-40af-824f-34846207e8b1",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "purse_total": 30000001,
+  "purse_remaining": 5200000,
+  "retention_submitted": false
+ },
+ {
+  "id": "2cd7f9c5-408d-4a8e-a97b-9f98655a5cab",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "61d5c4d9-0ec8-4e9e-9037-80319604a119",
+  "purse_total": 0,
+  "purse_remaining": 0,
+  "retention_submitted": false
+ },
+ {
+  "id": "317acc25-ad53-4080-b49a-95f51cb5184b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "purse_total": 43000000,
+  "purse_remaining": 7800000,
+  "retention_submitted": false
+ },
+ {
+  "id": "3bf8ac9f-5d03-4054-9111-11e27c73c7e5",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "purse_total": 0,
+  "purse_remaining": 0,
+  "retention_submitted": false
+ },
+ {
+  "id": "3e97d568-5a1e-4587-bce6-dcd3a0cde5e2",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "purse_total": 30000001,
+  "purse_remaining": 1400000,
+  "retention_submitted": false
+ },
+ {
+  "id": "4f0b6206-8e87-4dc2-b994-07c412a93696",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "61d5c4d9-0ec8-4e9e-9037-80319604a119",
+  "purse_total": 0,
+  "purse_remaining": 0,
+  "retention_submitted": false
+ },
+ {
+  "id": "5a3fa269-335d-4eee-9b86-abcc52e8b20e",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "purse_total": 30000001,
+  "purse_remaining": 8800000,
+  "retention_submitted": false
+ },
+ {
+  "id": "619dca9e-7992-4dd9-a959-6accba274df3",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "purse_total": 0,
+  "purse_remaining": 0,
+  "retention_submitted": false
+ },
+ {
+  "id": "8bebfc10-3378-49f9-8534-b587f0280373",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "purse_total": 0,
+  "purse_remaining": 0,
+  "retention_submitted": false
+ },
+ {
+  "id": "9ff0f6e6-a070-40ea-9521-841e8c740685",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "purse_total": 43000000,
+  "purse_remaining": 10400000,
+  "retention_submitted": false
+ },
+ {
+  "id": "aec4dfda-acd5-4fd5-ada7-7befb8b71852",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "purse_total": 0,
+  "purse_remaining": 0,
+  "retention_submitted": false
+ },
+ {
+  "id": "f5c0d745-3546-40ce-9139-8410cd5f1fa6",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "purse_total": 43000000,
+  "purse_remaining": 4800015,
+  "retention_submitted": false
+ }
+]

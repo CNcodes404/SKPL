@@ -1,0 +1,42 @@
+[
+ {
+  "id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "name": "Skull Crushers",
+  "short_name": "SC",
+  "logo_url": "https://jcvmuiymyiucnqsgpoex.supabase.co/storage/v1/object/public/media/teams/1787314036216-etbzj6yf.png",
+  "description": null,
+  "is_active": true,
+  "created_at": "2026-08-21T05:25:04.634223+00:00",
+  "updated_at": "2026-08-21T12:07:18.629515+00:00"
+ },
+ {
+  "id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "name": "Leo Lions",
+  "short_name": "LEO",
+  "logo_url": "https://jcvmuiymyiucnqsgpoex.supabase.co/storage/v1/object/public/media/teams/1788315385668-qxlnvdi6.jpg",
+  "description": null,
+  "is_active": true,
+  "created_at": "2026-08-21T05:25:04.634223+00:00",
+  "updated_at": "2026-09-02T02:16:28.452481+00:00"
+ },
+ {
+  "id": "61d5c4d9-0ec8-4e9e-9037-80319604a119",
+  "name": "Flag Smugglers",
+  "short_name": "FS",
+  "logo_url": "https://jcvmuiymyiucnqsgpoex.supabase.co/storage/v1/object/public/media/teams/1787314174365-593on0xd.webp",
+  "description": null,
+  "is_active": true,
+  "created_at": "2026-08-21T05:25:04.634223+00:00",
+  "updated_at": "2026-08-21T12:09:36.466105+00:00"
+ },
+ {
+  "id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "name": "Chaos Crew",
+  "short_name": "CC",
+  "logo_url": "https://jcvmuiymyiucnqsgpoex.supabase.co/storage/v1/object/public/media/teams/1787314095690-chlbjn3i.jpg",
+  "description": null,
+  "is_active": true,
+  "created_at": "2026-08-21T05:25:04.634223+00:00",
+  "updated_at": "2026-08-21T12:08:17.377775+00:00"
+ }
+]

@@ -535,6 +535,24 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['scorekeeper_profiles']['Insert']>
         Relationships: []
       }
+      match_substitutes: {
+        Row: {
+          match_id: string
+          player_id: string
+          team_id: string
+          created_by: string | null
+          created_at: string
+        }
+        Insert: {
+          match_id: string
+          player_id: string
+          team_id: string
+          created_by?: string | null
+          created_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['match_substitutes']['Insert']>
+        Relationships: []
+      }
       scorekeeper_invites: {
         Row: {
           id: string
@@ -811,6 +829,14 @@ export interface Database {
       }
       remove_scorekeeper: {
         Args: { p_user_id: string }
+        Returns: undefined
+      }
+      add_match_substitute: {
+        Args: { p_match_id: string; p_player_id: string; p_team_id: string }
+        Returns: undefined
+      }
+      remove_match_substitute: {
+        Args: { p_match_id: string; p_player_id: string }
         Returns: undefined
       }
       claim_live_match: {

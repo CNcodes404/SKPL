@@ -9,6 +9,7 @@ import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
 import { getMatch, getMatchStatsWithPlayers, type MatchPlayerStatWithPlayer } from '@/services/matches'
 import { getPublicLiveView, subscribeLiveStats, type LiveStatWithPlayer } from '@/services/scorekeeper'
+import { listMatchSubstitutes } from '@/services/substitutes'
 import { formatDateTime, cn } from '@/lib/utils'
 import { formatKD } from '@/utils/calculations'
 import { MATCH_TYPE_LABELS } from '@/types'
@@ -19,9 +20,10 @@ export default function MatchScorecard() {
   const { data, loading, error, reload } = useAsync(async () => {
     const match = await getMatch(matchId)
     if (!match) return null
-    const stats = await getMatchStatsWithPlayers(matchId)
+    const [stats, subs] = await Promise.all([getMatchStatsWithPlayers(matchId), listMatchSubstitutes(matchId)])
     return {
       match,
+      subIds: new Set(subs.map((s) => s.player_id)),
       teamAStats: stats.filter((s) => s.team_id === match.team_a_id),
       teamBStats: stats.filter((s) => s.team_id === match.team_b_id),
     }
@@ -137,8 +139,8 @@ export default function MatchScorecard() {
       ) : null}
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <PlayerStatsCard teamLabel={match.team_a.name} rows={teamAStats} />
-        <PlayerStatsCard teamLabel={match.team_b.name} rows={teamBStats} />
+        <PlayerStatsCard teamLabel={match.team_a.name} rows={teamAStats} subIds={data.subIds} />
+        <PlayerStatsCard teamLabel={match.team_b.name} rows={teamBStats} subIds={data.subIds} />
       </div>
     </div>
   )
@@ -260,7 +262,15 @@ function sumStats(rows: MatchPlayerStatWithPlayer[]) {
   )
 }
 
-function PlayerStatsCard({ teamLabel, rows }: { teamLabel: string; rows: MatchPlayerStatWithPlayer[] }) {
+function PlayerStatsCard({
+  teamLabel,
+  rows,
+  subIds,
+}: {
+  teamLabel: string
+  rows: MatchPlayerStatWithPlayer[]
+  subIds: Set<string>
+}) {
   return (
     <Card>
       <CardHeader>
@@ -287,6 +297,9 @@ function PlayerStatsCard({ teamLabel, rows }: { teamLabel: string; rows: MatchPl
                     <div className="flex items-center gap-2">
                       <PlayerAvatar name={row.player.name} imageUrl={row.player.image_url} className="h-7 w-7 text-[10px]" />
                       <span className="font-medium text-primary-900">{row.player.name}</span>
+                      {subIds.has(row.player_id) ? (
+                        <span className="rounded-full bg-accent-100 px-1.5 py-0.5 text-[10px] font-bold text-accent-800">SUB</span>
+                      ) : null}
                     </div>
                   </TableCell>
                   <TableCell className="text-center">{row.kills}</TableCell>

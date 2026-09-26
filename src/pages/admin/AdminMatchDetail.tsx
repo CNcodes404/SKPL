@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Save, Ban, AlertCircle, ImageUp, Copy, Check, Wand2 } from 'lucide-react'
+import { Save, Ban, AlertCircle, ImageUp, Copy, Check, Wand2, UserPlus, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -12,10 +12,12 @@ import { PlayerAvatar } from '@/components/shared/Avatar'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
-import { getMatch, getMatchStats, saveMatchResult, updateMatchSchedule } from '@/services/matches'
+import { getMatch, getMatchStatsWithPlayers, saveMatchResult, updateMatchSchedule } from '@/services/matches'
 import { getSeasonRoster } from '@/services/seasons'
+import { listPlayers } from '@/services/players'
+import { addMatchSubstitute, listMatchSubstitutes, removeMatchSubstitute } from '@/services/substitutes'
 import { formatDateTime } from '@/lib/utils'
-import { MATCH_TYPE_LABELS } from '@/types'
+import { MATCH_TYPE_LABELS, type Player } from '@/types'
 import { validateMatchEntry } from '@/utils/validation'
 import {
   parseImportJson,
@@ -31,50 +33,118 @@ interface StatRow {
   flags: number
 }
 
+/** A player in one side of the match: from the team's season roster, or a substitute for this match only. */
+interface SquadEntry {
+  player: Player
+  isSub: boolean
+}
+
+interface SubEntry {
+  player: Player
+  team_id: string
+}
+
 export default function AdminMatchDetail() {
   const { matchId = '' } = useParams()
 
   const { data, loading, error, reload } = useAsync(async () => {
     const match = await getMatch(matchId)
     if (!match || !match.season_id) return null
-    const [roster, existingStats] = await Promise.all([getSeasonRoster(match.season_id), getMatchStats(matchId)])
+    const [roster, existingStats, substitutes, activePlayers] = await Promise.all([
+      getSeasonRoster(match.season_id),
+      getMatchStatsWithPlayers(matchId),
+      listMatchSubstitutes(matchId),
+      listPlayers(),
+    ])
 
     const teamARoster = roster.filter((r) => r.team_id === match.team_a_id)
     const teamBRoster = roster.filter((r) => r.team_id === match.team_b_id)
+    const rosterIds = new Set([...teamARoster, ...teamBRoster].map((r) => r.player.id))
 
-    return { match, teamARoster, teamBRoster, existingStats }
+    // Substitutes: the recorded ones, plus any saved stats row for a player
+    // who isn't on either roster (so a re-save never silently drops them).
+    const subs: SubEntry[] = substitutes
+      .filter((s) => !rosterIds.has(s.player_id))
+      .map((s) => ({ player: s.player, team_id: s.team_id }))
+    for (const s of existingStats) {
+      if (!rosterIds.has(s.player_id) && !subs.some((x) => x.player.id === s.player_id)) {
+        subs.push({ player: s.player, team_id: s.team_id })
+      }
+    }
+
+    return { match, teamARoster, teamBRoster, existingStats, subs, activePlayers }
   }, [matchId])
 
   const [teamAScore, setTeamAScore] = useState<number | ''>('')
   const [teamBScore, setTeamBScore] = useState<number | ''>('')
   const [stats, setStats] = useState<Record<string, StatRow>>({})
+  const [subs, setSubs] = useState<SubEntry[]>([])
   const [mvpPlayerId, setMvpPlayerId] = useState<string>('NONE')
   const [errors, setErrors] = useState<string[]>([])
   const [saving, setSaving] = useState(false)
   const [initialized, setInitialized] = useState(false)
+  const [loadedData, setLoadedData] = useState(data)
 
-  const rosterPlayerIds = useMemo(
-    () => new Set([...(data?.teamARoster ?? []), ...(data?.teamBRoster ?? [])].map((r) => r.player.id)),
-    [data],
-  )
-
-  if (!loading && data && !initialized) {
+  // Re-seed the form whenever a fresh load arrives (first load, and after save).
+  if (!loading && data && (!initialized || loadedData !== data)) {
+    setLoadedData(data)
     setTeamAScore(data.match.team_a_score ?? '')
     setTeamBScore(data.match.team_b_score ?? '')
     setMvpPlayerId(data.match.mvp_player_id ?? 'NONE')
     const initialStats: Record<string, StatRow> = {}
-    for (const playerId of rosterPlayerIds) {
+    const ids = [...data.teamARoster, ...data.teamBRoster, ...data.subs].map((r) => r.player.id)
+    for (const playerId of ids) {
       const existing = data.existingStats.find((s) => s.player_id === playerId)
       initialStats[playerId] = existing
         ? { kills: existing.kills, deaths: existing.deaths, flags: existing.flags }
         : { kills: 0, deaths: 0, flags: 0 }
     }
     setStats(initialStats)
+    setSubs(data.subs)
     setInitialized(true)
   }
 
+  const squadFor = (side: 'A' | 'B'): SquadEntry[] => {
+    if (!data) return []
+    const teamId = side === 'A' ? data.match.team_a_id : data.match.team_b_id
+    const roster = side === 'A' ? data.teamARoster : data.teamBRoster
+    return [
+      ...roster.map((r) => ({ player: r.player, isSub: false })),
+      ...subs.filter((s) => s.team_id === teamId).map((s) => ({ player: s.player, isSub: true })),
+    ]
+  }
+  const teamA = squadFor('A')
+  const teamB = squadFor('B')
+
   function updateStat(playerId: string, field: keyof StatRow, value: number) {
     setStats((prev) => ({ ...prev, [playerId]: { ...prev[playerId], [field]: value } }))
+  }
+
+  async function handleAddSub(teamId: string, player: Player) {
+    setErrors([])
+    try {
+      await addMatchSubstitute(matchId, player.id, teamId)
+      setSubs((prev) => [...prev.filter((s) => s.player.id !== player.id), { player, team_id: teamId }])
+      setStats((prev) => ({ ...prev, [player.id]: prev[player.id] ?? { kills: 0, deaths: 0, flags: 0 } }))
+    } catch (err) {
+      setErrors([err instanceof Error ? err.message : 'Unable to add the substitute.'])
+    }
+  }
+
+  async function handleRemoveSub(playerId: string) {
+    setErrors([])
+    try {
+      await removeMatchSubstitute(matchId, playerId)
+      setSubs((prev) => prev.filter((s) => s.player.id !== playerId))
+      setStats((prev) => {
+        const next = { ...prev }
+        delete next[playerId]
+        return next
+      })
+      if (mvpPlayerId === playerId) setMvpPlayerId('NONE')
+    } catch (err) {
+      setErrors([err instanceof Error ? err.message : 'Unable to remove the substitute.'])
+    }
   }
 
   function handleApplyImport(rows: { playerId: string; kills: number; deaths: number; flags: number }[]) {
@@ -83,17 +153,17 @@ export default function AdminMatchDetail() {
     for (const r of rows) merged[r.playerId] = { kills: r.kills, deaths: r.deaths, flags: r.flags }
     setStats(merged)
 
-    const sumFlags = (roster: typeof data.teamARoster) =>
-      roster.reduce((sum, entry) => sum + (merged[entry.player.id]?.flags ?? 0), 0)
-    setTeamAScore(sumFlags(data.teamARoster))
-    setTeamBScore(sumFlags(data.teamBRoster))
+    const sumFlags = (squad: SquadEntry[]) => squad.reduce((sum, entry) => sum + (merged[entry.player.id]?.flags ?? 0), 0)
+    setTeamAScore(sumFlags(teamA))
+    setTeamBScore(sumFlags(teamB))
     setErrors([])
   }
 
   async function handleSave() {
     if (!data) return
-    const teamAStats = data.teamARoster.map((r) => ({ player_id: r.player.id, ...stats[r.player.id] }))
-    const teamBStats = data.teamBRoster.map((r) => ({ player_id: r.player.id, ...stats[r.player.id] }))
+    const zero = { kills: 0, deaths: 0, flags: 0 }
+    const teamAStats = teamA.map((r) => ({ player_id: r.player.id, ...(stats[r.player.id] ?? zero) }))
+    const teamBStats = teamB.map((r) => ({ player_id: r.player.id, ...(stats[r.player.id] ?? zero) }))
 
     const validationErrors = validateMatchEntry({
       teamAScore: Number(teamAScore) || 0,
@@ -138,12 +208,14 @@ export default function AdminMatchDetail() {
   if (loading) return <LoadingState rows={6} />
   if (error || !data) return <ErrorState message="Match not found." />
 
-  const { match, teamARoster, teamBRoster } = data
-  const allRosterPlayers = [...teamARoster, ...teamBRoster].map((r) => r.player)
+  const { match } = data
+  const allMatchPlayers = [...teamA, ...teamB].map((r) => r.player)
+  const inMatchIds = new Set(allMatchPlayers.map((p) => p.id))
+  const subCandidates = data.activePlayers.filter((p) => !inMatchIds.has(p.id))
 
   const rosterOptions: RosterPlayerOption[] = [
-    ...teamARoster.map((r) => ({ id: r.player.id, name: r.player.name, game_name: r.player.game_name, team_id: match.team_a_id })),
-    ...teamBRoster.map((r) => ({ id: r.player.id, name: r.player.name, game_name: r.player.game_name, team_id: match.team_b_id })),
+    ...teamA.map((r) => ({ id: r.player.id, name: r.player.name, game_name: r.player.game_name, team_id: match.team_a_id })),
+    ...teamB.map((r) => ({ id: r.player.id, name: r.player.name, game_name: r.player.game_name, team_id: match.team_b_id })),
   ]
   const teamLabelById: Record<string, string> = {
     [match.team_a_id]: match.team_a.short_name,
@@ -197,8 +269,24 @@ export default function AdminMatchDetail() {
       </Card>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <PlayerStatsTable teamLabel={match.team_a.name} roster={teamARoster} stats={stats} onChange={updateStat} />
-        <PlayerStatsTable teamLabel={match.team_b.name} roster={teamBRoster} stats={stats} onChange={updateStat} />
+        <PlayerStatsTable
+          teamLabel={match.team_a.name}
+          squad={teamA}
+          stats={stats}
+          onChange={updateStat}
+          candidates={subCandidates}
+          onAddSub={(p) => handleAddSub(match.team_a_id, p)}
+          onRemoveSub={handleRemoveSub}
+        />
+        <PlayerStatsTable
+          teamLabel={match.team_b.name}
+          squad={teamB}
+          stats={stats}
+          onChange={updateStat}
+          candidates={subCandidates}
+          onAddSub={(p) => handleAddSub(match.team_b_id, p)}
+          onRemoveSub={handleRemoveSub}
+        />
       </div>
 
       <Card>
@@ -212,7 +300,7 @@ export default function AdminMatchDetail() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="NONE">Not selected</SelectItem>
-              {allRosterPlayers.map((p) => (
+              {allMatchPlayers.map((p) => (
                 <SelectItem key={p.id} value={p.id}>
                   {p.name}
                 </SelectItem>
@@ -246,22 +334,77 @@ function ScoreInput({ label, value, onChange }: { label: string; value: number |
 
 function PlayerStatsTable({
   teamLabel,
-  roster,
+  squad,
   stats,
   onChange,
+  candidates,
+  onAddSub,
+  onRemoveSub,
 }: {
   teamLabel: string
-  roster: { player: { id: string; name: string; image_url: string | null } }[]
+  squad: SquadEntry[]
   stats: Record<string, StatRow>
   onChange: (playerId: string, field: keyof StatRow, value: number) => void
+  candidates: Player[]
+  onAddSub: (player: Player) => Promise<void>
+  onRemoveSub: (playerId: string) => Promise<void>
 }) {
+  const [picking, setPicking] = useState(false)
+  const [pickedId, setPickedId] = useState('')
+  const [adding, setAdding] = useState(false)
+
+  async function confirmAdd() {
+    const player = candidates.find((p) => p.id === pickedId)
+    if (!player) return
+    setAdding(true)
+    try {
+      await onAddSub(player)
+      setPicking(false)
+      setPickedId('')
+    } finally {
+      setAdding(false)
+    }
+  }
+
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-2">
         <CardTitle>{teamLabel}</CardTitle>
+        {!picking ? (
+          <Button type="button" size="sm" variant="outline" onClick={() => setPicking(true)}>
+            <UserPlus className="h-3.5 w-3.5" /> Add substitute
+          </Button>
+        ) : null}
       </CardHeader>
+      {picking ? (
+        <div className="mx-5 mb-4 flex flex-wrap items-center gap-2 rounded-md border border-border bg-secondary/40 p-3">
+          <Select value={pickedId} onValueChange={setPickedId}>
+            <SelectTrigger className="h-9 w-56">
+              <SelectValue placeholder="Choose a player…" />
+            </SelectTrigger>
+            <SelectContent>
+              {candidates.map((p) => (
+                <SelectItem key={p.id} value={p.id}>
+                  {p.name}
+                  {p.game_name && p.game_name.trim().toLowerCase() !== p.name.trim().toLowerCase() ? ` (${p.game_name})` : ''}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Button type="button" size="sm" onClick={confirmAdd} disabled={!pickedId || adding}>
+            {adding ? 'Adding…' : 'Add'}
+          </Button>
+          <Button type="button" size="sm" variant="ghost" onClick={() => setPicking(false)}>
+            Cancel
+          </Button>
+          <p className="w-full text-xs text-muted-foreground">
+            A substitute plays this match only, for {teamLabel}. Their stats count for {teamLabel} in this match and
+            towards their own career.
+          </p>
+        </div>
+      ) : null}
       <CardContent className="p-0">
-        {roster.length === 0 ? (
+        {squad.length === 0 ? (
           <p className="px-5 pb-5 text-sm text-muted-foreground">No roster found for this team.</p>
         ) : (
           <Table>
@@ -274,14 +417,28 @@ function PlayerStatsTable({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {roster.map(({ player }) => {
+              {squad.map(({ player, isSub }) => {
                 const row = stats[player.id] ?? { kills: 0, deaths: 0, flags: 0 }
                 return (
-                  <TableRow key={player.id}>
+                  <TableRow key={player.id} className={isSub ? 'bg-accent-50/60' : undefined}>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <PlayerAvatar name={player.name} imageUrl={player.image_url} className="h-7 w-7 text-[10px]" />
                         <span className="font-medium text-primary-900">{player.name}</span>
+                        {isSub ? (
+                          <>
+                            <span className="rounded-full bg-accent-100 px-1.5 py-0.5 text-[10px] font-bold text-accent-800">SUB</span>
+                            <button
+                              type="button"
+                              onClick={() => onRemoveSub(player.id)}
+                              className="rounded p-0.5 text-muted-foreground hover:bg-secondary hover:text-destructive"
+                              aria-label={`Remove substitute ${player.name}`}
+                              title="Remove substitute"
+                            >
+                              <X className="h-3.5 w-3.5" />
+                            </button>
+                          </>
+                        ) : null}
                       </div>
                     </TableCell>
                     {(['kills', 'deaths', 'flags'] as const).map((field) => (

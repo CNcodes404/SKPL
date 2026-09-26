@@ -13,7 +13,9 @@ import {
   Radio,
   Send,
   Square,
+  UserPlus,
   Wand2,
+  X,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -35,12 +37,15 @@ import {
   submitLiveResult,
   type TrackerRoster,
 } from '@/services/scorekeeper'
+import { addMatchSubstitute, removeMatchSubstitute } from '@/services/substitutes'
+import { listPlayers } from '@/services/players'
 import { formatDateTime, cn } from '@/lib/utils'
-import { MATCH_TYPE_LABELS, type MatchWithTeams } from '@/types'
+import { MATCH_TYPE_LABELS, type MatchWithTeams, type Player } from '@/types'
 import type { Json } from '@/types/database'
 import {
   applyLiveCapture,
   fmt,
+  matchRowToPlayer,
   mergeFinal,
   resolveRows,
   stateFromSaved,
@@ -104,8 +109,11 @@ export default function ScorekeeperTracker() {
   return <Tracker match={data.match} roster={data.roster} />
 }
 
-function Tracker({ match, roster }: { match: MatchWithTeams; roster: TrackerRoster }) {
+function Tracker({ match, roster: initialRoster }: { match: MatchWithTeams; roster: TrackerRoster }) {
   const [phase, setPhase] = useState<Phase>('setup')
+  // The roster can change mid-setup when a substitute is added or removed.
+  const [roster, setRoster] = useState<TrackerRoster>(initialRoster)
+  const { data: activePlayers } = useAsync(() => listPlayers(), [])
   const [claimError, setClaimError] = useState<string | null>(null)
   const [claimed, setClaimed] = useState(false)
 
@@ -309,6 +317,32 @@ function Tracker({ match, roster }: { match: MatchWithTeams; roster: TrackerRost
     return startWorkerTicker(TICK_MS, () => tickRef.current())
   }, [phase, stream])
 
+  async function handleAddSub(playerId: string, teamId: string) {
+    await addMatchSubstitute(match.id, playerId, teamId)
+    setRoster(await getTrackerRoster(match))
+    const team = teamId === match.team_a_id ? match.team_a : match.team_b
+    addLog(`${activePlayers?.find((p) => p.id === playerId)?.name ?? 'Player'} added as a substitute for ${team.name}.`)
+    setUnmatched((prev) =>
+      prev.filter((n) => {
+        const p = activePlayers?.find((x) => x.id === playerId)
+        const norm = n.trim().toLowerCase()
+        return !p || (norm !== p.name.trim().toLowerCase() && norm !== (p.game_name ?? '').trim().toLowerCase())
+      }),
+    )
+  }
+
+  async function handleRemoveSub(playerId: string) {
+    await removeMatchSubstitute(match.id, playerId)
+    setRoster(await getTrackerRoster(match))
+    // The database drops their live row; keep local state in step so the next save doesn't send them.
+    if (liveRef.current[playerId]) {
+      const next = { ...liveRef.current }
+      delete next[playerId]
+      setLive(next)
+    }
+    addLog(`${roster.players[playerId]?.name ?? 'Player'} removed as a substitute.`, 'warn')
+  }
+
   function togglePause() {
     pausedRef.current = !pausedRef.current
     setPaused(pausedRef.current)
@@ -390,7 +424,16 @@ function Tracker({ match, roster }: { match: MatchWithTeams; roster: TrackerRost
           </div>
           <div className="flex flex-col gap-6">
             <video ref={videoRef} muted playsInline className={cn('w-full rounded-lg border border-border bg-black', !stream && 'hidden')} />
-            {unmatched.length > 0 ? <UnmatchedCard names={unmatched} /> : null}
+            {unmatched.length > 0 ? (
+              <UnmatchedCard names={unmatched} match={match} activePlayers={activePlayers ?? []} roster={roster} onAddSub={handleAddSub} />
+            ) : null}
+            <SubstitutesCard
+              match={match}
+              roster={roster}
+              activePlayers={activePlayers ?? []}
+              onAdd={handleAddSub}
+              onRemove={handleRemoveSub}
+            />
             <LogCard log={log} />
           </div>
         </div>
@@ -597,7 +640,12 @@ function LiveTables({ match, roster, live }: { match: MatchWithTeams; roster: Tr
                       <TableRow key={p.id} className={cn(!state && 'opacity-50')}>
                         <TableCell>
                           <div className="flex flex-col">
-                            <span className="font-medium text-primary-900">{p.name}</span>
+                            <span className="flex items-center gap-1.5 font-medium text-primary-900">
+                              {p.name}
+                              {roster.subIds.includes(p.id) ? (
+                                <span className="rounded-full bg-accent-100 px-1.5 py-0.5 text-[10px] font-bold text-accent-800">SUB</span>
+                              ) : null}
+                            </span>
                             <span className="text-xs text-muted-foreground">
                               {p.game_name ?? 'no in-game name set'}
                               {state && !state.onBoard ? ' · left' : ''}
@@ -621,7 +669,38 @@ function LiveTables({ match, roster, live }: { match: MatchWithTeams; roster: Tr
   )
 }
 
-function UnmatchedCard({ names }: { names: string[] }) {
+function UnmatchedCard({
+  names,
+  match,
+  activePlayers,
+  roster,
+  onAddSub,
+}: {
+  names: string[]
+  match: MatchWithTeams
+  activePlayers: Player[]
+  roster: TrackerRoster
+  onAddSub: (playerId: string, teamId: string) => Promise<void>
+}) {
+  const [busy, setBusy] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const inMatch = new Set(roster.options.map((o) => o.id))
+  const candidates = activePlayers
+    .filter((p) => !inMatch.has(p.id))
+    .map((p) => ({ id: p.id, name: p.name, game_name: p.game_name, team_id: '' }))
+
+  async function add(name: string, playerId: string, teamId: string) {
+    setBusy(name)
+    setError(null)
+    try {
+      await onAddSub(playerId, teamId)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to add the substitute.')
+    } finally {
+      setBusy(null)
+    }
+  }
+
   return (
     <Card className="border-accent-300">
       <CardHeader>
@@ -629,16 +708,148 @@ function UnmatchedCard({ names }: { names: string[] }) {
           <AlertTriangle className="h-4 w-4 text-accent-600" /> Unknown names
         </CardTitle>
       </CardHeader>
-      <CardContent className="text-sm">
-        <p className="mb-2 text-muted-foreground">
-          These names didn't match any roster player, so their stats aren't counted. An admin can set the player's in-game
-          name to fix it.
+      <CardContent className="flex flex-col gap-2 text-sm">
+        <p className="text-muted-foreground">
+          These names didn't match anyone in this match, so their stats aren't counted yet. If it's a substitute, add them
+          below; otherwise an admin can fix the player's in-game name.
         </p>
-        <ul className="list-disc pl-5">
-          {names.map((n) => (
-            <li key={n}>{n}</li>
-          ))}
+        <ul className="flex flex-col gap-2">
+          {names.map((n) => {
+            const player = matchRowToPlayer(n, candidates)
+            return (
+              <li key={n} className="flex flex-col gap-1 rounded-md border border-border p-2">
+                <span className="font-semibold">{n}</span>
+                {player ? (
+                  <span className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
+                    Looks like {player.name}. Add as substitute for:
+                    {[match.team_a, match.team_b].map((team) => (
+                      <Button
+                        key={team.id}
+                        size="sm"
+                        variant="outline"
+                        className="h-7 px-2 text-xs"
+                        disabled={busy === n}
+                        onClick={() => add(n, player.id, team.id)}
+                      >
+                        {team.short_name}
+                      </Button>
+                    ))}
+                  </span>
+                ) : (
+                  <span className="text-xs text-muted-foreground">No active player has this name.</span>
+                )}
+              </li>
+            )
+          })}
         </ul>
+        {error ? <p className="text-xs font-semibold text-destructive">{error}</p> : null}
+      </CardContent>
+    </Card>
+  )
+}
+
+function SubstitutesCard({
+  match,
+  roster,
+  activePlayers,
+  onAdd,
+  onRemove,
+}: {
+  match: MatchWithTeams
+  roster: TrackerRoster
+  activePlayers: Player[]
+  onAdd: (playerId: string, teamId: string) => Promise<void>
+  onRemove: (playerId: string) => Promise<void>
+}) {
+  const [playerId, setPlayerId] = useState('')
+  const [teamId, setTeamId] = useState(match.team_a_id)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const inMatch = new Set(roster.options.map((o) => o.id))
+  const candidates = activePlayers.filter((p) => !inMatch.has(p.id))
+  const subs = roster.options.filter((o) => roster.subIds.includes(o.id))
+  const teamName = (id: string) => (id === match.team_a_id ? match.team_a.name : match.team_b.name)
+
+  async function run(action: () => Promise<void>) {
+    setBusy(true)
+    setError(null)
+    try {
+      await action()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong.')
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-base">
+          <UserPlus className="h-4 w-4 text-primary-700" /> Substitutes
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-3 text-sm">
+        {subs.length > 0 ? (
+          <ul className="flex flex-col gap-1.5">
+            {subs.map((s) => (
+              <li key={s.id} className="flex items-center justify-between gap-2 rounded-md bg-accent-50 px-2 py-1.5">
+                <span>
+                  <b>{s.name}</b> <span className="text-xs text-muted-foreground">for {teamName(s.team_id)}</span>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => run(() => onRemove(s.id))}
+                  disabled={busy}
+                  className="rounded p-0.5 text-muted-foreground hover:bg-secondary hover:text-destructive"
+                  aria-label={`Remove substitute ${s.name}`}
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-xs text-muted-foreground">No substitutes. Add one if a player outside the squads is playing.</p>
+        )}
+        <div className="flex flex-col gap-2">
+          <select
+            value={playerId}
+            onChange={(e) => setPlayerId(e.target.value)}
+            className="h-9 rounded-md border border-input bg-white px-2 text-sm"
+          >
+            <option value="">Choose a player…</option>
+            {candidates.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.name}
+                {p.game_name && p.game_name.trim().toLowerCase() !== p.name.trim().toLowerCase() ? ` (${p.game_name})` : ''}
+              </option>
+            ))}
+          </select>
+          <div className="flex gap-2">
+            <select
+              value={teamId}
+              onChange={(e) => setTeamId(e.target.value)}
+              className="h-9 flex-1 rounded-md border border-input bg-white px-2 text-sm"
+            >
+              <option value={match.team_a_id}>{match.team_a.name}</option>
+              <option value={match.team_b_id}>{match.team_b.name}</option>
+            </select>
+            <Button
+              size="sm"
+              onClick={() =>
+                run(async () => {
+                  await onAdd(playerId, teamId)
+                  setPlayerId('')
+                })
+              }
+              disabled={!playerId || busy}
+            >
+              Add
+            </Button>
+          </div>
+        </div>
+        {error ? <p className="text-xs font-semibold text-destructive">{error}</p> : null}
       </CardContent>
     </Card>
   )

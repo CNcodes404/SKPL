@@ -17,7 +17,7 @@ import { getTeam, listTeams, getTeamHistoricalSquad } from '@/services/teams'
 import { getPlayersCareerStats, listPlayers } from '@/services/players'
 import { listMatchesRaw, listStatsForSeason, listAllStats } from '@/services/matches'
 import { getSeasonTeams } from '@/services/seasons'
-import { getPlayerStatsForScope } from '@/services/stats'
+import { getTeamSeasonSquad } from '@/services/stats'
 import { computePlayerIndices } from '@/services/auctionValuation'
 import { computePlayerTier } from '@/utils/playerTier'
 import { calculateTeamStats, calculateWinRate, calculateKD, average } from '@/utils/calculations'
@@ -48,11 +48,11 @@ export default function TeamDetail() {
   const { data: seasonData, loading: statsLoading } = useAsync(async () => {
     if (!selected) return null
 
-    const [teams, matches, stats, playerStats] = await Promise.all([
+    const [teams, matches, stats, squadStats] = await Promise.all([
       isAll ? listTeams(true) : getSeasonTeams(selected),
       isAll ? listMatchesRaw(undefined, includeExhibitions) : listMatchesRaw(selected),
       isAll ? listAllStats(includeExhibitions) : listStatsForSeason(selected),
-      isAll ? Promise.resolve<PlayerSeasonStats[]>([]) : getPlayerStatsForScope(selected, includeExhibitions),
+      isAll ? Promise.resolve<PlayerSeasonStats[]>([]) : getTeamSeasonSquad(selected, teamId),
     ])
 
     // Ranking always reflects the squad selector's own scope (regular-season
@@ -83,7 +83,7 @@ export default function TeamDetail() {
     }
     if (!mine) return null
 
-    const seasonSquad = isAll ? [] : playerStats.filter((p) => p.team?.id === teamId)
+    const seasonSquad = squadStats
 
     return { mine, winsRank, killsRank, totalTeams: standingsTeamStats.length, seasonSquad }
   }, [selected, teamId, isAll, effectiveScope, includeExhibitions])
@@ -144,7 +144,7 @@ export default function TeamDetail() {
     const careerStats = await getPlayersCareerStats(ids, includeExhibitions)
     return seasonData.seasonSquad.map((p) => {
       const totals = careerStats[p.player.id] ?? { kills: 0, deaths: 0, flags: 0, matchesPlayed: 0 }
-      return { player: p.player, is_captain: p.is_captain, kills: totals.kills, deaths: totals.deaths, flags: totals.flags }
+      return { player: p.player, is_captain: p.is_captain, is_sub: p.is_sub, kills: totals.kills, deaths: totals.deaths, flags: totals.flags }
     })
   }, [isAll, effectiveScope, seasonData?.seasonSquad, includeExhibitions])
 
@@ -240,7 +240,7 @@ export default function TeamDetail() {
                 <EmptyState title="No squad on record for this season." />
               ) : (
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                  {seasonSquadAllTime.map(({ player, is_captain, kills, deaths, flags }) => (
+                  {seasonSquadAllTime.map(({ player, is_captain, is_sub, kills, deaths, flags }) => (
                     <PlayerCard
                       key={player.id}
                       playerId={player.id}
@@ -248,6 +248,7 @@ export default function TeamDetail() {
                       imageUrl={player.image_url}
                       role={player.role}
                       isCaptain={is_captain}
+                      isSub={is_sub}
                       kills={kills}
                       deaths={deaths}
                       flags={flags}
@@ -260,7 +261,7 @@ export default function TeamDetail() {
               <EmptyState title="No squad on record for this season." />
             ) : (
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {seasonData.seasonSquad.map(({ player, is_captain, kills, deaths, flags }) => (
+                {seasonData.seasonSquad.map(({ player, is_captain, is_sub, kills, deaths, flags }) => (
                   <PlayerCard
                     key={player.id}
                     playerId={player.id}
@@ -268,6 +269,7 @@ export default function TeamDetail() {
                     imageUrl={player.image_url}
                     role={player.role}
                     isCaptain={is_captain}
+                    isSub={is_sub}
                     kills={kills}
                     deaths={deaths}
                     flags={flags}

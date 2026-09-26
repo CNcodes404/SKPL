@@ -1,0 +1,560 @@
+[
+ {
+  "id": "045b0af6-0c37-4b0a-a25d-b05be2e6f5f6",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "is_captain": false,
+  "price": 5300000,
+  "created_at": "2026-09-25T16:00:17.474096+00:00"
+ },
+ {
+  "id": "0880d9fe-0eb1-4932-a83b-9e5b830a16a5",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "4755a906-9e35-4552-90cc-8b7bbc4b7add",
+  "is_captain": false,
+  "price": 1000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "091b43dc-3162-4995-867f-90eafc19807b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "is_captain": false,
+  "price": 2600000,
+  "created_at": "2026-09-04T12:25:09.9171+00:00"
+ },
+ {
+  "id": "1380a578-7c55-4db2-b8bb-b7d0e3eb8290",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "is_captain": false,
+  "price": 3000000,
+  "created_at": "2026-09-25T15:32:36.277381+00:00"
+ },
+ {
+  "id": "2482713f-3200-4e81-91eb-ff48543266a4",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "is_captain": false,
+  "price": 4000000,
+  "created_at": "2026-09-25T15:53:44.40522+00:00"
+ },
+ {
+  "id": "2dbac570-5f22-4cbd-b566-b638781301b6",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "is_captain": false,
+  "price": 10300000,
+  "created_at": "2026-09-04T12:16:56.111324+00:00"
+ },
+ {
+  "id": "33efaa67-e76a-47e8-8cae-3f867c107b7b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "is_captain": false,
+  "price": 3300000,
+  "created_at": "2026-09-04T12:09:32.733299+00:00"
+ },
+ {
+  "id": "3415b78a-109c-451e-a34b-a61d2c2685f8",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "61d5c4d9-0ec8-4e9e-9037-80319604a119",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "is_captain": false,
+  "price": 2000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "36d71269-1621-45b4-9e00-7ec9cdb56762",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "61d5c4d9-0ec8-4e9e-9037-80319604a119",
+  "player_id": "d86d764e-d98e-48a2-88a9-1353ad7febd3",
+  "is_captain": false,
+  "price": 2000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "38067929-5986-4dbf-b28a-722666a17c27",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "is_captain": true,
+  "price": 3000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "3ad5c5fb-cdac-40f8-97c9-36f65b35a4a8",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "61d5c4d9-0ec8-4e9e-9037-80319604a119",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "is_captain": false,
+  "price": 2000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "42efd718-8b6e-4f3c-b944-b9862902f018",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "is_captain": false,
+  "price": 11300000,
+  "created_at": "2026-09-04T12:24:04.753633+00:00"
+ },
+ {
+  "id": "43fb3d63-006b-459d-9548-38dfa02b3cb9",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "is_captain": false,
+  "price": 12900000,
+  "created_at": "2026-09-25T16:05:17.455605+00:00"
+ },
+ {
+  "id": "4514ab96-27bd-4d57-87ef-5a8faeeb9a13",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "f627df0e-1ce7-4b3a-9174-5287cf68d736",
+  "is_captain": false,
+  "price": 2000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "4c5de5ae-ee57-4183-a1bf-27b31b580239",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "is_captain": true,
+  "price": 1,
+  "created_at": "2026-09-04T12:07:06.840965+00:00"
+ },
+ {
+  "id": "4ff4e44e-abb3-4e68-81d9-1db1aeed744d",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "is_captain": false,
+  "price": 5000000,
+  "created_at": "2026-09-04T12:20:13.474654+00:00"
+ },
+ {
+  "id": "563c24a6-a7bd-45bc-bb8d-11d1a1133fcb",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "is_captain": false,
+  "price": 3000000,
+  "created_at": "2026-09-25T15:32:36.277381+00:00"
+ },
+ {
+  "id": "58931fe1-221e-4d3a-b598-15e3637a5856",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "1cd7d25a-c973-4d1f-b2c0-872e2ff6a6d3",
+  "is_captain": true,
+  "price": 2000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "5a19f0db-71ab-43c6-a477-9ec818d76706",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "f4f6eb97-a44b-447d-b5d7-944a109a5301",
+  "is_captain": false,
+  "price": 1000000,
+  "created_at": "2026-09-25T16:09:49.486681+00:00"
+ },
+ {
+  "id": "5c4118aa-badd-4c74-8cd1-112bcad81119",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "is_captain": false,
+  "price": 500000,
+  "created_at": "2026-09-04T12:28:01.799632+00:00"
+ },
+ {
+  "id": "5cc72e69-f016-4eb1-b331-70f6d3cb77ed",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "61d5c4d9-0ec8-4e9e-9037-80319604a119",
+  "player_id": "2451ec09-8759-4468-a32d-c9cb4eb5d9dc",
+  "is_captain": true,
+  "price": 1000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "5f7a134a-0c74-4d39-ab4f-c9b3f8877264",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "is_captain": false,
+  "price": 12400000,
+  "created_at": "2026-09-04T12:22:04.598931+00:00"
+ },
+ {
+  "id": "64abcba5-4306-4447-976c-e8ac46f1b3b4",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "b0810cf5-b874-4f7a-886d-1502cb7e51c5",
+  "is_captain": false,
+  "price": 500000,
+  "created_at": "2026-09-25T16:13:06.482751+00:00"
+ },
+ {
+  "id": "653227e0-f872-4517-8362-be3e0cb5de73",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "is_captain": false,
+  "price": 2000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "65b56039-085a-4bcd-82b8-a8b37cd7c860",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "2451ec09-8759-4468-a32d-c9cb4eb5d9dc",
+  "is_captain": false,
+  "price": 1000000,
+  "created_at": "2026-09-25T16:12:45.0197+00:00"
+ },
+ {
+  "id": "696b6cea-b3c6-49ca-af9e-8acaedc35d64",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "is_captain": false,
+  "price": 3000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "722ed1b6-7636-492a-b1bd-ded7e0c20179",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "is_captain": false,
+  "price": 16300000,
+  "created_at": "2026-09-04T12:12:13.965767+00:00"
+ },
+ {
+  "id": "73db8284-0f55-4866-86f4-d1bd595ceb90",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "is_captain": false,
+  "price": 1000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "78e99b7b-09da-4f60-93f5-cb4cb991c97c",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "1cd7d25a-c973-4d1f-b2c0-872e2ff6a6d3",
+  "is_captain": true,
+  "price": 1,
+  "created_at": "2026-09-04T12:07:06.840965+00:00"
+ },
+ {
+  "id": "7e33389a-9efc-4d9d-b45a-246249d445ea",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "is_captain": false,
+  "price": 1000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "7ffe555e-0129-4ed4-85ad-9394b628e53c",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "9d8efd7b-336c-4a2f-a735-4f7055e2d115",
+  "is_captain": false,
+  "price": 1000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "80ffeae7-3de9-4e84-9496-10bd47011426",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "is_captain": false,
+  "price": 1000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "87629b0d-656e-4262-8bfd-0f39dc9f4de8",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "is_captain": false,
+  "price": 2999985,
+  "created_at": "2026-09-25T15:32:36.277381+00:00"
+ },
+ {
+  "id": "88afe347-f3ce-4b57-bc6b-20991d1e068a",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "61d5c4d9-0ec8-4e9e-9037-80319604a119",
+  "player_id": "b367da38-45ca-4850-8120-d288cdc65706",
+  "is_captain": false,
+  "price": 2000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "8c94f723-1052-4c6f-a2c5-f12c9257a188",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "is_captain": false,
+  "price": 17200000,
+  "created_at": "2026-09-25T15:51:53.089583+00:00"
+ },
+ {
+  "id": "8cee02b1-dd4c-4207-8761-cf06f91d4be9",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "is_captain": false,
+  "price": 1000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "929c96c5-3cba-462d-8ff4-bb84ffd18e87",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "1cd7d25a-c973-4d1f-b2c0-872e2ff6a6d3",
+  "is_captain": false,
+  "price": 3000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "9499d1e1-4315-46c1-903f-35aa6a48fb78",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "is_captain": true,
+  "price": 3000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "95370c94-c73f-4d55-97a6-d80d44d2aff0",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "61d5c4d9-0ec8-4e9e-9037-80319604a119",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "is_captain": false,
+  "price": 3000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "981c84d6-85d0-4049-a4d7-bc10ad0fcb85",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "d86d764e-d98e-48a2-88a9-1353ad7febd3",
+  "is_captain": false,
+  "price": 1000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "9ffe94ef-441c-4a9b-a278-ddab1a74bf1c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "is_captain": false,
+  "price": 9100000,
+  "created_at": "2026-09-25T16:02:53.760692+00:00"
+ },
+ {
+  "id": "a2603ece-9e51-404f-8c1d-955608e7eba2",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "is_captain": false,
+  "price": 19000000,
+  "created_at": "2026-09-25T15:57:17.482447+00:00"
+ },
+ {
+  "id": "a6becf12-d24b-417f-8559-1345ae619033",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "is_captain": false,
+  "price": 1400000,
+  "created_at": "2026-09-04T12:26:07.746513+00:00"
+ },
+ {
+  "id": "a76b3040-2fb6-4f92-82b8-edfe0ce23937",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "is_captain": false,
+  "price": 500000,
+  "created_at": "2026-09-04T12:38:05.39782+00:00"
+ },
+ {
+  "id": "abd73192-6fce-45a9-a7fe-7cc352c776df",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "9d8efd7b-336c-4a2f-a735-4f7055e2d115",
+  "is_captain": false,
+  "price": 700000,
+  "created_at": "2026-09-04T12:28:30.899971+00:00"
+ },
+ {
+  "id": "ada7b92a-4088-4d51-b7e4-e87912bf3c3f",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "is_captain": false,
+  "price": 1000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "b189d336-b3da-4027-94f5-81b2a66a3710",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "b0810cf5-b874-4f7a-886d-1502cb7e51c5",
+  "is_captain": false,
+  "price": 1000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "bb606b19-69f5-476b-b8c7-8111342e611f",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "is_captain": false,
+  "price": 10300000,
+  "created_at": "2026-09-04T12:14:31.908484+00:00"
+ },
+ {
+  "id": "bc932b97-7f78-4ab3-9011-de7db3c51450",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "f627df0e-1ce7-4b3a-9174-5287cf68d736",
+  "is_captain": true,
+  "price": 2000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "bf01ba78-4c3e-47e5-b31b-2014c776596a",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "61d5c4d9-0ec8-4e9e-9037-80319604a119",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "is_captain": false,
+  "price": 3000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "c3bf42e7-5bfa-46b4-a0f1-9b0201a4960a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "is_captain": false,
+  "price": 11700000,
+  "created_at": "2026-09-25T16:09:09.893917+00:00"
+ },
+ {
+  "id": "c458683e-c199-483e-8fae-ed9775c16b70",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "is_captain": true,
+  "price": 2000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "c6941d25-6dbb-4a08-9604-fea8782a7821",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "2451ec09-8759-4468-a32d-c9cb4eb5d9dc",
+  "is_captain": true,
+  "price": 1,
+  "created_at": "2026-09-04T12:07:06.840965+00:00"
+ },
+ {
+  "id": "c7206012-0bac-4283-b65e-b39ed47586cf",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "is_captain": false,
+  "price": 4200000,
+  "created_at": "2026-09-25T15:48:50.397127+00:00"
+ },
+ {
+  "id": "d7fbde55-df7f-46c4-bfad-c36719fd424d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "is_captain": false,
+  "price": 11100000,
+  "created_at": "2026-09-25T16:12:17.479339+00:00"
+ },
+ {
+  "id": "e4e38d24-5278-48d6-83cf-e5fe6a9050ce",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "is_captain": false,
+  "price": 2000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "e9a0b5cd-0ea1-4bdd-876b-e915ba04e6b8",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "is_captain": false,
+  "price": 3000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "eef0cd6d-3742-414a-90a1-ca54bfc1bd8d",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "is_captain": true,
+  "price": 2000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "f1b2da51-81c7-46d4-9ff5-3ca3f9caa996",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "is_captain": false,
+  "price": 1000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "f32e62b3-38b4-4cd5-8042-960654dd7ba5",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "61d5c4d9-0ec8-4e9e-9037-80319604a119",
+  "player_id": "2451ec09-8759-4468-a32d-c9cb4eb5d9dc",
+  "is_captain": true,
+  "price": 1000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "f4c4a176-142d-4062-be61-540d1e89ffc8",
+  "season_id": "45e93663-5487-4ed4-94ba-8140613bab0f",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "9511e982-978d-4455-9429-eb1d7b32cd72",
+  "is_captain": false,
+  "price": 2000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ },
+ {
+  "id": "f775c7c4-f293-4485-bace-639e011e5fef",
+  "season_id": "52045ced-3aa8-4da1-b384-526893031a00",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "is_captain": false,
+  "price": 3000000,
+  "created_at": "2026-08-23T08:37:54.105979+00:00"
+ }
+]

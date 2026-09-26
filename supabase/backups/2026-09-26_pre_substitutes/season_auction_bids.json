@@ -1,0 +1,5492 @@
+[
+ {
+  "id": "0045a683-a535-4732-892d-7404df9bf0c7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 6800000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:15.934664+00:00"
+ },
+ {
+  "id": "00f052ae-aa58-47e2-9c2a-af3d3f26f13a",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 4200000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:52.590805+00:00"
+ },
+ {
+  "id": "018a21e4-3439-4937-8a05-70e475690345",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 4200000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:48.431971+00:00"
+ },
+ {
+  "id": "0320e011-07b2-4346-a31f-c05952529971",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 12900000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:56.878629+00:00"
+ },
+ {
+  "id": "036125fd-333e-41df-835d-9d0b222a755b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 8600000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:40.618547+00:00"
+ },
+ {
+  "id": "0361ca17-6a90-46c2-9209-8118903a28bf",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1000000,
+  "round_no": 12,
+  "created_at": "2026-09-04T12:25:33.619191+00:00"
+ },
+ {
+  "id": "0394b5cb-a495-42d3-8bb4-fca820bbfb10",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1700000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:39.031161+00:00"
+ },
+ {
+  "id": "0409f48e-2617-4c4e-a379-afd318284eef",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1700000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:10.366824+00:00"
+ },
+ {
+  "id": "045c4f85-7e0e-45e1-86c6-158dbba4ae91",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4200000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:27.854307+00:00"
+ },
+ {
+  "id": "046b4e27-2a88-4515-838d-7eef32cebbfb",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1700000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:12.278793+00:00"
+ },
+ {
+  "id": "04d2ed27-69b1-4169-99de-e3042552b084",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 11700000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:12.335634+00:00"
+ },
+ {
+  "id": "055d2363-130b-4e67-8cbf-d73b975500d0",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 14900000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:55.64368+00:00"
+ },
+ {
+  "id": "06669c1a-24c5-47c4-a102-55635c466b12",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3600000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:48:25.096108+00:00"
+ },
+ {
+  "id": "070313f9-7662-4e18-853a-8b3f8f01200b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4200000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:17.476751+00:00"
+ },
+ {
+  "id": "075d3551-0972-41e6-93a9-bb1992cd8b3b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1800000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:18:46.005463+00:00"
+ },
+ {
+  "id": "07777e26-3db0-408e-a654-a6e3250a1216",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1500000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:33.851947+00:00"
+ },
+ {
+  "id": "084ab15e-c27b-4f2e-a0fe-e2fbc0467fb8",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 14200000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:28.879109+00:00"
+ },
+ {
+  "id": "08eb90a6-25bc-49e0-952d-b37300ed8a95",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 6500000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:48.64483+00:00"
+ },
+ {
+  "id": "08f85412-ca38-4929-a568-1e1fddf988c9",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1000000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:18.923678+00:00"
+ },
+ {
+  "id": "098b7330-4981-43a6-8627-6df99e183b89",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1000000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:10:32.169927+00:00"
+ },
+ {
+  "id": "09b9dd59-26a0-4308-96ea-49c857d27727",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 7900000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:58.832268+00:00"
+ },
+ {
+  "id": "09de38f8-c8c3-4d2e-89b4-202c959e420e",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1100000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:23.174836+00:00"
+ },
+ {
+  "id": "0a00e626-2678-4930-bd4e-9901923a137f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 6200000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:10.153034+00:00"
+ },
+ {
+  "id": "0aae04c5-f7d2-4d14-bf7e-a8ed8acca42f",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1700000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:37.297609+00:00"
+ },
+ {
+  "id": "0c322dc1-b1ba-44f8-8227-84ca3cdbc26f",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1600000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:22:57.426821+00:00"
+ },
+ {
+  "id": "0d7e4a3d-6e38-4019-96df-2c9e5334192b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1000000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:17:56.213883+00:00"
+ },
+ {
+  "id": "0d95b93c-18e5-48c0-a3fb-692970e1ce4e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "2451ec09-8759-4468-a32d-c9cb4eb5d9dc",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1000000,
+  "round_no": 12,
+  "created_at": "2026-09-25T16:12:28.24485+00:00"
+ },
+ {
+  "id": "0dec9218-603a-44d3-97ee-7d55b5dcf43f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 5000000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:39.050522+00:00"
+ },
+ {
+  "id": "0e45cb8b-b3d5-44d5-91ec-5ce450915cc3",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 6800000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:37.711726+00:00"
+ },
+ {
+  "id": "0ec81889-1a02-41ff-85c1-47aadd15012b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2400000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:43.14922+00:00"
+ },
+ {
+  "id": "0eff2929-a6b1-4e82-af25-22df89637ea8",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1900000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:06.953445+00:00"
+ },
+ {
+  "id": "0f148f8e-2513-411c-8421-25bb7cf757de",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 5000000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:58.586926+00:00"
+ },
+ {
+  "id": "0f29e4c6-632e-4832-a21c-041f7020abde",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3300000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:22.837729+00:00"
+ },
+ {
+  "id": "0f3b473f-3c4e-4247-9afb-b12f36c3d392",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 10300000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:14:15.303197+00:00"
+ },
+ {
+  "id": "0f595dc5-e372-4e42-b1ca-25afe31318e8",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3600000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:47.830902+00:00"
+ },
+ {
+  "id": "0f8d1c6f-3b97-4c8f-97aa-b4653037613c",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 4200000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:11.712687+00:00"
+ },
+ {
+  "id": "0fcc4486-150f-4536-939c-6c1e7d11ead9",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1300000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:22:49.27153+00:00"
+ },
+ {
+  "id": "1047dab9-9f84-4d86-9ff2-615096364a15",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4200000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:24.546454+00:00"
+ },
+ {
+  "id": "10f913fe-9760-40d5-be38-7f24b09b5a0c",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2000000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:18:54.933055+00:00"
+ },
+ {
+  "id": "12064ece-442e-4752-9cb8-2277cfe4bbc4",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 6500000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:14.954797+00:00"
+ },
+ {
+  "id": "1224a5fa-fb90-4514-8f5d-d060605d7320",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 14200000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:51:04.346261+00:00"
+ },
+ {
+  "id": "12431176-93da-4cf5-bf28-fdb385aaa908",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2100000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:38.217718+00:00"
+ },
+ {
+  "id": "13b51d47-596a-4ae0-b7cd-8c32a070286f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4000000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:59.116934+00:00"
+ },
+ {
+  "id": "13e64e82-3696-4c25-b77a-e4bef856819c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 11700000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:43.007922+00:00"
+ },
+ {
+  "id": "13e9da9a-b79c-4db5-af00-37f7564a66d5",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1000000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:05:58.386511+00:00"
+ },
+ {
+  "id": "14a82ae9-fa57-4275-9c7f-26eccf7ff51a",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1200000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:01.088704+00:00"
+ },
+ {
+  "id": "14e4ab94-aa69-4689-b95e-ca5f24d22bb3",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 5900000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:39.728608+00:00"
+ },
+ {
+  "id": "15f909b4-5612-4e77-b823-84a3b6c6e951",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 8600000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:14:03.096287+00:00"
+ },
+ {
+  "id": "16557f51-9b22-47e0-b15f-098dc60de071",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 5900000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:46.289257+00:00"
+ },
+ {
+  "id": "16d4d257-4034-4748-a64d-4ef842df52ea",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3000000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:53:09.382943+00:00"
+ },
+ {
+  "id": "17451511-494d-4f92-88b3-fbbe8a46387f",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1300000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:29.079795+00:00"
+ },
+ {
+  "id": "1756801a-ae42-4295-87ea-ce17eaa858b0",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2600000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:18:57.719257+00:00"
+ },
+ {
+  "id": "18433908-5aaf-48a6-965e-82ca51f15690",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1700000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:32.007239+00:00"
+ },
+ {
+  "id": "18618985-a0f0-49ab-b997-a7785ef2bd0c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2400000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:21.746201+00:00"
+ },
+ {
+  "id": "188c712a-2b3d-4874-9814-417b354f9d53",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1100000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:20:54.90846+00:00"
+ },
+ {
+  "id": "190f704d-96da-470c-8c8f-6e52704b8a40",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2900000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:48:09.179691+00:00"
+ },
+ {
+  "id": "1914c760-129b-4cc5-8e80-d5ca5c484c73",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3000000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:24.643368+00:00"
+ },
+ {
+  "id": "1942ca40-6489-4f9a-8f01-5220a6f0de7d",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1200000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:12:38.940834+00:00"
+ },
+ {
+  "id": "198c5a6c-09f7-4803-be5c-79f93431e480",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2800000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:08.178569+00:00"
+ },
+ {
+  "id": "199197ff-8e02-4151-840f-744d8ec6f79a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 5600000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:07.46501+00:00"
+ },
+ {
+  "id": "19c5e48a-0b24-4549-98a3-389c21fd8c73",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 7900000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:20.951115+00:00"
+ },
+ {
+  "id": "19f0293b-61b8-4a15-9b8c-493816c991a2",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2300000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:18.246312+00:00"
+ },
+ {
+  "id": "19f9b2ea-b5e1-4658-9f2f-6c8612bd746d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1400000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:07.986647+00:00"
+ },
+ {
+  "id": "1c86b265-7493-40f5-8bd8-ce49f7c2c01e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 7900000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:41.755249+00:00"
+ },
+ {
+  "id": "1c91f84b-1148-4f8f-bb03-9f0e87435c61",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2800000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:46.633835+00:00"
+ },
+ {
+  "id": "1cc96a21-8a4d-4981-bc9e-d04d227bee01",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1400000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:10:48.427888+00:00"
+ },
+ {
+  "id": "1cf4e145-373b-440b-9cb1-7952e75d71fc",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3900000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:19.567988+00:00"
+ },
+ {
+  "id": "1cf790f2-b4ea-42f2-8dc3-dcd676d0eae6",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1700000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:18:42.93986+00:00"
+ },
+ {
+  "id": "1d3d94c5-81bf-4c0c-995f-d1000effc27e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2200000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:10.458563+00:00"
+ },
+ {
+  "id": "1e0f0939-57f9-4db2-9cc5-86247e1366f9",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1500000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:14:58.858321+00:00"
+ },
+ {
+  "id": "1e1e15f2-885d-4a4d-a244-21b7ac55f211",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2800000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:30.055901+00:00"
+ },
+ {
+  "id": "1ecef0fc-78dd-4cef-99dc-51f287200cba",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3800000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:16.328727+00:00"
+ },
+ {
+  "id": "1f2dae99-a43f-4ef0-a6e0-09fd0c864f98",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1000000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:12:35.774566+00:00"
+ },
+ {
+  "id": "1f8a66bf-0db3-4a75-b94d-aaadbadf5d23",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1800000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:41.916513+00:00"
+ },
+ {
+  "id": "200dc746-9405-4c7a-9689-ac6865a78961",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "b0810cf5-b874-4f7a-886d-1502cb7e51c5",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 500000,
+  "round_no": 13,
+  "created_at": "2026-09-25T16:12:50.422947+00:00"
+ },
+ {
+  "id": "2046af5b-4e3c-486a-8ba4-6dffb9659053",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 5900000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:33.980679+00:00"
+ },
+ {
+  "id": "204c2eeb-d14c-4b53-a9be-f8c9d78bedfb",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1300000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:11.965542+00:00"
+ },
+ {
+  "id": "20a16b0b-7f19-4ea9-98d5-c2fbb3abef3f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1200000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:22.581555+00:00"
+ },
+ {
+  "id": "20d2e5de-a00f-4902-bb55-4ca7a753a95e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2400000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:41.563245+00:00"
+ },
+ {
+  "id": "21e1d841-8d7c-452d-b8f7-8c174360edcb",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2200000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:10:59.740122+00:00"
+ },
+ {
+  "id": "2212ad07-5086-40b3-8c3f-7c42a2d5bec2",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1100000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:12:37.339076+00:00"
+ },
+ {
+  "id": "225bfa1c-77f3-42ec-81c3-7498c6bd63eb",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1900000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:15.12524+00:00"
+ },
+ {
+  "id": "22ddf878-0934-4d94-93fe-17dfc2046365",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1800000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:00.761831+00:00"
+ },
+ {
+  "id": "22efe28c-aaee-4a91-b133-12a26d9ab8c3",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1900000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:34.624209+00:00"
+ },
+ {
+  "id": "235b0184-3a64-4fd3-aa2a-5bdb40bb6380",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 7900000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:38.338766+00:00"
+ },
+ {
+  "id": "24344799-edee-4b06-8c73-d880d8a17f9f",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 7900000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:32.200459+00:00"
+ },
+ {
+  "id": "24ed19d5-56c3-4a1f-8d71-9e0fc75f20a7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 11100000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:58.555357+00:00"
+ },
+ {
+  "id": "24fc0ec0-59ae-41bb-8460-cf14799acd7e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 16400000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:51:19.081719+00:00"
+ },
+ {
+  "id": "2501b576-13d2-4c1a-91cc-d05a8a1a40d0",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4600000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:37.075941+00:00"
+ },
+ {
+  "id": "25338361-5550-44ab-8a41-e18197925ac9",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2000000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:08:38.261817+00:00"
+ },
+ {
+  "id": "25599e57-6c67-4e92-90d5-bf9bc54c8f39",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 9600000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:24.096669+00:00"
+ },
+ {
+  "id": "255cae14-6a6d-48cc-af9f-fe4927905a7e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1700000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:31.392397+00:00"
+ },
+ {
+  "id": "25774d4e-5218-4211-904d-4e86ab68ecd6",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1100000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:07:39.727429+00:00"
+ },
+ {
+  "id": "258818f6-fdbe-4784-82f9-7c56bfe9344f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4200000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:59.967711+00:00"
+ },
+ {
+  "id": "267787c8-ebad-444e-8615-48d4a130927d",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 5500000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:46.586389+00:00"
+ },
+ {
+  "id": "269ef4ac-9c5d-486b-9ef3-2301ec6701ea",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3800000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:42.878835+00:00"
+ },
+ {
+  "id": "28796e80-ea8c-4777-b617-2eb3e026df60",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1500000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:02.209134+00:00"
+ },
+ {
+  "id": "29278133-5fc9-4fb7-bddb-c27beb9c6da3",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4400000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:50.332776+00:00"
+ },
+ {
+  "id": "295033de-32bd-48d6-b070-bfe4a3f61ce6",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2300000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:40.709159+00:00"
+ },
+ {
+  "id": "2a06595f-67c2-4094-9264-81a7834b6f4e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 4800000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:28.521002+00:00"
+ },
+ {
+  "id": "2abbe05d-1eaa-4d91-b803-de7b17ea751a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 5300000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:32.591188+00:00"
+ },
+ {
+  "id": "2ccb36de-f089-4a6b-b734-7f1dab0e1d04",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 5300000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:08.431778+00:00"
+ },
+ {
+  "id": "2cd70887-95fb-4b15-b67f-1c21cfb6012a",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2000000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:09.007505+00:00"
+ },
+ {
+  "id": "2d28e93d-e51c-4beb-98d7-be956a75db1a",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3900000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:27.170751+00:00"
+ },
+ {
+  "id": "2dbc90e9-4232-4421-9164-530f4251ee5a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 8300000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:21.003527+00:00"
+ },
+ {
+  "id": "2dec459e-c066-404b-857b-9f6a8c7a8120",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1000000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:09:55.236019+00:00"
+ },
+ {
+  "id": "2e8e5d1c-c852-4ed0-b08b-72b84132ccdc",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2100000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:10.591246+00:00"
+ },
+ {
+  "id": "2f6e82f6-c0cf-4283-8413-5e832b734815",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3400000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:53:14.653763+00:00"
+ },
+ {
+  "id": "2f96480a-bb96-4b20-8cb9-bb1ae2e9d738",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 6200000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:04.768164+00:00"
+ },
+ {
+  "id": "3037852c-3d46-42e5-99fe-18d32295bb2b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1200000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:07:46.643178+00:00"
+ },
+ {
+  "id": "305853ca-3694-4bd9-9521-2560dae5cfa9",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3000000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:09:05.23198+00:00"
+ },
+ {
+  "id": "30629949-f4df-4fe9-94ac-a7b2a56c653e",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1300000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:20:58.919426+00:00"
+ },
+ {
+  "id": "30935f32-185b-40ce-975d-cc412f86aba2",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2800000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:03.157932+00:00"
+ },
+ {
+  "id": "325473f8-4131-4d2a-9961-910afd461760",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3000000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:49.220142+00:00"
+ },
+ {
+  "id": "330e0053-0740-4e07-94aa-f16434fb7bab",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2800000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:18.993459+00:00"
+ },
+ {
+  "id": "338eb38f-eeca-4fae-93f7-c18b3753e251",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3600000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:11.940149+00:00"
+ },
+ {
+  "id": "347f4615-c70d-4791-9b5f-b8f488d9cf82",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1800000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:32.330033+00:00"
+ },
+ {
+  "id": "3542653f-7258-4a18-9277-9a5be2ccb098",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4600000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:19:43.965791+00:00"
+ },
+ {
+  "id": "367e4168-5a2a-4c2b-96c1-dade893b840c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4800000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:05.047096+00:00"
+ },
+ {
+  "id": "36fdaf6c-4a4e-4ecf-b870-0112a982cb1e",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3600000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:04.220318+00:00"
+ },
+ {
+  "id": "37b07d61-5869-46bf-8fa2-ee2e9d86412a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3600000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:41.055935+00:00"
+ },
+ {
+  "id": "37b7ddff-7d28-4b69-924f-48a1c9f47d6d",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2200000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:12.651047+00:00"
+ },
+ {
+  "id": "37c1e6e5-da94-415e-9433-c27997474d16",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1500000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:27.975403+00:00"
+ },
+ {
+  "id": "37faf791-98e0-4ef6-bcf8-0c5072b2fca8",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1700000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:00:57.173598+00:00"
+ },
+ {
+  "id": "381b9a3e-1c67-4632-91f1-d18844030ba7",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2200000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:08:41.285194+00:00"
+ },
+ {
+  "id": "38a4dee3-6ed5-4cd5-9f2d-a93a3dc5751b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3000000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:19:04.577478+00:00"
+ },
+ {
+  "id": "38b0811a-98c1-44fd-91ab-561b7e3d1c4b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 9600000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:28.092808+00:00"
+ },
+ {
+  "id": "3a33e6e8-4025-4b7a-8c01-0a1ba5ca8472",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1900000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:09.093689+00:00"
+ },
+ {
+  "id": "3a3a1992-8750-4672-b69b-5fe921df9ad8",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 6500000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:49.525556+00:00"
+ },
+ {
+  "id": "3a4410d3-3cb9-4939-a6d2-32dd92b3fd2f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 8700000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:31.037013+00:00"
+ },
+ {
+  "id": "3a4ba0d6-d375-4e36-b883-69ac31dd3e83",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3200000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:42.328318+00:00"
+ },
+ {
+  "id": "3ac10004-4ea6-4861-a15f-a5daa094d808",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1500000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:57:57.576107+00:00"
+ },
+ {
+  "id": "3ad1c8b3-378c-45b2-9d40-bbe70452d22a",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1700000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:01.800258+00:00"
+ },
+ {
+  "id": "3ae2bec5-d8db-4565-9601-da4af653d96e",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 7200000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:30.746519+00:00"
+ },
+ {
+  "id": "3b0e6826-1b60-40c4-84b5-f4d0f6c82c6c",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1300000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:07:49.357273+00:00"
+ },
+ {
+  "id": "3b3b93ae-25c9-473f-aeb1-8d3d759cd97b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 4000000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:31.159105+00:00"
+ },
+ {
+  "id": "3c831d7e-cff2-4859-a84c-30a9f59deca1",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 8600000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:42.046656+00:00"
+ },
+ {
+  "id": "3cf7dc09-7cbb-4f5c-9479-e178a1340bb5",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2400000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:14.551645+00:00"
+ },
+ {
+  "id": "3d5b5930-b8ee-45fe-b81f-d79344f1c935",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3800000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:53:25.893085+00:00"
+ },
+ {
+  "id": "3dcfd0a5-47db-4538-80b1-f6ca556f28b1",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2600000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:27.67+00:00"
+ },
+ {
+  "id": "3f4012c8-c825-4dc0-b6d2-d84f4c80d738",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1600000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:10.448989+00:00"
+ },
+ {
+  "id": "3f872844-eb33-49da-9973-1b595e124350",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2600000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:05.344803+00:00"
+ },
+ {
+  "id": "3fc1dab1-7d48-4fcb-a69e-ba2e82957b8e",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2000000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:34.404189+00:00"
+ },
+ {
+  "id": "406264b6-85cf-4fcd-99ea-38dbb124b25f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1000000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:25.423038+00:00"
+ },
+ {
+  "id": "4129d69b-c8d1-43ea-a018-9b538e60402e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 10600000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:54.7003+00:00"
+ },
+ {
+  "id": "41383a45-ecad-4ae9-bec7-817413496655",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3000000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:13.529601+00:00"
+ },
+ {
+  "id": "4188aeaf-ac94-4397-9723-f121b83ce072",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2300000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:54.334242+00:00"
+ },
+ {
+  "id": "41af7db7-fdad-4b54-afc5-cf1f11a9b4be",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2300000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:13.363815+00:00"
+ },
+ {
+  "id": "41d2ff7c-f3ce-4bf7-b7bc-2f8f6466949c",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1500000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:18:35.612291+00:00"
+ },
+ {
+  "id": "42185ec7-e558-4064-987e-b657fa452f07",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1300000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:18:22.642194+00:00"
+ },
+ {
+  "id": "4284b619-ea8c-4c3a-8640-8b472086b05d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2000000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:48.833194+00:00"
+ },
+ {
+  "id": "42ad5bc6-3753-425c-82c4-7a730f9a5df5",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 8700000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:44.549451+00:00"
+ },
+ {
+  "id": "42f1e74e-d58d-4a3b-aece-ec813593d2e4",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 12300000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:13.517398+00:00"
+ },
+ {
+  "id": "4301a548-aed5-4a2d-8982-eb568c6bf93f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 16400000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:35.266092+00:00"
+ },
+ {
+  "id": "434482b0-8957-415b-be61-64dfae18e513",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4600000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:02.444795+00:00"
+ },
+ {
+  "id": "451bd213-e2eb-4064-bf1b-12f9ebaa70a0",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 14900000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:51:05.103811+00:00"
+ },
+ {
+  "id": "4603af66-92f9-45bb-a5ec-df2e6499925e",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3300000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:25.537655+00:00"
+ },
+ {
+  "id": "461e6a9e-a5a7-4483-b0b8-287b4a95b678",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2900000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:53:05.685009+00:00"
+ },
+ {
+  "id": "462a718c-b658-4f3a-b7be-9d03861181d2",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 6800000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:08.120166+00:00"
+ },
+ {
+  "id": "46b39e69-1654-4320-98b9-95ecb8cae84b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 9600000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:46.802846+00:00"
+ },
+ {
+  "id": "4707f74f-42d8-4bb9-a21a-d9287f1b6db9",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3900000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:31.661129+00:00"
+ },
+ {
+  "id": "477ef656-9a7e-4db0-bd7b-58f0d53c82e1",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1600000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:00:54.937013+00:00"
+ },
+ {
+  "id": "498783bb-62d0-418a-9b6b-4bc51a243f54",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3800000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:13.004823+00:00"
+ },
+ {
+  "id": "49fdc717-c7ce-4377-b3be-9945a0170df6",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2800000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:48:06.962338+00:00"
+ },
+ {
+  "id": "4a3d9766-a89b-4a97-ae42-1f9ced372c92",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2200000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:51.864556+00:00"
+ },
+ {
+  "id": "4a3f59c8-3760-44a3-9c30-b8fbf1513c49",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1800000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:42.427944+00:00"
+ },
+ {
+  "id": "4ace09ce-bf84-447f-8c84-90ad2946c4ef",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3400000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:10.091365+00:00"
+ },
+ {
+  "id": "4ad5f444-3aed-432b-aa2f-b1546aaeb091",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2200000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:48.418278+00:00"
+ },
+ {
+  "id": "4b2e8014-3c06-48d7-8d2a-aaf268c2e0f4",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3600000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:47.156679+00:00"
+ },
+ {
+  "id": "4b55c8cc-1457-401b-8ff0-ed692a845765",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4600000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:40.147904+00:00"
+ },
+ {
+  "id": "4ba3dfbc-7432-4cd8-87d5-f5b49d38eaac",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1600000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:08:11.571376+00:00"
+ },
+ {
+  "id": "4c00d0fd-fc16-45ea-a23c-4a3c14ab855d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2500000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:24.357824+00:00"
+ },
+ {
+  "id": "4c4abb79-d859-4696-8706-ed8f954d8cd1",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2700000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:06.791398+00:00"
+ },
+ {
+  "id": "4ccba27a-bfd7-4062-bb10-b9a2c83f17cb",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1700000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:10:52.518954+00:00"
+ },
+ {
+  "id": "4d5ae5d3-af27-4df2-8df0-20a360e1f2e4",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3000000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:19.232743+00:00"
+ },
+ {
+  "id": "4f6fd16a-89b2-423e-985f-3c5ad5c5bdf9",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 11100000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:10.662298+00:00"
+ },
+ {
+  "id": "4ff1ccae-aff4-47e3-ae01-76d0035bc437",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1800000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:42.144104+00:00"
+ },
+ {
+  "id": "504b1976-758d-4817-b19f-41d4abcd413d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1500000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:37.072832+00:00"
+ },
+ {
+  "id": "505857fe-df95-4291-b33f-75e41fcf6275",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1800000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:00:59.006473+00:00"
+ },
+ {
+  "id": "516d672b-ee4d-4c0e-8db1-66fc9017a462",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1000000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:22.202931+00:00"
+ },
+ {
+  "id": "51781c11-b3be-4de4-8d9e-faaf1a63416d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1200000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:27.924678+00:00"
+ },
+ {
+  "id": "517bcc9a-6f48-46d6-9b87-b8b0e66d9cc3",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 6600000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:33.623482+00:00"
+ },
+ {
+  "id": "52313f5a-bae0-4ec2-bc91-d27dfab49cb8",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1400000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:30.853388+00:00"
+ },
+ {
+  "id": "52453e80-b8b8-457b-95de-1e163f34d3a2",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2600000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:10.129465+00:00"
+ },
+ {
+  "id": "526ec735-faa5-45ea-8ded-e94dd1ce0d31",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 9100000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:02:26.817032+00:00"
+ },
+ {
+  "id": "52af6528-be85-45a8-b7e9-62bb35d95e24",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1500000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:37.71631+00:00"
+ },
+ {
+  "id": "52caaeb0-247a-4057-a05f-cdb13bc1abce",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1800000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:07.751238+00:00"
+ },
+ {
+  "id": "53871c0e-8499-4bd6-bfd5-e62cafa9af51",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2500000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:59.484514+00:00"
+ },
+ {
+  "id": "53c69c36-c904-41ae-905e-3e8f1fdce8ab",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1400000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:00.530213+00:00"
+ },
+ {
+  "id": "53faf2e1-89ee-4937-86f3-78874505bf65",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 6000000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:48.370771+00:00"
+ },
+ {
+  "id": "5414c1f5-7407-4ce8-9d9d-8164505916b6",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 6500000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:06.516262+00:00"
+ },
+ {
+  "id": "545ad5fd-705e-4c80-9eb8-fc3b05e96037",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1800000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:10:53.828749+00:00"
+ },
+ {
+  "id": "5565ffdf-7710-4c6a-9427-766603e13baf",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 10300000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:43.628203+00:00"
+ },
+ {
+  "id": "559f14ef-e131-411f-a5ca-68ad10789429",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 5600000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:32.786146+00:00"
+ },
+ {
+  "id": "5659a3e9-6b34-46fb-a617-25b1aa937d0d",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1500000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:08:07.108003+00:00"
+ },
+ {
+  "id": "56be8c39-4ce9-4d1a-800d-8b93e4ab8ab5",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2600000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:45.828584+00:00"
+ },
+ {
+  "id": "57aeda73-c201-4e7d-a316-878945e9e234",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 7100000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:17.994658+00:00"
+ },
+ {
+  "id": "57cfc4b6-b72b-4d7a-a5bc-a5ffe2c14f10",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 5500000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:20.344031+00:00"
+ },
+ {
+  "id": "5810e675-a22d-4a91-a33e-9dbdbbcb1a1d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 10100000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:06.987082+00:00"
+ },
+ {
+  "id": "584026df-f599-4f3f-9d31-1159add1f159",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3900000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:06.161558+00:00"
+ },
+ {
+  "id": "59403f09-3501-4560-9c69-f1e19cd8d8e6",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3400000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:44.620817+00:00"
+ },
+ {
+  "id": "594ba79b-34db-4514-b6ad-425ebeba82b6",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 8700000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:02:24.237277+00:00"
+ },
+ {
+  "id": "5970e124-d050-4af8-b5c4-2caffb7e9e14",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1200000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:33.431148+00:00"
+ },
+ {
+  "id": "59b10886-cd6c-4d72-8d92-230dd2120a59",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3000000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:32.987123+00:00"
+ },
+ {
+  "id": "59bd21a5-d05d-4019-a8e7-da3f661a547b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3200000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:52.87869+00:00"
+ },
+ {
+  "id": "5a25c7eb-95ed-41c4-bb1a-82e3fa976d5d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 6200000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:35.197341+00:00"
+ },
+ {
+  "id": "5a5969d9-d5a1-4a45-8407-458477f2fde2",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2400000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:14.004976+00:00"
+ },
+ {
+  "id": "5bee5eac-4a19-4b62-8f6a-7f7cf47135f7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3800000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:56.853104+00:00"
+ },
+ {
+  "id": "5ca1a330-ae8a-46a1-87cb-5c2212b4a076",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2000000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:06.042659+00:00"
+ },
+ {
+  "id": "5ca302d2-f2ff-4db3-b0f1-14fe388c5d6e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3600000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:15.023553+00:00"
+ },
+ {
+  "id": "5caf8920-7d23-487f-be55-848ef8684730",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3900000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:19:35.720543+00:00"
+ },
+ {
+  "id": "5cfa1af4-a059-4cd7-8c72-598e85fe3a28",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 9100000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:03.946357+00:00"
+ },
+ {
+  "id": "5d90b5b5-9f0e-489b-bd8e-4b1e9ab0e485",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1300000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:12:42.542929+00:00"
+ },
+ {
+  "id": "5ddc147e-324c-4f69-820a-655e43d0db75",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 5300000,
+  "round_no": 6,
+  "created_at": "2026-09-25T16:00:00.065561+00:00"
+ },
+ {
+  "id": "5e3594e0-b79b-4f3c-bf88-794d8b76719c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1200000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:04.052964+00:00"
+ },
+ {
+  "id": "5e5a3d21-040c-4846-bcdc-4112dcf47f37",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 5000000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:04.982628+00:00"
+ },
+ {
+  "id": "5e96f486-da2e-4fb3-87b6-060c5008aa64",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "9d8efd7b-336c-4a2f-a735-4f7055e2d115",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 500000,
+  "round_no": 15,
+  "created_at": "2026-09-04T12:28:08.798592+00:00"
+ },
+ {
+  "id": "5f007132-787f-4f48-839f-ac1b6baf4c3f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 7100000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:15.321556+00:00"
+ },
+ {
+  "id": "6020e99a-88a2-4e38-bc8d-da1dac6cb918",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3400000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:53.975546+00:00"
+ },
+ {
+  "id": "60514109-75ba-43a3-8be7-f5f39596813c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 5600000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:45.260927+00:00"
+ },
+ {
+  "id": "607bd3da-117d-4e91-9a22-302c5834ddbd",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 4000000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:23.509286+00:00"
+ },
+ {
+  "id": "60d7c645-dec1-43ab-b8a7-1529c3c013f5",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2300000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:50.150679+00:00"
+ },
+ {
+  "id": "60f75c1d-c3cb-4272-b128-548fdd9624b4",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 5300000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:06.499091+00:00"
+ },
+ {
+  "id": "611b794d-5936-440e-aef9-bed9f5077ecf",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1300000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:06.392855+00:00"
+ },
+ {
+  "id": "615ae386-841a-4b7b-9d51-08669855f733",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1400000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:34.481251+00:00"
+ },
+ {
+  "id": "61ef0748-06c7-4e01-bce3-2a2345481e3a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3600000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:55.766314+00:00"
+ },
+ {
+  "id": "623b3ba9-21e5-4754-b8b9-7b6f3d81dc6b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2400000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:40.662672+00:00"
+ },
+ {
+  "id": "625bdc6f-58ff-4a77-944d-a9a248588446",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1600000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:29.176776+00:00"
+ },
+ {
+  "id": "629821e6-6890-4e71-88f6-e538665d9b86",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 7500000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:18.929168+00:00"
+ },
+ {
+  "id": "62cc63d9-1210-4d71-a7df-c27f6ff3fac9",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1400000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:22:52.66307+00:00"
+ },
+ {
+  "id": "62e1a65e-fd08-45b9-bddb-2b0c1fc38c67",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 18100000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:39.249129+00:00"
+ },
+ {
+  "id": "62e9eaec-0609-4dc9-b026-daa4674ee379",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1100000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:09:58.863629+00:00"
+ },
+ {
+  "id": "6321eebe-bd23-47f3-a13f-f8f096dddb8c",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1400000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:14:54.617535+00:00"
+ },
+ {
+  "id": "634c89fc-21c2-4db3-9ea9-daa1931d612c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 7500000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:02:00.979858+00:00"
+ },
+ {
+  "id": "63875269-60fb-4127-9a01-cf15d30206d9",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1200000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:25.821078+00:00"
+ },
+ {
+  "id": "64045f4a-e190-4f61-80d2-2078c5017a19",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 7100000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:13.630306+00:00"
+ },
+ {
+  "id": "643d2196-924b-442a-9a21-93c2992bbcda",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2500000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:55.08521+00:00"
+ },
+ {
+  "id": "6542ef6c-502d-49cf-8ca1-a9315b59da3b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 13600000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:47.793569+00:00"
+ },
+ {
+  "id": "65981d89-5c84-4d69-96f0-7f51adb14d14",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2400000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:14.543862+00:00"
+ },
+ {
+  "id": "6610e463-5b8a-4b83-ac8a-2e7fba9c4a4a",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1400000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:18:33.80612+00:00"
+ },
+ {
+  "id": "66b870cb-aaaa-4e29-88de-f2430b0656c4",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2700000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:47.011307+00:00"
+ },
+ {
+  "id": "66fc5241-55df-469b-a10a-f4db09de3d7e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3000000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:50.948708+00:00"
+ },
+ {
+  "id": "68332e2d-3a73-4f64-98dd-e30788c0f56a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2600000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:57.960291+00:00"
+ },
+ {
+  "id": "68754d8b-eab6-4e70-a0f8-69d074d4d0b7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4200000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:48:34.27472+00:00"
+ },
+ {
+  "id": "68819371-63ff-4800-973d-21cd0e2dd27d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2200000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:55.454253+00:00"
+ },
+ {
+  "id": "68e269e5-eed5-4c2d-aeb9-68e738091801",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 7900000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:19.648006+00:00"
+ },
+ {
+  "id": "699810f1-91ca-4d1e-ae5a-24392a7b7977",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1600000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:24.600912+00:00"
+ },
+ {
+  "id": "6a5022ee-241d-41a4-a58d-4b167b04efad",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1500000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:33.813282+00:00"
+ },
+ {
+  "id": "6b86dfca-a08e-48a1-9ee8-a2059e415a9d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3000000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:06.469855+00:00"
+ },
+ {
+  "id": "6bc943ef-067d-45d5-ae73-de069232ef18",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4000000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:48:33.339664+00:00"
+ },
+ {
+  "id": "6bcb0abe-905e-4a76-bba5-560a594a168d",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1900000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:18:52.851244+00:00"
+ },
+ {
+  "id": "6bcf1749-28e7-4157-b5a2-2b300d038bed",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3400000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:26.874602+00:00"
+ },
+ {
+  "id": "6c237060-6320-4e7d-b43f-1f287d3e905e",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 10300000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:16:39.884303+00:00"
+ },
+ {
+  "id": "6c252145-ace2-44d4-a507-286c76144014",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 7100000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:57.780838+00:00"
+ },
+ {
+  "id": "6c2af683-686f-4ac0-84ae-ace7feaf759b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2700000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:28.223814+00:00"
+ },
+ {
+  "id": "6c2c344b-18ac-457e-b235-9f3b18892f4c",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2200000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:05.42116+00:00"
+ },
+ {
+  "id": "6c684372-474e-41a8-a5b6-a8e73bf3d5b6",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3400000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:13.823304+00:00"
+ },
+ {
+  "id": "6cdb1cf3-3844-4bc8-983d-e820ebdba4d7",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1500000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:21.077737+00:00"
+ },
+ {
+  "id": "6d68bb46-a569-4155-bfcc-7d946b1b92e8",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3200000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:12.472552+00:00"
+ },
+ {
+  "id": "6f341611-50b1-4578-8f16-7c95ea4900e7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1000000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:57:41.973131+00:00"
+ },
+ {
+  "id": "6f494c36-182c-44f7-b913-48fd97052ec5",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 11300000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:44.5542+00:00"
+ },
+ {
+  "id": "6f8a87d5-d64f-4859-be3d-89e474628428",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1900000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:35.016563+00:00"
+ },
+ {
+  "id": "6facb2a0-7a66-44d4-9eac-06b6b861d922",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1500000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:09.338348+00:00"
+ },
+ {
+  "id": "6fb97542-5a61-4564-b502-17b79f04d03e",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 10300000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:46.481933+00:00"
+ },
+ {
+  "id": "704e2baf-f2d4-45a0-b982-3e015e333256",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2000000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:35.855048+00:00"
+ },
+ {
+  "id": "70fc128e-9bbb-4fc8-86d1-6b893c2e7b24",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 9100000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:26.235277+00:00"
+ },
+ {
+  "id": "726b8fca-a885-4ca1-9cb6-2140a3be0bdf",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 10600000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:08.584295+00:00"
+ },
+ {
+  "id": "72b038b1-4eab-453b-851a-0a5fdfa1e132",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2600000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:27.156776+00:00"
+ },
+ {
+  "id": "72e5c291-4ff1-499b-a6d4-e9df16056829",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2500000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:25.730495+00:00"
+ },
+ {
+  "id": "732f4059-2a02-4f02-8647-22cccca5316d",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2000000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:18.201795+00:00"
+ },
+ {
+  "id": "734e617d-36fb-4a58-a435-9dd1499b1a9f",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1600000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:06.400848+00:00"
+ },
+ {
+  "id": "7374d6ae-e375-40be-8b18-2be992107741",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 6500000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:11.750268+00:00"
+ },
+ {
+  "id": "73d5897d-ba9e-4ab3-9b86-2a07043506c5",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1300000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:33.625828+00:00"
+ },
+ {
+  "id": "7403fc08-fcf8-41a1-b5e7-e48b025f6b09",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 5500000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:31.353305+00:00"
+ },
+ {
+  "id": "7423b279-7699-4ece-b9ba-d4b63934d651",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2100000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:10:58.006529+00:00"
+ },
+ {
+  "id": "75255957-7a21-4359-b88f-18060584887b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2400000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:08.267251+00:00"
+ },
+ {
+  "id": "75f5b97f-9170-4a08-aa78-8c8a5fa6275b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3200000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:25.368365+00:00"
+ },
+ {
+  "id": "76440027-38c4-4c2c-a5eb-e612e24f6078",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3400000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:52.294893+00:00"
+ },
+ {
+  "id": "7678e02e-ca10-46d4-a885-b1a70b82c9be",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3300000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:00.814952+00:00"
+ },
+ {
+  "id": "767abb57-9390-4244-9186-5f54f517071a",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1900000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:02.087271+00:00"
+ },
+ {
+  "id": "76836ca1-a2c1-4830-bdd8-c89dec64d85f",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 11300000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:47.821505+00:00"
+ },
+ {
+  "id": "768b8451-cb22-4d17-9ad5-65b338d5a3f5",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4200000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:59.807449+00:00"
+ },
+ {
+  "id": "76926139-e1b2-44da-8ee0-a401455c3963",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1400000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:25.631567+00:00"
+ },
+ {
+  "id": "76bedbe0-2db4-44f5-8931-88b445e98dbe",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 19000000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:43.831442+00:00"
+ },
+ {
+  "id": "7725270e-e1da-4658-93f0-7c620c2e144b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1200000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:30.248326+00:00"
+ },
+ {
+  "id": "784f11e0-161f-4563-a242-9c68a78b4d4b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2200000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:38.987816+00:00"
+ },
+ {
+  "id": "78bb9b4e-e7c1-49c3-ad66-a59204ed7e16",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1300000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:34.389183+00:00"
+ },
+ {
+  "id": "792cec87-6c2d-42de-923b-2279af8cdfe0",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 11700000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:36.911409+00:00"
+ },
+ {
+  "id": "7956acfa-29c3-49a4-8797-8da9a7622725",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2300000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:20.241068+00:00"
+ },
+ {
+  "id": "79c417c7-bb4a-4b37-bd7c-33fcefb9b74b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1200000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:18:08.075182+00:00"
+ },
+ {
+  "id": "79cc13ce-cd2d-4790-97cc-df91d552ee8b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3600000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:19:27.261215+00:00"
+ },
+ {
+  "id": "7a02c6f8-8720-4993-9b99-62200e9698f1",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 8700000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:24.979493+00:00"
+ },
+ {
+  "id": "7a5eb016-e168-4b77-a09f-c78b37ece78d",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 7200000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:36.669723+00:00"
+ },
+ {
+  "id": "7b912054-206d-456e-900d-9e6cd021dcff",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1400000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:00:51.261312+00:00"
+ },
+ {
+  "id": "7bfb0ba9-5d2a-4ffd-9afb-2e69056afb45",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1300000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:10:47.349085+00:00"
+ },
+ {
+  "id": "7c089b9d-9662-478a-a1af-62684aa24251",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1600000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:10:51.201128+00:00"
+ },
+ {
+  "id": "7cac0fb7-fc25-4a65-9291-f9b787430ba2",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 5900000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:09.08128+00:00"
+ },
+ {
+  "id": "7cbd2e88-ace4-40e5-af10-8eec5047e538",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2000000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:10:56.113009+00:00"
+ },
+ {
+  "id": "7cc655d9-e425-4e8a-bd80-ec17800a3ec9",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3600000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:24.817504+00:00"
+ },
+ {
+  "id": "7cdfb380-352f-4467-96be-d3943e78476f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2400000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:58.514632+00:00"
+ },
+ {
+  "id": "7d0dae73-e10c-4726-8427-ddb19eb698f5",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 4200000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:19:39.452205+00:00"
+ },
+ {
+  "id": "7d646ea0-d071-48d9-80c5-ce642b45a285",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 15600000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:33.792258+00:00"
+ },
+ {
+  "id": "7f732033-caa1-4602-a24c-b282c16b5f40",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2600000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:53.493388+00:00"
+ },
+ {
+  "id": "7fb5dbe8-22cd-4998-becf-0fbd04033337",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 5500000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:16:02.35773+00:00"
+ },
+ {
+  "id": "7fef444f-4fc1-4394-ba7e-2ffa0fbf3f62",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1100000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:26.220965+00:00"
+ },
+ {
+  "id": "800e97a0-bdb8-4a93-bced-19d8b2e9ee71",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2200000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:38.929786+00:00"
+ },
+ {
+  "id": "807ee46b-2d8f-4e32-af44-d1131d0964b0",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 5900000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:02.979404+00:00"
+ },
+ {
+  "id": "80bedc21-03f6-4ba3-8d75-2a88bd9dd42e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 5000000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:29.912579+00:00"
+ },
+ {
+  "id": "80e6d62b-cc77-48ea-b29d-10a4284f4fbf",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 7200000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:54.24595+00:00"
+ },
+ {
+  "id": "813800bd-efe0-4caf-b718-de28c5472f34",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2600000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:08:58.121659+00:00"
+ },
+ {
+  "id": "81b2f23d-855c-4483-8f86-95bc8050c337",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 10100000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:32.053408+00:00"
+ },
+ {
+  "id": "81d37f87-02d9-4a2a-9d3c-98473dc8dca4",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1300000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:25.430688+00:00"
+ },
+ {
+  "id": "8261c004-5656-42f4-936b-89bf3c6122cd",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3300000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:09:15.901069+00:00"
+ },
+ {
+  "id": "83bcb1d5-8347-4b36-855c-4650657ba2f4",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 8700000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:00.868728+00:00"
+ },
+ {
+  "id": "8433320a-b63b-40c0-9647-1e00031bf8d9",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2400000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:22.847933+00:00"
+ },
+ {
+  "id": "846ae08c-b4df-45aa-9461-8d785451ec36",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2600000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:17.011101+00:00"
+ },
+ {
+  "id": "84cf25a9-373b-44d5-822e-ab6b380484e7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2900000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:09.976937+00:00"
+ },
+ {
+  "id": "8500cac0-e5b6-4a3c-8dff-8fed1d60a951",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2300000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:56.389653+00:00"
+ },
+ {
+  "id": "8572feac-8c97-43bb-94b8-44b38e441f05",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1200000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:20:56.527688+00:00"
+ },
+ {
+  "id": "8652d13f-d24c-4533-949e-1a4d27fd5fe6",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2900000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:48.270653+00:00"
+ },
+ {
+  "id": "86647622-9878-4ced-adfe-5afca5a80fe4",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2000000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:11.081655+00:00"
+ },
+ {
+  "id": "8665ef77-0aff-4c27-9574-3d2fea1b1066",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 12400000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:45.8047+00:00"
+ },
+ {
+  "id": "881d2259-98d5-4f4c-b22b-046b4a59fe20",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3600000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:17.176979+00:00"
+ },
+ {
+  "id": "88b35e9f-de51-4893-a3b1-2dccb2921857",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2100000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:08.880932+00:00"
+ },
+ {
+  "id": "8909ffc7-ca41-4b8f-8704-d44a3d6cc514",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 5000000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:06.479598+00:00"
+ },
+ {
+  "id": "89422fe6-9dc3-41a3-b4c6-13b91b67a394",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 8700000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:21.585276+00:00"
+ },
+ {
+  "id": "8994128a-ada1-4fdf-a50c-59e67b66f7fd",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2300000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:40.617855+00:00"
+ },
+ {
+  "id": "89d1b597-9be9-4a6f-8751-3b29f5aa7422",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 7500000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:15.779792+00:00"
+ },
+ {
+  "id": "8a6a0288-60af-459d-935c-3ce37e907216",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2600000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:59.072856+00:00"
+ },
+ {
+  "id": "8abfa181-3237-4c2a-a2d1-828f027052ae",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2300000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:01.060282+00:00"
+ },
+ {
+  "id": "8ac29cae-7868-4c10-b1a0-1f5cf39da9df",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 5000000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:25.823198+00:00"
+ },
+ {
+  "id": "8ad44cb7-8ac2-4e36-b33d-c68520338b74",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 16300000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:57.809524+00:00"
+ },
+ {
+  "id": "8bb450c0-8919-48af-921f-48b9bf4674a1",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 4600000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:52.428021+00:00"
+ },
+ {
+  "id": "8bc2e2f3-b101-495a-ada7-5770e935e629",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4800000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:03.890838+00:00"
+ },
+ {
+  "id": "8c07bc9d-1f72-4d0c-b47f-c1c38b7713dd",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 6200000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:44.439079+00:00"
+ },
+ {
+  "id": "8c1dc32d-f1d5-4445-86b8-c0079293b1bd",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 6000000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:29.244274+00:00"
+ },
+ {
+  "id": "8cf9109d-e567-416f-ad7f-b99197f6d37a",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2800000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:08:59.937098+00:00"
+ },
+ {
+  "id": "8d1d1df9-fd31-458e-bd53-82a305a92e83",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2400000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:53.657275+00:00"
+ },
+ {
+  "id": "8d5df187-817b-43d1-ae98-09b8f64a0aee",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 7500000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:17.004236+00:00"
+ },
+ {
+  "id": "8e232fec-97f5-4253-b651-8f8306a8d3ea",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2400000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:51.86904+00:00"
+ },
+ {
+  "id": "8e3e828a-d7a3-4469-a1c6-a0d02d6f11dc",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 7900000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:02:02.363898+00:00"
+ },
+ {
+  "id": "8e755dfa-4b65-4c90-bed3-5224461423be",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 6600000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:16:10.731504+00:00"
+ },
+ {
+  "id": "8e7d4403-da5d-4eb7-95bd-5c4216779734",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2100000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:37.784378+00:00"
+ },
+ {
+  "id": "8eaf4194-26e9-4d2d-83ee-a0e28127a01f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3800000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:29.824512+00:00"
+ },
+ {
+  "id": "8fa1af68-e101-4c0f-9727-4308be0e6acb",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 13500000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:16.527226+00:00"
+ },
+ {
+  "id": "8fba1027-6e85-4a74-b442-07e7e7cd7428",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3000000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:48:10.313308+00:00"
+ },
+ {
+  "id": "90d7a1bf-febb-4463-b63f-7b0dcf5f8779",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2200000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:49.554481+00:00"
+ },
+ {
+  "id": "90fb6074-0c74-413c-95d2-231d9f92ce8a",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 10300000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:40.918606+00:00"
+ },
+ {
+  "id": "91821fc4-1b2c-4e09-ba3a-15d811947b58",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 5000000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:30.127936+00:00"
+ },
+ {
+  "id": "93e93b5f-61f8-46eb-8037-2d8bc130ff35",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1700000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:00.747182+00:00"
+ },
+ {
+  "id": "96f8a49c-ccdd-4056-94d5-7a03479ace86",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 10600000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:26.620577+00:00"
+ },
+ {
+  "id": "9756a1a5-ecc0-4881-bf47-049461c15527",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 6600000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:26.708081+00:00"
+ },
+ {
+  "id": "9791911f-156c-43c7-8bed-dea11a460d6e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2500000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:03.751571+00:00"
+ },
+ {
+  "id": "97c628ff-cae0-4af9-b27c-c20642bc9fc1",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 13500000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:53.180271+00:00"
+ },
+ {
+  "id": "983cdd3d-39c0-4848-891a-b5652bba71d4",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1500000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:22:54.471091+00:00"
+ },
+ {
+  "id": "984136f4-f3e8-4324-9ecc-8342c75b4905",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2000000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:16.370428+00:00"
+ },
+ {
+  "id": "988f9677-741a-4bf1-b455-9d415054bba9",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2600000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:17.74149+00:00"
+ },
+ {
+  "id": "994dea95-5200-4197-9431-755f7dca2762",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1200000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:10:43.72516+00:00"
+ },
+ {
+  "id": "996ebbf2-8f64-4e1a-93c0-9023dcbfc37f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1200000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:57:50.005401+00:00"
+ },
+ {
+  "id": "99ccd47c-ed70-4f1d-a3fa-95d8c2183bd9",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 6800000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:56.286354+00:00"
+ },
+ {
+  "id": "99f2c497-0386-448b-ba78-cd547d550fae",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 9600000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:05.965703+00:00"
+ },
+ {
+  "id": "9a851d5a-2502-4e29-8d76-c3948430f302",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1100000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:16.993354+00:00"
+ },
+ {
+  "id": "9beeb5c6-99b6-48ca-9daf-87ad822b9b47",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "9d8efd7b-336c-4a2f-a735-4f7055e2d115",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 700000,
+  "round_no": 15,
+  "created_at": "2026-09-04T12:28:14.653233+00:00"
+ },
+ {
+  "id": "9cfc88a6-9515-4b4f-9025-d0275a9473db",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f4f6eb97-a44b-447d-b5d7-944a109a5301",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1000000,
+  "round_no": 10,
+  "created_at": "2026-09-25T16:09:32.890271+00:00"
+ },
+ {
+  "id": "9e93c933-600d-44de-9ed9-402e17cccb2b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2400000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:19.389492+00:00"
+ },
+ {
+  "id": "9f410df2-9db6-4b75-95f0-bb580c7d6229",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1600000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:57:58.721021+00:00"
+ },
+ {
+  "id": "9fded00d-8ffb-4525-8773-7204fb31d24a",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 12400000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:47.640581+00:00"
+ },
+ {
+  "id": "a1084d09-7409-4688-b361-06b10269be59",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 5000000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:29.890311+00:00"
+ },
+ {
+  "id": "a1426e62-6bb0-4fdf-bcd1-cd58422b5a20",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1900000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:08:32.28136+00:00"
+ },
+ {
+  "id": "a1a6a8a4-5b66-438b-8ab5-9e839ba4dd5b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4400000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:01.882321+00:00"
+ },
+ {
+  "id": "a1b9c450-75aa-42f6-9eab-be3310f09907",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 9400000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:43.216603+00:00"
+ },
+ {
+  "id": "a1cec3da-cc04-428d-91af-21cc8cfab1f5",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2900000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:49.500415+00:00"
+ },
+ {
+  "id": "a2a1805d-9ebb-4be9-9ea7-824a831db8b7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1600000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:36.624613+00:00"
+ },
+ {
+  "id": "a2b2b837-075c-4294-9bfb-dcc1a87ece8c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2200000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:11.779235+00:00"
+ },
+ {
+  "id": "a2e8ebdd-eb5e-4f36-bba5-8ca01f071fd0",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4600000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:27.393663+00:00"
+ },
+ {
+  "id": "a34bf8cb-07c9-45a0-9745-d4ff6c956461",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1900000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:10:54.913837+00:00"
+ },
+ {
+  "id": "a3f57aa1-4f28-4287-88b7-05fed558f7c7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1100000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:10:42.498897+00:00"
+ },
+ {
+  "id": "a427d78e-76dd-46cc-8211-80ac960af393",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 4800000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:28.841031+00:00"
+ },
+ {
+  "id": "a47e6d72-f675-45a2-bfa3-d894483beeff",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2800000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:19:02.27886+00:00"
+ },
+ {
+  "id": "a4b9aec9-8b34-4032-95d1-9480a746f581",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1200000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:22:46.615907+00:00"
+ },
+ {
+  "id": "a544c307-def8-43ec-ab86-fd6e9a755450",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 4400000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:36.041602+00:00"
+ },
+ {
+  "id": "a56d3559-1a44-45ea-ad89-135e2600a2bb",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4000000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:58.576201+00:00"
+ },
+ {
+  "id": "a5e243a8-f783-4ee9-aac7-1243c55bc55a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 5600000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:09.254087+00:00"
+ },
+ {
+  "id": "a63e6c07-ea9e-4fbf-8a6e-44d010ed3abd",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 8600000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:16:34.154494+00:00"
+ },
+ {
+  "id": "a65ab911-d7b1-4f80-ab25-78599139eb85",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2600000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:44.138378+00:00"
+ },
+ {
+  "id": "a6ed68e3-b6ec-4a77-89b0-6e2caff5f09f",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4600000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:13.629736+00:00"
+ },
+ {
+  "id": "a72b6f03-77ce-4d95-8228-f6cf5542dc4b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 8300000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:22.091743+00:00"
+ },
+ {
+  "id": "a771e20f-0c66-487d-bfc9-df7d713f9ede",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1600000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:04.267304+00:00"
+ },
+ {
+  "id": "a79c400b-2047-44ee-b5ad-e50efc24d281",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2700000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:30.380462+00:00"
+ },
+ {
+  "id": "a7cfeb7f-017f-49e7-ae37-2e013d5de2f4",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 7200000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:16:16.764222+00:00"
+ },
+ {
+  "id": "a7dc13b6-4b36-40fb-82c2-848bd1ee427d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3800000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:57.392693+00:00"
+ },
+ {
+  "id": "a7f917f2-8012-4138-b50f-fe06b2e36ef7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1300000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:29.541556+00:00"
+ },
+ {
+  "id": "a83c7d6b-e3af-4f59-bdfc-f068c55e8a5b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1000000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:14:44.430801+00:00"
+ },
+ {
+  "id": "a86498c0-902b-453b-8e87-2df286b1deb1",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2800000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:29.605256+00:00"
+ },
+ {
+  "id": "a86ab038-f1e4-484a-9456-a10269292cad",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1200000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:00:48.755369+00:00"
+ },
+ {
+  "id": "a88c5185-ac9a-4e6d-9ca4-a786b3e61446",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 12900000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:15.523762+00:00"
+ },
+ {
+  "id": "a8a2c1b5-3c4d-41d5-b2de-3063a18a90f7",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1000000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:20:53.089748+00:00"
+ },
+ {
+  "id": "a91f3c7f-d269-4d8f-9b87-53d4e4d2d2dc",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 8300000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:58.052791+00:00"
+ },
+ {
+  "id": "a931030f-ae0a-42fd-b067-2707125d63f8",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1600000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:39.133583+00:00"
+ },
+ {
+  "id": "a963f1a2-9aed-4c1b-bc17-02444e2511f0",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3600000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:28.377003+00:00"
+ },
+ {
+  "id": "aa8c93cd-8aaf-40fa-abbf-b58cef9018c2",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4600000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:25.499485+00:00"
+ },
+ {
+  "id": "aaf7ba60-b1ae-4bd7-9398-9c4fd931c4e0",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 15600000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:51:07.237515+00:00"
+ },
+ {
+  "id": "ab22a650-bb68-4907-9962-01b027ddd743",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1800000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:12.370571+00:00"
+ },
+ {
+  "id": "ab6fdb0a-d594-4d69-8fa0-8bb94fcb76cd",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2900000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:31.601706+00:00"
+ },
+ {
+  "id": "ab72adaf-3f28-4873-af0b-fef48e317422",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3800000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:50.645456+00:00"
+ },
+ {
+  "id": "ac0aa418-28ac-4995-8344-a9ab2730c1eb",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2100000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:18.055564+00:00"
+ },
+ {
+  "id": "ac3d223d-0bda-4f60-9467-68ea87c0fd59",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3200000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:09.277838+00:00"
+ },
+ {
+  "id": "ac475371-d6f0-44eb-821c-36c29d099a09",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 12900000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:46.777657+00:00"
+ },
+ {
+  "id": "ac4f8660-bca1-495a-80d4-425ab055daeb",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 7500000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:40.56763+00:00"
+ },
+ {
+  "id": "ace52012-2286-4379-b1fc-ca4dc6d78c72",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 8300000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:20.672761+00:00"
+ },
+ {
+  "id": "ad0e1170-dd9f-4476-b8c5-eeb718824496",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "9d8efd7b-336c-4a2f-a735-4f7055e2d115",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 600000,
+  "round_no": 15,
+  "created_at": "2026-09-04T12:28:13.079854+00:00"
+ },
+ {
+  "id": "ad226868-9686-433b-8b33-b332d520880e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 9600000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:42.283393+00:00"
+ },
+ {
+  "id": "ad9d238e-4e2e-4ca1-bc77-8fc15808269b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1100000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:18:05.224935+00:00"
+ },
+ {
+  "id": "adc15329-f333-4024-ab11-9e39a04ad506",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 6600000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:51.909272+00:00"
+ },
+ {
+  "id": "aef0f6f9-3ad4-444f-a07a-f85eec5aeed5",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2200000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:20.925169+00:00"
+ },
+ {
+  "id": "af0fd042-6ded-44ad-8d1d-a61b1cebe4a3",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3800000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:48:26.148477+00:00"
+ },
+ {
+  "id": "af441b47-c55b-4af5-abcb-8915d683b3f8",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 5000000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:56.331522+00:00"
+ },
+ {
+  "id": "af60de7a-cf5a-44dc-a729-dde3a2eac551",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3300000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:43.408042+00:00"
+ },
+ {
+  "id": "b09eb97c-58e1-420e-9794-bd108d9325ae",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 6500000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:36.70072+00:00"
+ },
+ {
+  "id": "b0fc97f3-83ef-433c-bc23-56fcff04bd6a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1800000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:01.921099+00:00"
+ },
+ {
+  "id": "b15a967c-9629-48c7-8f57-0b81b7e567c7",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2000000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:04.236894+00:00"
+ },
+ {
+  "id": "b1d33fb4-02f1-4608-86df-8dd68ed6cdad",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2800000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:53:04.817697+00:00"
+ },
+ {
+  "id": "b1d819c1-e7d2-4ccf-80f2-75b6111e478c",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 5000000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:42.484931+00:00"
+ },
+ {
+  "id": "b1daadc3-599d-4495-ace2-dcb59482d6a5",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3200000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:48:17.538321+00:00"
+ },
+ {
+  "id": "b251fbba-e81b-40c6-bed6-a95ec207d6a9",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1500000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:12:51.399819+00:00"
+ },
+ {
+  "id": "b2d54512-0d69-47fe-8466-bc26cbcc36b2",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2000000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:36.258656+00:00"
+ },
+ {
+  "id": "b2d6a092-a699-430a-9fad-c25bc4902514",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 7100000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:51.834617+00:00"
+ },
+ {
+  "id": "b351e0ad-678a-4afe-9712-96850f6c6d18",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1100000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:28.367859+00:00"
+ },
+ {
+  "id": "b49e7e4a-92b7-47ff-9a67-12ef967cc33c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 5000000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:59:48.379332+00:00"
+ },
+ {
+  "id": "b4cd523b-ec83-4d8e-b680-f173f754b0bd",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2400000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:18:56.91682+00:00"
+ },
+ {
+  "id": "b658479f-ee01-41f4-b3fb-e000abb294cf",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 6200000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:48.270823+00:00"
+ },
+ {
+  "id": "b65f71da-7d95-497b-bbfb-6b1df533a141",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2500000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:44.559492+00:00"
+ },
+ {
+  "id": "b6638a6a-1094-41cd-a466-10088946d147",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4800000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:37.961779+00:00"
+ },
+ {
+  "id": "b683717a-a13f-4a04-8e5f-e7537d8538d3",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 6000000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:16:05.291834+00:00"
+ },
+ {
+  "id": "b6dff803-1a02-4e88-91e6-dda2e26fd044",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1100000,
+  "round_no": 12,
+  "created_at": "2026-09-04T12:25:41.593933+00:00"
+ },
+ {
+  "id": "b72be624-41c1-4f15-9498-8c636730c376",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1700000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:05.444905+00:00"
+ },
+ {
+  "id": "b7ecc980-8a83-47e4-a15e-6c1408fada8e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4000000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:53:27.440755+00:00"
+ },
+ {
+  "id": "b8165b14-eb1a-41f9-857f-293534c1452b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1400000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:57:55.64824+00:00"
+ },
+ {
+  "id": "b834134e-29d6-4f7f-a091-35ec0943c7d7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 7900000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:56.782965+00:00"
+ },
+ {
+  "id": "b902f0e6-8241-44ee-9173-e60b6a97a829",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 5000000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:18.556992+00:00"
+ },
+ {
+  "id": "b9141ed1-8f24-4d0a-b04d-d6728ff86caa",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1000000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:25.478889+00:00"
+ },
+ {
+  "id": "b95333ab-afb1-4013-8888-ebbd19d383db",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 6800000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:12.535934+00:00"
+ },
+ {
+  "id": "b9ed8fcf-c745-4f17-b9ed-b11bc0390031",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 9400000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:14:04.094658+00:00"
+ },
+ {
+  "id": "ba705345-aa5e-4547-b291-bb7dce2dd76c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 17200000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:51:31.9851+00:00"
+ },
+ {
+  "id": "bb0f28b5-0c07-47e3-9ca6-7e0e07d25a14",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2700000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:59.562688+00:00"
+ },
+ {
+  "id": "bcf38384-0e92-42d5-b3d7-8ce8b98d7480",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 5600000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:01.214061+00:00"
+ },
+ {
+  "id": "be602172-65d2-463d-b6b0-8f08e9b7eb0e",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1900000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:32.823055+00:00"
+ },
+ {
+  "id": "bed2af23-4210-4d7f-a3a6-66f119efaa41",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 9400000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:16:36.282552+00:00"
+ },
+ {
+  "id": "bee91013-8158-446c-b396-48ecf7d48fff",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1900000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:47.926272+00:00"
+ },
+ {
+  "id": "bf3facc3-67e6-4f59-9d07-0d92a521d073",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 7500000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:54.702944+00:00"
+ },
+ {
+  "id": "bfda7585-14fa-4d68-94e0-63380a925652",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1000000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:00:43.515124+00:00"
+ },
+ {
+  "id": "c0f2d7de-d62c-4fc3-96ba-fe04fb4f661f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3200000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:53:10.305762+00:00"
+ },
+ {
+  "id": "c1b76822-7732-4486-b5e6-e472f2dd30e4",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1100000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:25.096279+00:00"
+ },
+ {
+  "id": "c200bd33-c7a8-4da7-a467-8709e36db769",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1200000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:18.32809+00:00"
+ },
+ {
+  "id": "c22db2d9-ec5a-4abe-b588-baae7a06b8e4",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 14900000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:30.260669+00:00"
+ },
+ {
+  "id": "c240bc15-f767-4b4f-bdfd-378c9316c017",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 17200000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:56:38.146485+00:00"
+ },
+ {
+  "id": "c260087d-e7c5-47fb-a927-af1d0f65fd0b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4000000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:15.265637+00:00"
+ },
+ {
+  "id": "c289a86f-217e-46de-8b17-dac4157b3cb4",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 4400000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:26.264032+00:00"
+ },
+ {
+  "id": "c29c8e3b-ddf8-4353-95bd-d3a9dc97666d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4600000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:59:28.21055+00:00"
+ },
+ {
+  "id": "c3a553bc-3d6f-43e9-a8de-3c357cce33ef",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 500000,
+  "round_no": 14,
+  "created_at": "2026-09-04T12:27:44.930649+00:00"
+ },
+ {
+  "id": "c3bc4399-a91a-402d-bfe3-6c84604da2a8",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2600000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:26.153937+00:00"
+ },
+ {
+  "id": "c40fb974-6139-4fef-9b46-cf4bf9d885ab",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1000000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:07:38.260068+00:00"
+ },
+ {
+  "id": "c41da5aa-02d8-46af-9cce-3ab2899ee3c3",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4600000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:28.816733+00:00"
+ },
+ {
+  "id": "c43ff09b-507e-4c69-babf-4c8797bfae8e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1600000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:38.17658+00:00"
+ },
+ {
+  "id": "c458bb7b-ab43-402b-b64b-9e407355a6cb",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1400000,
+  "round_no": 12,
+  "created_at": "2026-09-04T12:25:51.700809+00:00"
+ },
+ {
+  "id": "c4864569-2bb6-4f31-b5e0-c2efd777a491",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2100000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:52.237848+00:00"
+ },
+ {
+  "id": "c48e9bb8-dd56-4670-bb29-4fd007a1a0f0",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1400000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:08:00.970963+00:00"
+ },
+ {
+  "id": "c54cc559-2c0f-4de6-b7fb-5e8cced9b1ab",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1600000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:18:39.571428+00:00"
+ },
+ {
+  "id": "c5619612-4919-465c-ba02-054f573f24b1",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2400000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:08:50.298367+00:00"
+ },
+ {
+  "id": "c5af6116-e0c3-4477-ad4a-0b9be9876b4f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2700000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:48:05.497247+00:00"
+ },
+ {
+  "id": "c619f0f3-28d3-46c5-bdd5-cd9635d7a23d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4000000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:45.139713+00:00"
+ },
+ {
+  "id": "c6562ae7-eb8c-4b1d-b109-96d6b84e08be",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1800000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:33.31955+00:00"
+ },
+ {
+  "id": "c7dc6e01-2860-491d-9c06-f6bab8f149b2",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1100000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:02.202316+00:00"
+ },
+ {
+  "id": "c7f280f5-a1c3-4421-8eb0-5bc1c110eb57",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1900000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:44.400761+00:00"
+ },
+ {
+  "id": "c856e889-724e-49cd-9e02-6299340255a6",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 7900000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:37.806763+00:00"
+ },
+ {
+  "id": "c866f3b4-508c-4148-96e1-ed83ea0a3e7b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3000000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:10.89902+00:00"
+ },
+ {
+  "id": "c87eb632-7b25-4b5c-89a6-86feb88a765e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 10600000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:32.877627+00:00"
+ },
+ {
+  "id": "c8ae3124-24b6-4839-a616-77997ab13c40",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4200000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:35.027502+00:00"
+ },
+ {
+  "id": "c8b89638-51c4-45f7-8d3d-50a7eb5cd000",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1300000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:00:50.339491+00:00"
+ },
+ {
+  "id": "c92fff17-502a-4d57-b3e0-50fc74f6b124",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 7900000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:16:29.246284+00:00"
+ },
+ {
+  "id": "c9ba2e40-bd43-4725-8b46-67a63f3dc523",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 10100000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:45.552292+00:00"
+ },
+ {
+  "id": "c9f7762c-2c59-4611-aa8b-22b27c8b1381",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1900000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:44.664317+00:00"
+ },
+ {
+  "id": "ca4ea36c-67aa-4443-98ad-2fdb85001063",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4800000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:54.940644+00:00"
+ },
+ {
+  "id": "ca862317-dba6-4dfa-8fe9-b34a97726ba9",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4400000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:59:13.586939+00:00"
+ },
+ {
+  "id": "cabff88c-6ae3-42bd-958b-b2a3a0719b97",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 5000000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:19:57.466962+00:00"
+ },
+ {
+  "id": "cb2492af-20c3-4729-a1b5-fc8c7351bf7a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1000000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:22.565598+00:00"
+ },
+ {
+  "id": "cc252557-da35-40db-98dc-9361e7e242f2",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 8300000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:42.956569+00:00"
+ },
+ {
+  "id": "cc5bb662-e4bd-4543-803e-7ed0b4f32b37",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2200000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:38.860473+00:00"
+ },
+ {
+  "id": "ccaf4e64-a6f1-4463-b747-92958099633c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1700000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:40.162133+00:00"
+ },
+ {
+  "id": "cd30f79c-8a40-418c-94fb-98fc7de59935",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1900000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:03.402193+00:00"
+ },
+ {
+  "id": "cd52e9f2-c2cd-4848-9d24-82fc7f118587",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 5300000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:31.34238+00:00"
+ },
+ {
+  "id": "cdea86d6-2a21-4f43-94df-5e12063de379",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4600000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:03.083588+00:00"
+ },
+ {
+  "id": "ce6c65ef-8fbe-4009-b76f-d9a7c7845e6c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4800000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:59:34.356285+00:00"
+ },
+ {
+  "id": "cf5d555e-ba93-4889-95f5-faf279456086",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2800000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:32.495544+00:00"
+ },
+ {
+  "id": "cfb7d75c-e53f-4bd1-b3da-efc322093a1d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1100000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:57:48.483628+00:00"
+ },
+ {
+  "id": "d13253b6-093f-4bc6-b3cc-4639463766df",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1300000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:24.738744+00:00"
+ },
+ {
+  "id": "d2143dcb-5fdc-4c74-96e7-859d5834de51",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1900000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:46.291721+00:00"
+ },
+ {
+  "id": "d35863c4-2d26-4239-979a-e2fce63c606b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 9100000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:07:35.317895+00:00"
+ },
+ {
+  "id": "d3970e52-039d-4183-bef2-0359504f723c",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1400000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:13.99024+00:00"
+ },
+ {
+  "id": "d46536f4-54c5-40c1-a850-f08c6139e10b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 10100000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:48.021576+00:00"
+ },
+ {
+  "id": "d57c6efe-9839-4ca8-a5fe-e9778b17d046",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2000000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:45.209311+00:00"
+ },
+ {
+  "id": "d586a10b-d64b-45c5-8c35-3d746cc74b9d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2900000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:23.76962+00:00"
+ },
+ {
+  "id": "d58eb4c2-a30c-4aad-a717-730de139b857",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2500000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:16.067764+00:00"
+ },
+ {
+  "id": "d59c895b-8f4a-4393-8be6-257e997f29d7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2200000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:19.138621+00:00"
+ },
+ {
+  "id": "d6524dd5-3aba-4efb-acbe-f559ae9258df",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3000000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:21.927582+00:00"
+ },
+ {
+  "id": "d67ebe08-3b7d-4fed-8801-66209b71484f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2500000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:43.186498+00:00"
+ },
+ {
+  "id": "d6b6eb60-9dab-4ef9-a775-43aebae42405",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1000000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:22:41.523367+00:00"
+ },
+ {
+  "id": "d717878f-3a98-4122-a8ff-935370ee02b2",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1600000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:35.101051+00:00"
+ },
+ {
+  "id": "d71e6f42-03df-4cb3-ab24-e1d3d2ebc658",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 6200000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:12.802052+00:00"
+ },
+ {
+  "id": "d80fbe04-71c8-44c6-bded-e57cf27ba4ea",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2800000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:48.475858+00:00"
+ },
+ {
+  "id": "d8264650-f0b2-4656-acf4-6434a039615a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3200000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:51.336486+00:00"
+ },
+ {
+  "id": "d84a019b-eebe-41b0-8839-a7142a8c888a",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1600000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:00.517852+00:00"
+ },
+ {
+  "id": "d8aaceca-70ca-4198-868b-eb1024e003b3",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 4200000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:21.820742+00:00"
+ },
+ {
+  "id": "d8b8e343-d00e-4f01-9ca5-def3e4fa257e",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 11300000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:42.836665+00:00"
+ },
+ {
+  "id": "d93737d3-8dcc-470a-b579-9fc52ec8f6ab",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4600000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:55.679445+00:00"
+ },
+ {
+  "id": "dc188d19-6918-44ba-a4c1-8dfb0919f4ba",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1400000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:12:45.81528+00:00"
+ },
+ {
+  "id": "dce97fcf-c6bb-4976-98ee-39b4195f3bf1",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2600000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:16.224095+00:00"
+ },
+ {
+  "id": "dd48632d-caa0-4ec3-a0da-9020d2a81377",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 5300000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:59.541127+00:00"
+ },
+ {
+  "id": "dd709188-80a5-47e3-b368-c61891ac2ed6",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3900000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:49.452254+00:00"
+ },
+ {
+  "id": "dd7b5009-c3ac-4144-91fd-94481c9bb8d3",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1100000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:22:43.440756+00:00"
+ },
+ {
+  "id": "de543233-dd1c-4190-a6d3-31156a14a35c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2700000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:45.706328+00:00"
+ },
+ {
+  "id": "de6d5c49-fee7-4c53-8d2f-fe8f630992e7",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1800000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:05.228657+00:00"
+ },
+ {
+  "id": "deda137e-7fc9-4d73-9737-b0cdcdcf712a",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2800000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:11.981787+00:00"
+ },
+ {
+  "id": "df5252ea-9ff4-479c-bf7b-62ba42e2f2e8",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 5900000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:11.642029+00:00"
+ },
+ {
+  "id": "df860c38-72b9-44d4-acea-f9e198be26f5",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3600000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:56.551066+00:00"
+ },
+ {
+  "id": "e0a46cf1-8e69-4e86-adfc-b8d3386cd219",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4400000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:01.489898+00:00"
+ },
+ {
+  "id": "e10236b1-2b09-4917-8e97-c04125921845",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2900000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:35.855193+00:00"
+ },
+ {
+  "id": "e16ecaac-e9ed-4804-9a4f-b54b78d16fa7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1800000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:45.208139+00:00"
+ },
+ {
+  "id": "e180a9b2-8c8e-440d-ac4c-bb5922fc2e16",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 6600000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:34.165905+00:00"
+ },
+ {
+  "id": "e180c6d6-617e-4d58-9b69-75fb89556ec3",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1200000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:14:49.976584+00:00"
+ },
+ {
+  "id": "e195e535-4878-47de-863f-544b80cb6be4",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1100000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:49:21.260905+00:00"
+ },
+ {
+  "id": "e1c6c305-a184-4a47-bb04-5546b0d6e125",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2100000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:46.20324+00:00"
+ },
+ {
+  "id": "e2c303e7-aacc-4058-9c49-6aa6e8409763",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3300000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:15.581517+00:00"
+ },
+ {
+  "id": "e2e7e114-4ea2-4136-a57f-b60fde111f36",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 11100000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:08:09.735332+00:00"
+ },
+ {
+  "id": "e3378e61-4de1-4ed4-9928-53e0d30ddfe1",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2400000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:55.464727+00:00"
+ },
+ {
+  "id": "e37b8137-3564-426c-a8a3-c42cbf4de614",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2800000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:17.330457+00:00"
+ },
+ {
+  "id": "e3c699a3-23fb-4f53-b413-768590f3e539",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1600000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:30.473575+00:00"
+ },
+ {
+  "id": "e3e06a9a-8aae-4c27-9703-d97d5daa478a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 11100000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:41.292926+00:00"
+ },
+ {
+  "id": "e4b787b3-1eb1-43d1-9ebd-6eb86d4554a5",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1500000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:29.465488+00:00"
+ },
+ {
+  "id": "e5b2975b-5842-411f-b8ff-4af65d6d1917",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3000000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:57.310183+00:00"
+ },
+ {
+  "id": "e6713fe1-19ac-4015-a35f-e4925f99b6d2",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2600000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:53:01.462195+00:00"
+ },
+ {
+  "id": "e69a9a2e-6a0b-4417-9db0-1953dd7512e7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1400000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:54:31.636788+00:00"
+ },
+ {
+  "id": "e77c8d06-af78-47a1-a58a-6339ac9fab2c",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1000000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:09.488263+00:00"
+ },
+ {
+  "id": "e827befd-5dfc-4dd4-b956-e810a3321ff2",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1900000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:16.315182+00:00"
+ },
+ {
+  "id": "e827fa43-0e78-49f4-8838-25bc6241e05e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3000000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:38.398803+00:00"
+ },
+ {
+  "id": "e846dbd0-5b85-4b98-b505-b51cb72250c6",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1300000,
+  "round_no": 12,
+  "created_at": "2026-09-04T12:25:49.236932+00:00"
+ },
+ {
+  "id": "e8a6fd11-1e9e-4bde-9efe-d9a8064e0f28",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2000000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:04.664535+00:00"
+ },
+ {
+  "id": "e9dd642a-adae-43b7-b0a1-cba4391ea211",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 9100000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:23.086415+00:00"
+ },
+ {
+  "id": "e9f8a7a2-c18e-450a-b1e5-3b178ab554bf",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 5600000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:37.086849+00:00"
+ },
+ {
+  "id": "ea375092-e34b-42db-bdc3-66e24aa24a6d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1900000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:58:05.015452+00:00"
+ },
+ {
+  "id": "ea390e33-8920-4e56-9c30-6a0ca3b85a98",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 6000000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:32.919738+00:00"
+ },
+ {
+  "id": "ea46f51b-6cf7-42c6-acb2-f603e6963674",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4200000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:59:05.242236+00:00"
+ },
+ {
+  "id": "ea7da6e2-34ef-45cd-82bb-eacde5a5ab1d",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "12fc6109-9234-41a1-826d-0219cc505069",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 9400000,
+  "round_no": 9,
+  "created_at": "2026-09-04T12:21:42.053095+00:00"
+ },
+ {
+  "id": "eab29103-87e2-41fe-a4f6-7e1e36d177cf",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 10100000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:25.711289+00:00"
+ },
+ {
+  "id": "ead3502b-2177-47f9-a9fc-43495719f07a",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3300000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:19:16.571742+00:00"
+ },
+ {
+  "id": "eae5b1fc-3455-46a5-8fcd-069ecaa2d917",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1700000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:08:18.085261+00:00"
+ },
+ {
+  "id": "eb02c479-45f6-4fe3-aeeb-317377090c78",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1500000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:00:53.762791+00:00"
+ },
+ {
+  "id": "eb841fd7-2a29-4bd5-a7e4-4288a74c8fa1",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2400000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:02.50551+00:00"
+ },
+ {
+  "id": "ebe391c3-3ddc-41a6-b560-dadef0211887",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 3200000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:35.220061+00:00"
+ },
+ {
+  "id": "ebf5683b-c839-4b8b-b737-78975bad1246",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2000000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:51.411094+00:00"
+ },
+ {
+  "id": "ecee5034-76b8-4172-9116-805a37378b5e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 12300000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:37.909693+00:00"
+ },
+ {
+  "id": "ee4ba2a5-7cc5-47c8-92bd-04ca0cf095cd",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1400000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:26.407675+00:00"
+ },
+ {
+  "id": "ee824f4e-5614-47f9-8513-4e421864d1ef",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2500000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:58.112295+00:00"
+ },
+ {
+  "id": "eeaa71ac-1efa-4139-b476-ee655cb781a7",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3400000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:38.427849+00:00"
+ },
+ {
+  "id": "eee9b6f4-a024-435e-b504-e5c7a5bf46ba",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 11700000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:08:25.410747+00:00"
+ },
+ {
+  "id": "ef07c764-50ef-483e-98e6-5308d033dea5",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1200000,
+  "round_no": 12,
+  "created_at": "2026-09-04T12:25:46.112678+00:00"
+ },
+ {
+  "id": "ef0b3d29-e54e-40a7-bfe3-05c27386c647",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 7100000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:39.250331+00:00"
+ },
+ {
+  "id": "ef5a180c-c164-4045-baa9-bfb156018db2",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 8600000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:35.090227+00:00"
+ },
+ {
+  "id": "f0044b56-6885-4777-a4d1-0d89e975920b",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "3d16419e-f5de-48a2-a738-cd3bc81f15a4",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1800000,
+  "round_no": 9,
+  "created_at": "2026-09-25T16:06:13.570515+00:00"
+ },
+ {
+  "id": "f077b1e5-b55a-411d-b477-91ee1eb037c4",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2000000,
+  "round_no": 11,
+  "created_at": "2026-09-04T12:24:46.362331+00:00"
+ },
+ {
+  "id": "f07bfb44-e30a-45da-9252-4cbbb20c6b11",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 4400000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:22.266983+00:00"
+ },
+ {
+  "id": "f15b22e8-94b1-4875-8cd5-3d00eb83e6f2",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1500000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:10:50.014052+00:00"
+ },
+ {
+  "id": "f189acad-bf4a-413f-8576-d5c5dc5c9ce5",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1100000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:14:47.923054+00:00"
+ },
+ {
+  "id": "f1b0dadc-5a0c-4ff1-a801-2042f33a14c5",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "03f3e44e-762b-4d7d-b643-9f39b8485365",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1800000,
+  "round_no": 1,
+  "created_at": "2026-09-04T12:08:24.727495+00:00"
+ },
+ {
+  "id": "f2b72027-2586-489e-bb6c-2cf65dfd828b",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1700000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:22:58.844+00:00"
+ },
+ {
+  "id": "f2fe4b3c-f51c-4e5c-8c86-3cff493c62c6",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 1300000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:14:52.447282+00:00"
+ },
+ {
+  "id": "f3dad1de-711a-4943-9a05-a7fca3fb6cba",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2200000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:12.299755+00:00"
+ },
+ {
+  "id": "f3e4f8e1-3a2e-472e-86d4-6d3cea0e5881",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 10600000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:56.754013+00:00"
+ },
+ {
+  "id": "f405a09d-2526-4bb4-99a3-4ebe847f479a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2700000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:53:02.76616+00:00"
+ },
+ {
+  "id": "f45daa98-4924-436c-8c3e-d228925b7a5d",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 5500000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:27.398308+00:00"
+ },
+ {
+  "id": "f4944c7a-3aa0-411d-b278-f737c97ad474",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1400000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:52:36.366171+00:00"
+ },
+ {
+  "id": "f4c7f709-5462-4a6e-abc9-02cdb7389555",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1700000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:41.339246+00:00"
+ },
+ {
+  "id": "f4ca24ca-a126-4ad6-aa69-828c23909683",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 9100000,
+  "round_no": 11,
+  "created_at": "2026-09-25T16:11:45.465123+00:00"
+ },
+ {
+  "id": "f4cfcd02-d18c-4214-9e63-2c9cbf4b8594",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 12300000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:55.642618+00:00"
+ },
+ {
+  "id": "f509369f-8c22-4c1e-9ade-c9a4cc827613",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4600000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:23.501922+00:00"
+ },
+ {
+  "id": "f5d90ef2-a222-436a-8ef4-6d4f824c63b9",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2600000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:45.618094+00:00"
+ },
+ {
+  "id": "f65bde55-11e1-47e0-b3fd-333ba41b6a9f",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 6000000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:25.173649+00:00"
+ },
+ {
+  "id": "f6ba472e-150f-4b49-8eb3-7c7e39267888",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 7900000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:04:16.812933+00:00"
+ },
+ {
+  "id": "f751ae44-4214-49d1-aaa8-192186d8bd77",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2800000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:54.112692+00:00"
+ },
+ {
+  "id": "f7625be4-5643-40e8-9838-ed206110e34f",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 2900000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:05.047085+00:00"
+ },
+ {
+  "id": "f7f405a1-5963-4d77-97d7-ee3c7d03e067",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 1700000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:27.319808+00:00"
+ },
+ {
+  "id": "f924741f-9d0d-4cf0-a6e9-24b5e1839ff1",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 5300000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:42.786979+00:00"
+ },
+ {
+  "id": "f979949c-c9e9-4644-97eb-54bcbfd026e1",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2200000,
+  "round_no": 7,
+  "created_at": "2026-09-04T12:18:55.736523+00:00"
+ },
+ {
+  "id": "f9d2f7ce-fa8d-4a74-a515-547812d754b2",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "b4f51610-2603-437f-960d-372d7d118529",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3600000,
+  "round_no": 3,
+  "created_at": "2026-09-04T12:13:27.42198+00:00"
+ },
+ {
+  "id": "f9df4675-7f1b-4b31-beff-77223643a00e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "670cbbc7-2164-41b9-81ed-bd3d5d61bf45",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 4000000,
+  "round_no": 8,
+  "created_at": "2026-09-25T16:03:58.739908+00:00"
+ },
+ {
+  "id": "faa548e0-9007-4217-a572-853aca07f082",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "6c7c98a6-0dd6-4056-beb7-79896c37ab21",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 3000000,
+  "round_no": 4,
+  "created_at": "2026-09-04T12:15:32.085588+00:00"
+ },
+ {
+  "id": "fafc1c30-bb12-463d-a7a0-7a91b8096fed",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 9400000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:11:37.478242+00:00"
+ },
+ {
+  "id": "fb99afd0-5e52-4e3d-9a41-c7ab4ac75160",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3400000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:48:18.534896+00:00"
+ },
+ {
+  "id": "fbdea918-d879-485c-94fb-c015acbb309d",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "76425f87-6ea3-4f76-9376-c0ad7df7b692",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 11100000,
+  "round_no": 3,
+  "created_at": "2026-09-25T15:50:35.687985+00:00"
+ },
+ {
+  "id": "fc7469fb-e6f7-4610-a786-2211c88f008e",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "61ca7acc-c82c-4f47-b0a7-25793bc997a6",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 6800000,
+  "round_no": 5,
+  "created_at": "2026-09-25T15:55:50.800907+00:00"
+ },
+ {
+  "id": "fd2efc1e-9353-491e-b1b3-cfadea5f3180",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 4200000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:33.328805+00:00"
+ },
+ {
+  "id": "fe14e832-3856-4233-8d81-eeb7f0609176",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "effb12b2-15b3-4073-a987-3e5cdfc0d305",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 3600000,
+  "round_no": 4,
+  "created_at": "2026-09-25T15:53:15.888817+00:00"
+ },
+ {
+  "id": "fe4eea61-950b-4974-8a9e-e039f8bdaa69",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "6c8f1d03-6b29-4189-b6bf-7dca17e3b787",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2100000,
+  "round_no": 2,
+  "created_at": "2026-09-25T15:47:50.698652+00:00"
+ },
+ {
+  "id": "fec56718-e285-4a3c-a74f-ca69e03d1cd1",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 7200000,
+  "round_no": 10,
+  "created_at": "2026-09-04T12:23:36.406858+00:00"
+ },
+ {
+  "id": "ff48e57d-0bd5-419e-9f10-a265cd14772a",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1100000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:00:47.691626+00:00"
+ },
+ {
+  "id": "ffaad107-d904-4e85-9bc5-75b340b54605",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 2700000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:20.442289+00:00"
+ },
+ {
+  "id": "ffb07e7d-7339-4cbf-9055-22d72aa574bf",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "97003c0f-25c5-47b8-9e56-cedc349f54f8",
+  "amount": 2800000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:01:21.45532+00:00"
+ },
+ {
+  "id": "ffb180e0-3597-4b32-9fe8-f80f5f0f8c49",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "f7cfe402-9822-495f-8943-0e2a6cbd1941",
+  "team_id": "4afcce8c-7337-497a-b488-b6eec43dea5b",
+  "amount": 8300000,
+  "round_no": 7,
+  "created_at": "2026-09-25T16:02:12.732456+00:00"
+ },
+ {
+  "id": "ffb53084-5a63-4220-99c2-4544a39179a8",
+  "season_id": "2491f309-962f-40d8-8b92-5a9f1cef64e5",
+  "player_id": "86db3b6e-d0c2-4d46-ab64-139d64763240",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1300000,
+  "round_no": 6,
+  "created_at": "2026-09-25T15:57:53.761218+00:00"
+ },
+ {
+  "id": "ffb74234-5c47-4c3b-ace3-cdf97c215f93",
+  "season_id": "8f1eecff-c442-4c68-b6b8-5aa0945a6b53",
+  "player_id": "5939ed80-e2a4-40e4-a9b3-e55cefb29db9",
+  "team_id": "4fd81ef7-1025-49e6-953f-74b377a99808",
+  "amount": 1800000,
+  "round_no": 2,
+  "created_at": "2026-09-04T12:10:29.003084+00:00"
+ }
+]

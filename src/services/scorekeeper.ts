@@ -2,6 +2,7 @@ import { FunctionsHttpError } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase'
 import { getMatchStatsWithPlayers } from '@/services/matches'
 import { getSeasonRoster } from '@/services/seasons'
+import { listMatchSubstitutes } from '@/services/substitutes'
 import type { MatchLiveSession, MatchLiveStat, MatchWithTeams, Player } from '@/types'
 import type { Json } from '@/types/database'
 import type { RosterPlayerOption } from '@/utils/screenshotImport'
@@ -38,13 +39,26 @@ export async function listTrackableMatches(): Promise<{ matches: MatchWithTeams[
 export interface TrackerRoster {
   options: RosterPlayerOption[]
   players: Record<string, Player>
+  /** Players in `options` who are substitutes for this match only. */
+  subIds: string[]
 }
 
-/** Season matches use the season roster; exhibitions use the players seeded into the match. */
+/**
+ * Season matches use the season roster plus this match's substitutes;
+ * exhibitions use the players seeded into the match.
+ */
 export async function getTrackerRoster(match: MatchWithTeams): Promise<TrackerRoster> {
-  const entries = match.season_id
-    ? (await getSeasonRoster(match.season_id)).filter((r) => r.team_id === match.team_a_id || r.team_id === match.team_b_id)
-    : (await getMatchStatsWithPlayers(match.id)).map((s) => ({ player: s.player, team_id: s.team_id }))
+  let entries: { player: Player; team_id: string; isSub?: boolean }[]
+  if (match.season_id) {
+    const [roster, subs] = await Promise.all([getSeasonRoster(match.season_id), listMatchSubstitutes(match.id)])
+    entries = roster.filter((r) => r.team_id === match.team_a_id || r.team_id === match.team_b_id)
+    const onRoster = new Set(entries.map((e) => e.player.id))
+    for (const s of subs) {
+      if (!onRoster.has(s.player_id)) entries.push({ player: s.player, team_id: s.team_id, isSub: true })
+    }
+  } else {
+    entries = (await getMatchStatsWithPlayers(match.id)).map((s) => ({ player: s.player, team_id: s.team_id }))
+  }
 
   const options: RosterPlayerOption[] = entries.map((e) => ({
     id: e.player.id,
@@ -53,7 +67,8 @@ export async function getTrackerRoster(match: MatchWithTeams): Promise<TrackerRo
     team_id: e.team_id,
   }))
   const players = Object.fromEntries(entries.map((e) => [e.player.id, e.player]))
-  return { options, players }
+  const subIds = entries.filter((e) => e.isSub).map((e) => e.player.id)
+  return { options, players, subIds }
 }
 
 export async function claimLiveMatch(matchId: string): Promise<MatchLiveSession> {

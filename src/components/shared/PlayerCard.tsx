@@ -11,6 +11,7 @@ export function PlayerCard({
   imageUrl,
   role,
   isCaptain,
+  isSub,
   kills,
   flags,
   deaths,
@@ -21,6 +22,8 @@ export function PlayerCard({
   imageUrl?: string | null
   role?: PlayerRole | null
   isCaptain?: boolean
+  /** Played for this team as a substitute (not on its roster). */
+  isSub?: boolean
   kills: number
   flags: number
   deaths: number
@@ -43,6 +46,9 @@ export function PlayerCard({
           <div className="flex flex-wrap items-center justify-center gap-1.5">
             {role ? (
               <p className="text-xs font-semibold uppercase tracking-wide text-accent-600">{PLAYER_ROLE_LABELS[role]}</p>
+            ) : null}
+            {isSub ? (
+              <span className="rounded-full bg-accent-100 px-2 py-0.5 text-[10px] font-bold text-accent-800">SUB</span>
             ) : null}
             {tier ? (
               <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold text-primary-700">{tier}</span>
