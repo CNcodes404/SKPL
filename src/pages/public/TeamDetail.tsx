@@ -8,6 +8,7 @@ import { TeamLogo } from '@/components/shared/Avatar'
 import { PlayerCard } from '@/components/shared/PlayerCard'
 import { SeasonSelector, ALL_SEASONS } from '@/components/shared/SeasonSelector'
 import { ExhibitionsToggle } from '@/components/shared/ExhibitionsToggle'
+import { TeamMascotCard } from '@/components/mascot/TeamMascotCard'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { EmptyState } from '@/components/shared/EmptyState'
@@ -21,7 +22,7 @@ import { getTeamSeasonSquad } from '@/services/stats'
 import { computePlayerIndices } from '@/services/auctionValuation'
 import { computePlayerTier } from '@/utils/playerTier'
 import { calculateTeamStats, calculateWinRate, calculateKD, average } from '@/utils/calculations'
-import type { PlayerSeasonStats } from '@/types'
+import type { PlayerSeasonStats, Team } from '@/types'
 
 type StatsScope = 'SEASON' | 'ALL_TIME'
 
@@ -156,6 +157,10 @@ export default function TeamDetail() {
   // Team-level historical fact — derived from every season's champion_team_id,
   // deliberately independent of `selected` so it never changes with the filter.
   const championSeasons = seasons.filter((s) => s.champion_team_id === teamId)
+  // Squad cards drop to two per row when the mascot takes the other half.
+  const squadGridClass = team.mascot_video_url
+    ? 'grid grid-cols-1 gap-4 sm:grid-cols-2'
+    : 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'
 
   return (
     <div className="flex flex-col gap-8">
@@ -189,12 +194,12 @@ export default function TeamDetail() {
         <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} />
       </div>
 
-      {statsLoading ? (
-        <LoadingState rows={6} />
-      ) : !seasonData ? (
-        <EmptyState title="No statistics available for this season." />
-      ) : (
-        <>
+      <SquadWithMascot team={team}>
+        {statsLoading ? (
+          <LoadingState rows={6} />
+        ) : !seasonData ? (
+          <EmptyState title="No statistics available for this season." />
+        ) : (
           <section className="flex flex-col gap-4">
             {isAll ? (
               <div className="flex flex-wrap items-center justify-between gap-2">
@@ -216,7 +221,7 @@ export default function TeamDetail() {
                 <EmptyState title="No historical players on record for this team." />
               ) : (
                 <div className="max-h-[70vh] overflow-y-auto pr-1">
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  <div className={squadGridClass}>
                     {historicalSquad.map(({ player, kills, deaths, flags, tier }) => (
                       <PlayerCard
                         key={player.id}
@@ -239,7 +244,7 @@ export default function TeamDetail() {
               ) : !seasonSquadAllTime || seasonSquadAllTime.length === 0 ? (
                 <EmptyState title="No squad on record for this season." />
               ) : (
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div className={squadGridClass}>
                   {seasonSquadAllTime.map(({ player, is_captain, is_sub, kills, deaths, flags }) => (
                     <PlayerCard
                       key={player.id}
@@ -260,7 +265,7 @@ export default function TeamDetail() {
             ) : !seasonData.seasonSquad || seasonData.seasonSquad.length === 0 ? (
               <EmptyState title="No squad on record for this season." />
             ) : (
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div className={squadGridClass}>
                 {seasonData.seasonSquad.map(({ player, is_captain, is_sub, kills, deaths, flags }) => (
                   <PlayerCard
                     key={player.id}
@@ -279,80 +284,95 @@ export default function TeamDetail() {
               </div>
             )}
           </section>
+        )}
+      </SquadWithMascot>
 
-          <section className="flex flex-col gap-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <h2 className="font-display text-2xl font-bold text-primary-900">
-                {effectiveScope === 'ALL_TIME' ? 'All-Time Statistics' : 'Season Statistics'}
-              </h2>
-              {isChampion ? (
-                <Badge variant="accent" className="flex items-center gap-1">
-                  <Trophy className="h-3.5 w-3.5" /> Champion
-                </Badge>
-              ) : null}
-            </div>
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Percent className="h-4 w-4 text-primary-600" /> Wins / Losses
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="grid grid-cols-2 gap-4">
-                  <Stat label="Wins" value={seasonData.mine.wins} />
-                  <Stat label="Losses" value={seasonData.mine.losses} />
-                  <Stat label="Win Rate" value={`${calculateWinRate(seasonData.mine.wins, seasonData.mine.matchesPlayed)}%`} />
-                  <Stat label="Rank" value={`#${seasonData.winsRank} / ${seasonData.totalTeams}`} />
-                  <Stat label="Highest Win Margin" value={seasonData.mine.highestWinMargin} />
-                </CardContent>
-              </Card>
+      {!statsLoading && seasonData ? (
+        <section className="flex flex-col gap-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 className="font-display text-2xl font-bold text-primary-900">
+              {effectiveScope === 'ALL_TIME' ? 'All-Time Statistics' : 'Season Statistics'}
+            </h2>
+            {isChampion ? (
+              <Badge variant="accent" className="flex items-center gap-1">
+                <Trophy className="h-3.5 w-3.5" /> Champion
+              </Badge>
+            ) : null}
+          </div>
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Percent className="h-4 w-4 text-primary-600" /> Wins / Losses
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-2 gap-4">
+                <Stat label="Wins" value={seasonData.mine.wins} />
+                <Stat label="Losses" value={seasonData.mine.losses} />
+                <Stat label="Win Rate" value={`${calculateWinRate(seasonData.mine.wins, seasonData.mine.matchesPlayed)}%`} />
+                <Stat label="Rank" value={`#${seasonData.winsRank} / ${seasonData.totalTeams}`} />
+                <Stat label="Highest Win Margin" value={seasonData.mine.highestWinMargin} />
+              </CardContent>
+            </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Skull className="h-4 w-4 text-primary-600" /> Kills
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="grid grid-cols-2 gap-4">
-                  <Stat label="Total Kills" value={seasonData.mine.kills} />
-                  <Stat label="Rank" value={`#${seasonData.killsRank} / ${seasonData.totalTeams}`} />
-                  <Stat label="Most in a Match" value={seasonData.mine.mostKillsInMatch} />
-                  <Stat label="Least in a Match" value={seasonData.mine.leastKillsInMatch} />
-                  <Stat
-                    label="Average / Match"
-                    value={
-                      seasonData.mine.matchesPlayed
-                        ? Math.round((seasonData.mine.kills / seasonData.mine.matchesPlayed) * 100) / 100
-                        : 0
-                    }
-                  />
-                </CardContent>
-              </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Skull className="h-4 w-4 text-primary-600" /> Kills
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-2 gap-4">
+                <Stat label="Total Kills" value={seasonData.mine.kills} />
+                <Stat label="Rank" value={`#${seasonData.killsRank} / ${seasonData.totalTeams}`} />
+                <Stat label="Most in a Match" value={seasonData.mine.mostKillsInMatch} />
+                <Stat label="Least in a Match" value={seasonData.mine.leastKillsInMatch} />
+                <Stat
+                  label="Average / Match"
+                  value={
+                    seasonData.mine.matchesPlayed
+                      ? Math.round((seasonData.mine.kills / seasonData.mine.matchesPlayed) * 100) / 100
+                      : 0
+                  }
+                />
+              </CardContent>
+            </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Flag className="h-4 w-4 text-primary-600" /> Flags
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="grid grid-cols-2 gap-4">
-                  <Stat label="Total Flags" value={seasonData.mine.flags} />
-                  <Stat
-                    label="Average / Match"
-                    value={
-                      seasonData.mine.matchesPlayed
-                        ? Math.round((seasonData.mine.flags / seasonData.mine.matchesPlayed) * 100) / 100
-                        : 0
-                    }
-                  />
-                  <Stat label="Minimum" value={seasonData.mine.minFlags} />
-                  <Stat label="Maximum" value={seasonData.mine.maxFlags} />
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-        </>
-      )}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Flag className="h-4 w-4 text-primary-600" /> Flags
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-2 gap-4">
+                <Stat label="Total Flags" value={seasonData.mine.flags} />
+                <Stat
+                  label="Average / Match"
+                  value={
+                    seasonData.mine.matchesPlayed
+                      ? Math.round((seasonData.mine.flags / seasonData.mine.matchesPlayed) * 100) / 100
+                      : 0
+                  }
+                />
+                <Stat label="Minimum" value={seasonData.mine.minFlags} />
+                <Stat label="Maximum" value={seasonData.mine.maxFlags} />
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      ) : null}
+    </div>
+  )
+}
+
+/** Squad on the left, mascot on the right (on top on mobile); just the squad without one. */
+function SquadWithMascot({ team, children }: { team: Team; children: React.ReactNode }) {
+  if (!team.mascot_video_url) return <>{children}</>
+  return (
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-start">
+      <div className="lg:sticky lg:top-24 lg:order-last">
+        <TeamMascotCard team={team} />
+      </div>
+      <div className="min-w-0">{children}</div>
     </div>
   )
 }

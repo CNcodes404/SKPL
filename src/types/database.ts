@@ -35,6 +35,13 @@ export interface Database {
           logo_url: string | null
           description: string | null
           is_active: boolean
+          mascot_name: string | null
+          mascot_tagline: string | null
+          mascot_bio: string | null
+          mascot_color: string | null
+          mascot_video_url: string | null
+          mascot_video_safari_url: string | null
+          mascot_poster_url: string | null
           created_at: string
           updated_at: string
         }
@@ -45,6 +52,13 @@ export interface Database {
           logo_url?: string | null
           description?: string | null
           is_active?: boolean
+          mascot_name?: string | null
+          mascot_tagline?: string | null
+          mascot_bio?: string | null
+          mascot_color?: string | null
+          mascot_video_url?: string | null
+          mascot_video_safari_url?: string | null
+          mascot_poster_url?: string | null
           created_at?: string
           updated_at?: string
         }

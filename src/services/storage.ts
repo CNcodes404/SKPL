@@ -6,7 +6,7 @@ function randomId(): string {
   return Math.random().toString(36).slice(2, 10)
 }
 
-export async function uploadImage(file: File, folder: 'teams' | 'players'): Promise<string> {
+export async function uploadMedia(file: File, folder: 'teams' | 'players' | 'mascots'): Promise<string> {
   const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg'
   const path = `${folder}/${Date.now()}-${randomId()}.${extension}`
 

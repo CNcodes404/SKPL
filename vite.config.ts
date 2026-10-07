@@ -11,5 +11,8 @@ export default defineConfig({
   },
   server: {
     host: true,
+    // Own port (fail rather than drift) so it never collides with other local projects on 5173.
+    port: 5180,
+    strictPort: true,
   },
 })

@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import type { Player, Team } from '@/types'
+import type { Database } from '@/types/database'
 
 export async function listTeams(includeInactive = false): Promise<Team[]> {
   let query = supabase.from('teams').select('*').order('name', { ascending: true })
@@ -15,12 +16,7 @@ export async function getTeam(id: string): Promise<Team | null> {
   return data
 }
 
-export async function createTeam(input: {
-  name: string
-  short_name: string
-  logo_url?: string | null
-  description?: string | null
-}): Promise<Team> {
+export async function createTeam(input: Database['public']['Tables']['teams']['Insert']): Promise<Team> {
   const { data, error } = await supabase.from('teams').insert(input).select().single()
   if (error) throw error
   return data

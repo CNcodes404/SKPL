@@ -31,9 +31,38 @@ interface FormState {
   short_name: string
   logo_url: string
   description: string
+  mascot_name: string
+  mascot_tagline: string
+  mascot_bio: string
+  mascot_color: string
+  mascot_video_url: string
+  mascot_video_safari_url: string
+  mascot_poster_url: string
 }
 
-const EMPTY_FORM: FormState = { name: '', short_name: '', logo_url: '', description: '' }
+const EMPTY_FORM: FormState = {
+  name: '',
+  short_name: '',
+  logo_url: '',
+  description: '',
+  mascot_name: '',
+  mascot_tagline: '',
+  mascot_bio: '',
+  mascot_color: '',
+  mascot_video_url: '',
+  mascot_video_safari_url: '',
+  mascot_poster_url: '',
+}
+
+const MASCOT_FIELDS = [
+  'mascot_name',
+  'mascot_tagline',
+  'mascot_bio',
+  'mascot_color',
+  'mascot_video_url',
+  'mascot_video_safari_url',
+  'mascot_poster_url',
+] as const
 
 export default function AdminTeams() {
   const { data: teams, loading, error, reload } = useAsync(() => listTeams(true), [])
@@ -67,7 +96,8 @@ export default function AdminTeams() {
       short_name: team.short_name,
       logo_url: team.logo_url ?? '',
       description: team.description ?? '',
-    })
+      ...Object.fromEntries(MASCOT_FIELDS.map((field) => [field, team[field] ?? ''])),
+    } as FormState)
     setFormError(null)
     setDialogOpen(true)
   }
@@ -86,6 +116,7 @@ export default function AdminTeams() {
         short_name: form.short_name.trim(),
         logo_url: form.logo_url.trim() || null,
         description: form.description.trim() || null,
+        ...Object.fromEntries(MASCOT_FIELDS.map((field) => [field, form[field].trim() || null])),
       }
       if (editing) {
         await updateTeam(editing.id, payload)
@@ -192,7 +223,7 @@ export default function AdminTeams() {
       )}
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent>
+        <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>{editing ? 'Edit Team' : 'Add Team'}</DialogTitle>
           </DialogHeader>
@@ -215,13 +246,86 @@ export default function AdminTeams() {
               folder="teams"
               hint="Optional. Upload an image or paste a URL."
             />
-            <FormField label="Description" htmlFor="team-desc" error={formError ?? undefined}>
+            <FormField label="Description" htmlFor="team-desc">
               <Textarea
                 id="team-desc"
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
               />
             </FormField>
+
+            <div className="flex flex-col gap-4 rounded-lg border border-border p-4">
+              <div>
+                <p className="font-display font-bold text-primary-900">Mascot</p>
+                <p className="text-xs text-muted-foreground">
+                  Optional. Shown next to the squad on the team page once a WebM video is set.
+                </p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <FormField label="Mascot Name" htmlFor="mascot-name">
+                  <Input
+                    id="mascot-name"
+                    value={form.mascot_name}
+                    onChange={(e) => setForm({ ...form, mascot_name: e.target.value })}
+                  />
+                </FormField>
+                <FormField label="Card Colour" htmlFor="mascot-color" hint="Hex, e.g. #2563eb">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="color"
+                      aria-label="Pick card colour"
+                      value={/^#[0-9a-f]{6}$/i.test(form.mascot_color) ? form.mascot_color : '#7c3aed'}
+                      onChange={(e) => setForm({ ...form, mascot_color: e.target.value })}
+                      className="h-9 w-12 shrink-0 cursor-pointer rounded-md border border-border bg-white p-1"
+                    />
+                    <Input
+                      id="mascot-color"
+                      value={form.mascot_color}
+                      placeholder="#7c3aed"
+                      onChange={(e) => setForm({ ...form, mascot_color: e.target.value })}
+                    />
+                  </div>
+                </FormField>
+              </div>
+              <FormField label="Tagline" htmlFor="mascot-tagline">
+                <Input
+                  id="mascot-tagline"
+                  value={form.mascot_tagline}
+                  onChange={(e) => setForm({ ...form, mascot_tagline: e.target.value })}
+                />
+              </FormField>
+              <FormField label="Bio" htmlFor="mascot-bio" hint="Shown in the popup.">
+                <Textarea
+                  id="mascot-bio"
+                  value={form.mascot_bio}
+                  onChange={(e) => setForm({ ...form, mascot_bio: e.target.value })}
+                />
+              </FormField>
+              <ImageUploadField
+                kind="video"
+                label="Video (WebM)"
+                value={form.mascot_video_url}
+                onChange={(url) => setForm({ ...form, mascot_video_url: url })}
+                folder="mascots"
+                hint="Transparent WebM — the <name>.webm file. Plays in Chrome, Edge, Firefox and Android."
+              />
+              <ImageUploadField
+                kind="video"
+                label="Safari Video (MP4)"
+                value={form.mascot_video_safari_url}
+                onChange={(url) => setForm({ ...form, mascot_video_safari_url: url })}
+                folder="mascots"
+                hint="The <name>-stacked.mp4 file. Used on Safari and iPhone."
+              />
+              <ImageUploadField
+                label="Poster Image"
+                value={form.mascot_poster_url}
+                onChange={(url) => setForm({ ...form, mascot_poster_url: url })}
+                folder="mascots"
+                hint="The <name>-poster.webp file. Shown while loading and for reduced motion."
+              />
+            </div>
+            {formError ? <p className="text-sm font-medium text-destructive">{formError}</p> : null}
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
                 Cancel
