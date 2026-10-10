@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Menu, X, ShieldCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { matchPath, useLiveMatches } from '@/context/LiveMatchesContext'
 
 const LINKS = [
   { to: '/', label: 'Home', end: true },
@@ -47,6 +48,7 @@ export function PublicNavbar() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
+          <LiveIndicator />
           <NavLink
             to="/admin"
             className="flex items-center gap-1.5 rounded-md bg-accent-500 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-accent-600"
@@ -55,13 +57,16 @@ export function PublicNavbar() {
           </NavLink>
         </div>
 
-        <button
-          className="rounded-md p-2 text-white lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <LiveIndicator onClick={() => setOpen(false)} />
+          <button
+            className="rounded-md p-2 text-white"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
       {open ? (
@@ -92,5 +97,22 @@ export function PublicNavbar() {
         </nav>
       ) : null}
     </header>
+  )
+}
+
+/** Pulsing LIVE pill while any match is being tracked: one match → its scorecard, several → Home's "Live Now". */
+function LiveIndicator({ onClick }: { onClick?: () => void }) {
+  const { liveMatches } = useLiveMatches()
+  if (liveMatches.length === 0) return null
+  const to = liveMatches.length === 1 ? matchPath(liveMatches[0].match) : '/'
+  return (
+    <NavLink
+      to={to}
+      onClick={onClick}
+      className="flex items-center gap-1.5 rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white transition-colors hover:bg-red-700"
+    >
+      <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
+      LIVE{liveMatches.length > 1 ? ` · ${liveMatches.length}` : ''}
+    </NavLink>
   )
 }

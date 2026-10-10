@@ -1,6 +1,6 @@
 import { FunctionsHttpError } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase'
-import { getMatchStatsWithPlayers } from '@/services/matches'
+import { getMatchStatsWithPlayers, listMatchesByIds } from '@/services/matches'
 import { getSeasonRoster } from '@/services/seasons'
 import { listMatchSubstitutes } from '@/services/substitutes'
 import type { MatchLiveSession, MatchLiveStat, MatchWithTeams, Player } from '@/types'
@@ -144,6 +144,57 @@ export async function extractScoreboard(image: string, kind: 'live' | 'final', m
     scoreboard_visible: Boolean(data?.scoreboard_visible),
     players: Array.isArray(data?.players) ? data.players : [],
     model: String(data?.model ?? ''),
+  }
+}
+
+export interface LiveMatch {
+  match: MatchWithTeams
+  teamAScore: number
+  teamBScore: number
+}
+
+/**
+ * Every match a scorekeeper is tracking right now, with live team scores
+ * (sum of the players' banked + current flags, as on the match page). A match
+ * counts as live once its session is LIVE, the match is still SCHEDULED and at
+ * least one stat row has been saved.
+ */
+export async function listLiveMatches(): Promise<LiveMatch[]> {
+  const { data: sessions, error } = await supabase.from('match_live_sessions').select('match_id').eq('status', 'LIVE')
+  // Tables missing (migration not applied yet) → simply nothing live.
+  if (error || !sessions || sessions.length === 0) return []
+  const ids = sessions.map((s) => s.match_id)
+
+  const [statsRes, matches] = await Promise.all([
+    supabase.from('match_live_stats').select('match_id, team_id, banked_flags, cur_flags').in('match_id', ids),
+    listMatchesByIds(ids),
+  ])
+  if (statsRes.error) return []
+
+  const flags = new Map<string, Map<string, number>>()
+  for (const s of statsRes.data ?? []) {
+    const byTeam = flags.get(s.match_id) ?? new Map<string, number>()
+    byTeam.set(s.team_id, (byTeam.get(s.team_id) ?? 0) + s.banked_flags + s.cur_flags)
+    flags.set(s.match_id, byTeam)
+  }
+
+  return matches
+    .filter((m) => m.status === 'SCHEDULED' && flags.has(m.id))
+    .map((m) => {
+      const byTeam = flags.get(m.id)!
+      return { match: m, teamAScore: byTeam.get(m.team_a_id) ?? 0, teamBScore: byTeam.get(m.team_b_id) ?? 0 }
+    })
+}
+
+/** Live updates across all matches (sessions starting/ending, stats changing); returns an unsubscribe function. */
+export function subscribeAllLiveMatches(onChange: () => void): () => void {
+  const channel = supabase
+    .channel('live-matches')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'match_live_stats' }, onChange)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'match_live_sessions' }, onChange)
+    .subscribe()
+  return () => {
+    supabase.removeChannel(channel)
   }
 }
 

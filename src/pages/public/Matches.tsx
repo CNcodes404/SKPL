@@ -12,12 +12,14 @@ import { useSeasonFilter } from '@/hooks/useSeasonFilter'
 import { useAsync } from '@/hooks/useAsync'
 import { listMatches } from '@/services/matches'
 import { listTeams } from '@/services/teams'
+import { useLiveMatches } from '@/context/LiveMatchesContext'
 
 export default function Matches() {
   const { seasons, selected, setSelected } = useSeasonFilter()
   const [teamId, setTeamId] = useState<string>('ALL')
   const [tab, setTab] = useState<'upcoming' | 'recent'>('upcoming')
 
+  const { getLive } = useLiveMatches()
   const { data: teams } = useAsync(() => listTeams(), [])
 
   const { data: matches, loading, error } = useAsync(async () => {
@@ -30,7 +32,11 @@ export default function Matches() {
 
   const upcoming = (matches ?? [])
     .filter((m) => m.status === 'SCHEDULED')
-    .sort((a, b) => new Date(a.scheduled_at ?? 0).getTime() - new Date(b.scheduled_at ?? 0).getTime())
+    .sort(
+      (a, b) =>
+        Number(Boolean(getLive(b.id))) - Number(Boolean(getLive(a.id))) ||
+        new Date(a.scheduled_at ?? 0).getTime() - new Date(b.scheduled_at ?? 0).getTime(),
+    )
 
   const recent = (matches ?? [])
     .filter((m) => m.status !== 'SCHEDULED')

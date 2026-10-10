@@ -42,6 +42,13 @@ export async function getMatch(id: string): Promise<MatchWithTeams | null> {
   return data as unknown as MatchWithTeams | null
 }
 
+export async function listMatchesByIds(ids: string[]): Promise<MatchWithTeams[]> {
+  if (ids.length === 0) return []
+  const { data, error } = await withTeamsSelect().in('id', ids).order('scheduled_at', { ascending: true })
+  if (error) throw error
+  return (data ?? []) as unknown as MatchWithTeams[]
+}
+
 export async function getMatchStats(matchId: string): Promise<MatchPlayerStat[]> {
   const { data, error } = await supabase.from('match_player_stats').select('*').eq('match_id', matchId)
   if (error) throw error

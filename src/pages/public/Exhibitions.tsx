@@ -7,15 +7,21 @@ import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
 import { listExhibitionMatches } from '@/services/matches'
+import { useLiveMatches } from '@/context/LiveMatchesContext'
 
 export default function Exhibitions() {
   const [tab, setTab] = useState<'upcoming' | 'recent'>('recent')
 
+  const { getLive } = useLiveMatches()
   const { data: matches, loading, error } = useAsync(() => listExhibitionMatches(), [])
 
   const upcoming = (matches ?? [])
     .filter((m) => m.status === 'SCHEDULED')
-    .sort((a, b) => new Date(a.scheduled_at ?? 0).getTime() - new Date(b.scheduled_at ?? 0).getTime())
+    .sort(
+      (a, b) =>
+        Number(Boolean(getLive(b.id))) - Number(Boolean(getLive(a.id))) ||
+        new Date(a.scheduled_at ?? 0).getTime() - new Date(b.scheduled_at ?? 0).getTime(),
+    )
 
   const recent = (matches ?? [])
     .filter((m) => m.status !== 'SCHEDULED')

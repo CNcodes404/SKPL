@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Trophy, Users, Swords, Crown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -9,9 +10,11 @@ import { useAsync } from '@/hooks/useAsync'
 import { getLatestSeason, getSeasonTeams } from '@/services/seasons'
 import { listMatches } from '@/services/matches'
 import { getPlayer } from '@/services/players'
+import { useLiveMatches } from '@/context/LiveMatchesContext'
 
 export default function Home() {
-  const { data, loading } = useAsync(async () => {
+  const { liveMatches } = useLiveMatches()
+  const { data, loading, reload } = useAsync(async () => {
     const season = await getLatestSeason()
     const [teams, upcoming, recent] = await Promise.all([
       season ? getSeasonTeams(season.id) : Promise.resolve([]),
@@ -24,12 +27,25 @@ export default function Home() {
     return {
       season,
       teamsCount: teams.length,
-      upcoming: upcoming.slice(0, 3),
+      upcoming,
       recent: recent.slice(-3).reverse(),
       champion,
       mvp,
     }
   }, [])
+
+  // When a live match finishes, reload so its result moves into Recent Results.
+  const liveKey = liveMatches.map((l) => l.match.id).join(',')
+  const prevLiveKey = useRef(liveKey)
+  useEffect(() => {
+    const ended = prevLiveKey.current.split(',').some((id) => id && !liveKey.split(',').includes(id))
+    prevLiveKey.current = liveKey
+    if (ended) reload()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [liveKey])
+
+  const liveIds = new Set(liveMatches.map((l) => l.match.id))
+  const upcoming = (data?.upcoming ?? []).filter((m) => !liveIds.has(m.id)).slice(0, 3)
 
   return (
     <div className="flex flex-col gap-14">
@@ -57,6 +73,19 @@ export default function Home() {
         </div>
       </section>
 
+      {liveMatches.length > 0 ? (
+        <section className="flex flex-col gap-4">
+          <h2 className="flex items-center gap-2 font-display text-2xl font-bold text-primary-900">
+            <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-red-600" /> Live Now
+          </h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {liveMatches.map((l) => (
+              <MatchCard key={l.match.id} match={l.match} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       {data?.season ? (
         <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           <HighlightTile icon={Trophy} label="Current Season" value={data.season.name} />
@@ -73,11 +102,11 @@ export default function Home() {
             See all
           </Link>
         </div>
-        {loading ? (
+        {loading && !data ? (
           <LoadingGrid items={3} />
-        ) : data && data.upcoming.length > 0 ? (
+        ) : upcoming.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {data.upcoming.map((m) => (
+            {upcoming.map((m) => (
               <MatchCard key={m.id} match={m} linkTo="/matches" />
             ))}
           </div>
@@ -93,7 +122,7 @@ export default function Home() {
             See all
           </Link>
         </div>
-        {loading ? (
+        {loading && !data ? (
           <LoadingGrid items={3} />
         ) : data && data.recent.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
