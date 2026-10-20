@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { PublicLayout } from '@/layouts/PublicLayout'
 import { AdminLayout } from '@/layouts/AdminLayout'
 import { OwnerLayout } from '@/layouts/OwnerLayout'
@@ -25,8 +25,9 @@ import NotFound from '@/pages/public/NotFound'
 
 import AdminLogin from '@/pages/admin/AdminLogin'
 import AdminDashboard from '@/pages/admin/AdminDashboard'
+import AdminTournaments from '@/pages/admin/AdminTournaments'
 import AdminSeasons from '@/pages/admin/AdminSeasons'
-import SeasonCreateWizard from '@/pages/admin/SeasonCreateWizard'
+import SeasonCreatePage from '@/pages/admin/SeasonCreatePage'
 import SeasonDetail from '@/pages/admin/SeasonDetail'
 import AdminAuctionRun from '@/pages/admin/AdminAuctionRun'
 import AdminTeams from '@/pages/admin/AdminTeams'
@@ -76,8 +77,11 @@ export default function App() {
       <Route element={<RequireAdmin />}>
         <Route element={<AdminLayout />}>
           <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/seasons" element={<AdminSeasons />} />
-          <Route path="/admin/seasons/create" element={<SeasonCreateWizard />} />
+          <Route path="/admin/tournaments" element={<AdminTournaments />} />
+          <Route path="/admin/tournaments/:slug" element={<AdminSeasons />} />
+          <Route path="/admin/tournaments/:slug/create" element={<SeasonCreatePage />} />
+          <Route path="/admin/seasons" element={<Navigate to="/admin/tournaments" replace />} />
+          <Route path="/admin/seasons/create" element={<Navigate to="/admin/tournaments/skctf/create" replace />} />
           <Route path="/admin/seasons/:seasonId" element={<SeasonDetail />} />
           <Route path="/admin/seasons/:seasonId/auction" element={<AdminAuctionRun />} />
           <Route path="/admin/teams" element={<AdminTeams />} />

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { SeasonSelector } from '@/components/shared/SeasonSelector'
+import { TournamentSelector } from '@/components/shared/TournamentSelector'
 import { ExhibitionsToggle } from '@/components/shared/ExhibitionsToggle'
 import { LeaderboardCard } from '@/components/shared/LeaderboardCard'
 import { LoadingGrid } from '@/components/shared/LoadingState'
@@ -23,18 +24,18 @@ import {
 import { BarChart3 } from 'lucide-react'
 
 export default function Stats() {
-  const { seasons, selected, setSelected } = useSeasonFilter()
+  const { seasons, selected, setSelected, tournaments, tournament, setTournament, tournamentScope } = useSeasonFilter()
   const [includeExhibitions, setIncludeExhibitions] = useState(false)
 
   const { data: playerStats, loading: playersLoading, error: playersError } = useAsync(async () => {
     if (!selected) return []
-    return getPlayerStatsForScope(selected, includeExhibitions)
-  }, [selected, includeExhibitions])
+    return getPlayerStatsForScope(selected, includeExhibitions, tournamentScope)
+  }, [selected, includeExhibitions, tournamentScope])
 
   const { data: teamStats, loading: teamsLoading, error: teamsError } = useAsync(async () => {
     if (!selected) return []
-    return getTeamStatsForScope(selected, includeExhibitions)
-  }, [selected, includeExhibitions])
+    return getTeamStatsForScope(selected, includeExhibitions, tournamentScope)
+  }, [selected, includeExhibitions, tournamentScope])
 
   // MVP counts are career-wide honors, not season-scoped stats — fetched
   // independent of the season selector above, but still respects the
@@ -65,7 +66,8 @@ export default function Stats() {
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <ExhibitionsToggle value={includeExhibitions} onChange={setIncludeExhibitions} />
-          <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} />
+          <TournamentSelector tournaments={tournaments} value={tournament} onChange={setTournament} />
+          <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} tournaments={tournaments} />
         </div>
       </div>
 
@@ -96,7 +98,7 @@ export default function Stats() {
                       teamName: s.team?.name,
                       value: playerStatDisplay(s, type),
                     }))}
-                    viewAllTo={`/stats/players/${type}?season=${selected}`}
+                    viewAllTo={`/stats/players/${type}?season=${selected}&tournament=${tournament}`}
                     entryHref={(entry) => `/players/${entry.id}`}
                   />
                 )
@@ -135,7 +137,7 @@ export default function Stats() {
                       name: s.team.name,
                       value: teamStatDisplay(s, type),
                     }))}
-                    viewAllTo={`/stats/teams/${type}?season=${selected}`}
+                    viewAllTo={`/stats/teams/${type}?season=${selected}&tournament=${tournament}`}
                     entryHref={(entry) => `/teams/${entry.id}`}
                   />
                 )

@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { Save, Ban, AlertCircle, ImageUp, Copy, Check, Wand2, UserPlus, X } from 'lucide-react'
+import { Link, useParams } from 'react-router-dom'
+import { Save, Ban, AlertCircle, ImageUp, Copy, Check, Wand2, UserPlus, X, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -14,6 +14,7 @@ import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
 import { getMatch, getMatchStatsWithPlayers, saveMatchResult, updateMatchSchedule } from '@/services/matches'
 import { getSeasonRoster } from '@/services/seasons'
+import { getRound, getRoundRoster } from '@/services/rounds'
 import { listPlayers } from '@/services/players'
 import { addMatchSubstitute, listMatchSubstitutes, removeMatchSubstitute } from '@/services/substitutes'
 import { formatDateTime } from '@/lib/utils'
@@ -50,16 +51,31 @@ export default function AdminMatchDetail() {
   const { data, loading, error, reload } = useAsync(async () => {
     const match = await getMatch(matchId)
     if (!match || !match.season_id) return null
-    const [roster, existingStats, substitutes, activePlayers] = await Promise.all([
-      getSeasonRoster(match.season_id),
+    // Round matches (Bluelock) use that round's lineup; league matches the season roster.
+    const [roster, existingStats, substitutes, activePlayers, round] = await Promise.all([
+      match.round_id ? getRoundRoster(match.round_id) : getSeasonRoster(match.season_id),
       getMatchStatsWithPlayers(matchId),
       listMatchSubstitutes(matchId),
       listPlayers(),
+      match.round_id ? getRound(match.round_id) : Promise.resolve(null),
     ])
 
-    const teamARoster = roster.filter((r) => r.team_id === match.team_a_id)
-    const teamBRoster = roster.filter((r) => r.team_id === match.team_b_id)
+    const teamARoster: { player: Player; team_id: string }[] = roster.filter((r) => r.team_id === match.team_a_id)
+    const teamBRoster: { player: Player; team_id: string }[] = roster.filter((r) => r.team_id === match.team_b_id)
     const rosterIds = new Set([...teamARoster, ...teamBRoster].map((r) => r.player.id))
+    const subIds = new Set(substitutes.map((s) => s.player_id))
+
+    // A round match that was scored before its lineup changed keeps the players
+    // who actually played, as regular players of the side they played for.
+    if (match.round_id) {
+      for (const s of existingStats) {
+        if (rosterIds.has(s.player_id) || subIds.has(s.player_id)) continue
+        const side = s.team_id === match.team_a_id ? teamARoster : s.team_id === match.team_b_id ? teamBRoster : null
+        if (!side) continue
+        side.push({ player: s.player, team_id: s.team_id })
+        rosterIds.add(s.player_id)
+      }
+    }
 
     // Substitutes: the recorded ones, plus any saved stats row for a player
     // who isn't on either roster (so a re-save never silently drops them).
@@ -72,7 +88,7 @@ export default function AdminMatchDetail() {
       }
     }
 
-    return { match, teamARoster, teamBRoster, existingStats, subs, activePlayers }
+    return { match, teamARoster, teamBRoster, existingStats, subs, activePlayers, round }
   }, [matchId])
 
   const [teamAScore, setTeamAScore] = useState<number | ''>('')
@@ -231,9 +247,17 @@ export default function AdminMatchDetail() {
           </h1>
           <p className="text-sm text-muted-foreground">
             {formatDateTime(match.scheduled_at)} · {MATCH_TYPE_LABELS[match.match_type]}
+            {data.round ? ` · ${data.round.name}` : ''}
           </p>
         </div>
         <div className="flex items-center gap-2">
+          {data.round ? (
+            <Button asChild variant="outline" size="sm">
+              <Link to={`/admin/seasons/${match.season_id}?round=${data.round.id}`}>
+                <Users className="h-3.5 w-3.5" /> Edit Lineups
+              </Link>
+            </Button>
+          ) : null}
           <StatusBadge status={match.status} />
           {match.status !== 'CANCELLED' ? (
             <Button variant="outline" size="sm" onClick={handleCancelMatch}>
@@ -398,8 +422,8 @@ function PlayerStatsTable({
             Cancel
           </Button>
           <p className="w-full text-xs text-muted-foreground">
-            A substitute plays this match only, for {teamLabel}. Their stats count for {teamLabel} in this match and
-            towards their own career.
+            A substitute plays this match only, for {teamLabel} — any player not already in this match, including
+            players from other teams. Their stats count for {teamLabel} in this match and towards their own career.
           </p>
         </div>
       ) : null}

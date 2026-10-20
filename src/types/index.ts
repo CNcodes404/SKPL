@@ -9,6 +9,7 @@ import type {
   PlayerRole,
   PlayerSkillTier,
   SeasonStatus,
+  TournamentFormat,
 } from './database'
 
 export type Team = Database['public']['Tables']['teams']['Row']
@@ -30,6 +31,11 @@ export type SeasonAuction = Database['public']['Tables']['season_auctions']['Row
 export type MatchLiveSession = Database['public']['Tables']['match_live_sessions']['Row']
 export type MatchLiveStat = Database['public']['Tables']['match_live_stats']['Row']
 export type MatchSubstitute = Database['public']['Tables']['match_substitutes']['Row']
+export type Tournament = Database['public']['Tables']['tournaments']['Row']
+export type TeamTournament = Database['public']['Tables']['team_tournaments']['Row']
+export type SeasonRound = Database['public']['Tables']['season_rounds']['Row']
+export type RoundTeam = Database['public']['Tables']['round_teams']['Row']
+export type RoundRoster = Database['public']['Tables']['round_rosters']['Row']
 
 export type {
   AuctionModeType,
@@ -41,6 +47,7 @@ export type {
   PlayerRole,
   PlayerSkillTier,
   SeasonStatus,
+  TournamentFormat,
 }
 
 export const AUCTION_MODE_LABELS: Record<AuctionModeType, string> = {

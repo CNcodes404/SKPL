@@ -51,13 +51,22 @@ export async function computeManualSeasonPrices(
   const teamIds = teamInputs.map((t) => t.teamId)
   const allPlayerIds = [...new Set(teamInputs.flatMap((t) => t.currentPlayerIds))]
 
+  // Prices only carry over between seasons of the same tournament.
+  const { data: seasonRow, error: seasonError } = await supabase
+    .from('seasons')
+    .select('tournament_id')
+    .eq('id', seasonId)
+    .single()
+  if (seasonError) throw seasonError
+
   const [{ data: playersData, error: playersError }, { data: priorRowsData, error: priorError }] = await Promise.all([
     supabase.from('players').select('*').in('id', allPlayerIds),
     supabase
       .from('season_rosters')
-      .select('team_id, player_id, price, season_id, seasons(season_number)')
+      .select('team_id, player_id, price, season_id, seasons!inner(season_number, tournament_id)')
       .in('team_id', teamIds)
-      .neq('season_id', seasonId),
+      .neq('season_id', seasonId)
+      .eq('seasons.tournament_id', seasonRow.tournament_id),
   ])
   if (playersError) throw playersError
   if (priorError) throw priorError

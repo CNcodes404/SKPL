@@ -107,15 +107,18 @@ export async function getPlayerHonors(includeExhibitions = false): Promise<Recor
 
   const { data: finals, error: finalsError } = await supabase
     .from('matches')
-    .select('season_id, team_a_id, team_b_id, team_a_score, team_b_score')
+    .select('season_id, round_id, team_a_id, team_b_id, team_a_score, team_b_score')
     .eq('match_type', 'FINAL')
     .eq('status', 'COMPLETED')
   if (finalsError) throw finalsError
 
   const runnerUpTeamBySeasonId = new Map<string, string>()
+  // Round-based seasons: trophies go to the Final round's lineups, not the opening rosters.
+  const finalRoundBySeasonId = new Map<string, string>()
   for (const m of finals ?? []) {
     if (!m.season_id || m.team_a_score == null || m.team_b_score == null || m.team_a_score === m.team_b_score) continue
     runnerUpTeamBySeasonId.set(m.season_id, m.team_a_score > m.team_b_score ? m.team_b_id : m.team_a_id)
+    if (m.round_id) finalRoundBySeasonId.set(m.season_id, m.round_id)
   }
 
   const championTeamBySeasonId = new Map(
@@ -131,8 +134,23 @@ export async function getPlayerHonors(includeExhibitions = false): Promise<Recor
     if (rostersError) throw rostersError
 
     for (const r of rosters ?? []) {
+      if (finalRoundBySeasonId.has(r.season_id)) continue
       if (championTeamBySeasonId.get(r.season_id) === r.team_id) bump(r.player_id, 'goldTrophies')
       if (runnerUpTeamBySeasonId.get(r.season_id) === r.team_id) bump(r.player_id, 'silverTrophies')
+    }
+
+    const seasonByRound = new Map([...finalRoundBySeasonId].map(([seasonId, roundId]) => [roundId, seasonId]))
+    if (seasonByRound.size > 0) {
+      const { data: lineups, error: lineupsError } = await supabase
+        .from('round_rosters')
+        .select('round_id, team_id, player_id')
+        .in('round_id', [...seasonByRound.keys()])
+      if (lineupsError) throw lineupsError
+      for (const r of lineups ?? []) {
+        const seasonId = seasonByRound.get(r.round_id)!
+        if (championTeamBySeasonId.get(seasonId) === r.team_id) bump(r.player_id, 'goldTrophies')
+        if (runnerUpTeamBySeasonId.get(seasonId) === r.team_id) bump(r.player_id, 'silverTrophies')
+      }
     }
   }
 
@@ -152,27 +170,106 @@ export interface PlayerWithCurrentTeam {
   currentTeam: Team | null
 }
 
-/** Every player with the team they most recently rostered for (by highest season_number). */
-export async function listPlayersWithCurrentTeam(includeInactive = true): Promise<PlayerWithCurrentTeam[]> {
-  const [players, rosterResult] = await Promise.all([
-    listPlayers(includeInactive),
-    supabase.from('season_rosters').select('player_id, teams(*), seasons(season_number)'),
-  ])
+interface TeamMembership {
+  player_id: string
+  team_id: string
+  season_number: number
+  /** 0 for a season roster row, else the round it comes from (later rounds win). */
+  round_number: number
+}
+
+/** Season-roster and round-lineup memberships, optionally of one tournament or one season. */
+async function listMemberships(scope: { tournamentId?: string; seasonId?: string }): Promise<TeamMembership[]> {
+  let rosterQuery = supabase
+    .from('season_rosters')
+    .select('player_id, team_id, season_id, seasons!inner(season_number, tournament_id)')
+  let roundQuery = supabase
+    .from('round_rosters')
+    .select('player_id, team_id, season_rounds!inner(round_number, season_id, seasons!inner(season_number, tournament_id))')
+  if (scope.seasonId) {
+    rosterQuery = rosterQuery.eq('season_id', scope.seasonId)
+    roundQuery = roundQuery.eq('season_rounds.season_id', scope.seasonId)
+  } else if (scope.tournamentId) {
+    rosterQuery = rosterQuery.eq('seasons.tournament_id', scope.tournamentId)
+    roundQuery = roundQuery.eq('season_rounds.seasons.tournament_id', scope.tournamentId)
+  }
+  const [rosterResult, roundResult] = await Promise.all([rosterQuery, roundQuery])
   if (rosterResult.error) throw rosterResult.error
 
-  const rosterByPlayer = new Map<string, any[]>()
-  for (const row of (rosterResult.data ?? []) as any[]) {
-    const list = rosterByPlayer.get(row.player_id) ?? []
-    list.push(row)
-    rosterByPlayer.set(row.player_id, list)
+  const rows: TeamMembership[] = ((rosterResult.data ?? []) as any[]).map((r) => ({
+    player_id: r.player_id,
+    team_id: r.team_id,
+    season_number: r.seasons?.season_number ?? 0,
+    round_number: 0,
+  }))
+  // Round lineups are optional extras: ignore them if the table isn't there yet.
+  if (!roundResult.error) {
+    for (const r of (roundResult.data ?? []) as any[]) {
+      rows.push({
+        player_id: r.player_id,
+        team_id: r.team_id,
+        season_number: r.season_rounds?.seasons?.season_number ?? 0,
+        round_number: r.season_rounds?.round_number ?? 0,
+      })
+    }
   }
+  return rows
+}
 
-  return players.map((player) => {
-    const rows = rosterByPlayer.get(player.id) ?? []
-    if (rows.length === 0) return { player, currentTeam: null }
-    const latest = rows.reduce((a, b) => ((b.seasons?.season_number ?? 0) > (a.seasons?.season_number ?? 0) ? b : a))
-    return { player, currentTeam: (latest.teams as Team) ?? null }
-  })
+function latestTeamByPlayer(rows: TeamMembership[]): Map<string, string> {
+  const latest = new Map<string, TeamMembership>()
+  for (const row of rows) {
+    const prev = latest.get(row.player_id)
+    if (
+      !prev ||
+      row.season_number > prev.season_number ||
+      (row.season_number === prev.season_number && row.round_number > prev.round_number)
+    ) {
+      latest.set(row.player_id, row)
+    }
+  }
+  return new Map([...latest].map(([playerId, row]) => [playerId, row.team_id]))
+}
+
+/**
+ * Every player with the team they most recently played for (by highest
+ * season_number, then latest round). With a tournament, only that
+ * tournament's players and teams.
+ */
+export async function listPlayersWithCurrentTeam(
+  includeInactive = true,
+  tournamentId?: string,
+): Promise<PlayerWithCurrentTeam[]> {
+  const [players, memberships, teamsResult] = await Promise.all([
+    listPlayers(includeInactive),
+    listMemberships({ tournamentId }),
+    supabase.from('teams').select('*'),
+  ])
+  if (teamsResult.error) throw teamsResult.error
+  const teamById = new Map((teamsResult.data ?? []).map((t) => [t.id, t as Team]))
+  const teamOf = latestTeamByPlayer(memberships)
+
+  return players
+    .filter((player) => !tournamentId || teamOf.has(player.id))
+    .map((player) => {
+      const teamId = teamOf.get(player.id)
+      return { player, currentTeam: (teamId && teamById.get(teamId)) || null }
+    })
+}
+
+/** A season's players, each with their team (for round-based seasons: their team in the latest round they're in). */
+export async function listSeasonPlayersWithTeam(seasonId: string): Promise<PlayerWithCurrentTeam[]> {
+  const [players, memberships, teamsResult] = await Promise.all([
+    listPlayers(true),
+    listMemberships({ seasonId }),
+    supabase.from('teams').select('*'),
+  ])
+  if (teamsResult.error) throw teamsResult.error
+  const teamById = new Map((teamsResult.data ?? []).map((t) => [t.id, t as Team]))
+  const teamOf = latestTeamByPlayer(memberships)
+  return players
+    .filter((p) => teamOf.has(p.id))
+    .map((player) => ({ player, currentTeam: teamById.get(teamOf.get(player.id)!) ?? null }))
 }
 
 export interface PlayerTeamInfo {

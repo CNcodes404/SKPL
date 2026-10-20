@@ -3,8 +3,11 @@ import { createMatches } from '@/services/matches'
 import type { Player, Season, SeasonRoster, SeasonTeam, Team } from '@/types'
 import { generateSchedule, type GeneratedPairing } from '@/utils/schedule'
 
-export async function listSeasons(): Promise<Season[]> {
-  const { data, error } = await supabase.from('seasons').select('*').order('season_number', { ascending: false })
+/** All seasons, newest first — optionally only one tournament's. */
+export async function listSeasons(tournamentId?: string): Promise<Season[]> {
+  let query = supabase.from('seasons').select('*')
+  if (tournamentId) query = query.eq('tournament_id', tournamentId)
+  const { data, error } = await query.order('season_number', { ascending: false }).order('created_at', { ascending: false })
   if (error) throw error
   return data ?? []
 }
@@ -15,11 +18,11 @@ export async function getSeason(id: string): Promise<Season | null> {
   return data
 }
 
-/** Returns the season with the highest season_number, or null if none exist. */
-export async function getLatestSeason(): Promise<Season | null> {
-  const { data, error } = await supabase
-    .from('seasons')
-    .select('*')
+/** Returns the season with the highest season_number (of one tournament, if given), or null if none exist. */
+export async function getLatestSeason(tournamentId?: string): Promise<Season | null> {
+  let query = supabase.from('seasons').select('*')
+  if (tournamentId) query = query.eq('tournament_id', tournamentId)
+  const { data, error } = await query
     .order('season_number', { ascending: false })
     .limit(1)
     .maybeSingle()
@@ -123,6 +126,33 @@ export async function createSeasonWithSetup(input: CreateSeasonInput): Promise<s
     p_retention_price_increase_pct: input.retention_price_increase_pct ?? 0,
   })
   if (error) throw error
+  return data as string
+}
+
+export interface CreateRoundsSeasonInput {
+  tournament_id: string
+  name: string
+  season_number: number
+  start_date: string | null
+  end_date: string | null
+  players_per_team: number
+  team_ids: string[]
+  rosters: { team_id: string; player_id: string }[]
+}
+
+/** Creates a round-based (Bluelock) season with its teams, default lineups and Round 1. */
+export async function createRoundsSeason(input: CreateRoundsSeasonInput): Promise<string> {
+  const { data, error } = await supabase.rpc('create_rounds_season', {
+    p_tournament_id: input.tournament_id,
+    p_name: input.name,
+    p_season_number: input.season_number,
+    p_start_date: input.start_date,
+    p_end_date: input.end_date,
+    p_players_per_team: input.players_per_team,
+    p_team_ids: input.team_ids,
+    p_rosters: input.rosters,
+  })
+  if (error) throw new Error(error.message)
   return data as string
 }
 

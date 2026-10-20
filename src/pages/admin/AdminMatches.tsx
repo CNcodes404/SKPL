@@ -16,6 +16,7 @@ import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
 import { listSeasons, getSeasonTeams } from '@/services/seasons'
 import { listTeams } from '@/services/teams'
+import { listTournaments, seasonLabel } from '@/services/tournaments'
 import { listMatches, createMatch, updateMatchSchedule, deleteMatch } from '@/services/matches'
 import { formatDateTime } from '@/lib/utils'
 import { MATCH_TYPES, MATCH_TYPE_LABELS, type Match, type MatchStatus, type MatchType, type MatchWithTeams } from '@/types'
@@ -27,6 +28,7 @@ export default function AdminMatches() {
   const [teamFilter, setTeamFilter] = useState('ALL')
 
   const { data: seasons } = useAsync(() => listSeasons(), [])
+  const { data: tournaments } = useAsync(() => listTournaments(), [])
   const { data: teams } = useAsync(() => listTeams(true), [])
 
   const { data: matches, loading, error, reload } = useAsync(
@@ -82,7 +84,7 @@ export default function AdminMatches() {
             <SelectItem value="ALL">All Seasons</SelectItem>
             {(seasons ?? []).map((s) => (
               <SelectItem key={s.id} value={s.id}>
-                {s.name}
+                {seasonLabel(s, tournaments)}
               </SelectItem>
             ))}
           </SelectContent>
@@ -207,7 +209,12 @@ function ScheduleMatchDialog({
   onOpenChange: (open: boolean) => void
   onCreated: () => void
 }) {
-  const { data: seasons } = useAsync(() => listSeasons(), [open])
+  // Round-based seasons schedule their matches from the season's Rounds page.
+  const { data: seasons } = useAsync(async () => {
+    const [all, tournaments] = await Promise.all([listSeasons(), listTournaments()])
+    const leagueIds = new Set(tournaments.filter((t) => t.format === 'LEAGUE').map((t) => t.id))
+    return all.filter((s) => leagueIds.has(s.tournament_id)).map((s) => ({ ...s, label: seasonLabel(s, tournaments) }))
+  }, [open])
   const [seasonId, setSeasonId] = useState('')
   const [matchType, setMatchType] = useState<MatchType>('REGULAR_SEASON')
   const [teamAId, setTeamAId] = useState('')
@@ -268,7 +275,7 @@ function ScheduleMatchDialog({
               <SelectContent>
                 {(seasons ?? []).map((s) => (
                   <SelectItem key={s.id} value={s.id}>
-                    {s.name}
+                    {s.label}
                   </SelectItem>
                 ))}
               </SelectContent>

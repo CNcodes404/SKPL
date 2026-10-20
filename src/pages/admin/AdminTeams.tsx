@@ -15,6 +15,8 @@ import { TeamLogo } from '@/components/shared/Avatar'
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
 import { useAsync } from '@/hooks/useAsync'
 import { listTeams, createTeam, updateTeam, setTeamActive } from '@/services/teams'
+import { listTeamTournaments, listTournaments, setTeamTournaments } from '@/services/tournaments'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   createOwnerInvite,
   getOwnerProfiles,
@@ -66,6 +68,11 @@ const MASCOT_FIELDS = [
 
 export default function AdminTeams() {
   const { data: teams, loading, error, reload } = useAsync(() => listTeams(true), [])
+  const { data: tournamentData, reload: reloadTournaments } = useAsync(async () => {
+    const [tournaments, byTeam] = await Promise.all([listTournaments(), listTeamTournaments()])
+    return { tournaments, byTeam }
+  }, [])
+  const [formTournamentIds, setFormTournamentIds] = useState<string[]>([])
   const {
     data: ownerData,
     reload: reloadOwners,
@@ -85,6 +92,7 @@ export default function AdminTeams() {
   function openCreate() {
     setEditing(null)
     setForm(EMPTY_FORM)
+    setFormTournamentIds([])
     setFormError(null)
     setDialogOpen(true)
   }
@@ -98,6 +106,7 @@ export default function AdminTeams() {
       description: team.description ?? '',
       ...Object.fromEntries(MASCOT_FIELDS.map((field) => [field, team[field] ?? ''])),
     } as FormState)
+    setFormTournamentIds(tournamentData?.byTeam[team.id] ?? [])
     setFormError(null)
     setDialogOpen(true)
   }
@@ -118,13 +127,11 @@ export default function AdminTeams() {
         description: form.description.trim() || null,
         ...Object.fromEntries(MASCOT_FIELDS.map((field) => [field, form[field].trim() || null])),
       }
-      if (editing) {
-        await updateTeam(editing.id, payload)
-      } else {
-        await createTeam(payload)
-      }
+      const saved = editing ? await updateTeam(editing.id, payload) : await createTeam(payload)
+      await setTeamTournaments(saved.id, formTournamentIds)
       setDialogOpen(false)
       reload()
+      reloadTournaments()
     } catch {
       setFormError('Unable to save team. Please check the entered details.')
     } finally {
@@ -168,6 +175,7 @@ export default function AdminTeams() {
             <TableRow>
               <TableHead>Team</TableHead>
               <TableHead>Short Name</TableHead>
+              <TableHead>Tournaments</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Owner</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -186,6 +194,20 @@ export default function AdminTeams() {
                     </div>
                   </TableCell>
                   <TableCell>{team.short_name}</TableCell>
+                  <TableCell>
+                    <div className="flex flex-wrap gap-1">
+                      {(tournamentData?.tournaments ?? [])
+                        .filter((t) => tournamentData?.byTeam[team.id]?.includes(t.id))
+                        .map((t) => (
+                          <Badge key={t.id} variant="default">
+                            {t.short_name}
+                          </Badge>
+                        ))}
+                      {!tournamentData?.byTeam[team.id]?.length ? (
+                        <span className="text-sm text-muted-foreground">None</span>
+                      ) : null}
+                    </div>
+                  </TableCell>
                   <TableCell>
                     <Badge variant={team.is_active ? 'success' : 'outline'}>{team.is_active ? 'Active' : 'Inactive'}</Badge>
                   </TableCell>
@@ -246,6 +268,35 @@ export default function AdminTeams() {
               folder="teams"
               hint="Optional. Upload an image or paste a URL."
             />
+            <div className="flex flex-col gap-2">
+              <p className="text-sm font-medium text-primary-900">Eligible tournaments</p>
+              <p className="text-xs text-muted-foreground">
+                The team can only be picked when creating seasons of the tournaments ticked here.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {(tournamentData?.tournaments ?? []).map((t) => {
+                  const checked = formTournamentIds.includes(t.id)
+                  return (
+                    <label
+                      key={t.id}
+                      className={`flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm ${
+                        checked ? 'border-primary-600 bg-primary-50' : 'border-border'
+                      }`}
+                    >
+                      <Checkbox
+                        checked={checked}
+                        onChange={() =>
+                          setFormTournamentIds((prev) =>
+                            prev.includes(t.id) ? prev.filter((id) => id !== t.id) : [...prev, t.id],
+                          )
+                        }
+                      />
+                      <span className="font-semibold text-primary-900">{t.name}</span>
+                    </label>
+                  )
+                })}
+              </div>
+            </div>
             <FormField label="Description" htmlFor="team-desc">
               <Textarea
                 id="team-desc"

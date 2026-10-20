@@ -2,6 +2,7 @@ import { FunctionsHttpError } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase'
 import { getMatchStatsWithPlayers, listMatchesByIds } from '@/services/matches'
 import { getSeasonRoster } from '@/services/seasons'
+import { getRoundRoster } from '@/services/rounds'
 import { listMatchSubstitutes } from '@/services/substitutes'
 import type { MatchLiveSession, MatchLiveStat, MatchWithTeams, Player } from '@/types'
 import type { Json } from '@/types/database'
@@ -44,13 +45,16 @@ export interface TrackerRoster {
 }
 
 /**
- * Season matches use the season roster plus this match's substitutes;
- * exhibitions use the players seeded into the match.
+ * Season matches use the season roster (round matches: the round lineup)
+ * plus this match's substitutes; exhibitions use the players seeded into the match.
  */
 export async function getTrackerRoster(match: MatchWithTeams): Promise<TrackerRoster> {
   let entries: { player: Player; team_id: string; isSub?: boolean }[]
   if (match.season_id) {
-    const [roster, subs] = await Promise.all([getSeasonRoster(match.season_id), listMatchSubstitutes(match.id)])
+    const [roster, subs] = await Promise.all([
+      match.round_id ? getRoundRoster(match.round_id) : getSeasonRoster(match.season_id),
+      listMatchSubstitutes(match.id),
+    ])
     entries = roster.filter((r) => r.team_id === match.team_a_id || r.team_id === match.team_b_id)
     const onRoster = new Set(entries.map((e) => e.player.id))
     for (const s of subs) {

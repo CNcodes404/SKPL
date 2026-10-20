@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard,
   Trophy,
@@ -16,9 +16,10 @@ import {
 import { cn } from '@/lib/utils'
 import { signOut } from '@/services/auth'
 
-const LINKS = [
+const LINKS: { to: string; label: string; icon: typeof Trophy; end?: boolean; alsoActiveOn?: string }[] = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
-  { to: '/admin/seasons', label: 'Seasons', icon: Trophy },
+  // Season pages live under /admin/seasons but belong to a tournament.
+  { to: '/admin/tournaments', label: 'Tournaments', icon: Trophy, alsoActiveOn: '/admin/seasons' },
   { to: '/admin/teams', label: 'Teams', icon: Users },
   { to: '/admin/players', label: 'Players', icon: UserRound },
   { to: '/admin/matches', label: 'Matches', icon: Swords },
@@ -28,6 +29,7 @@ const LINKS = [
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   async function handleLogout() {
     await signOut()
@@ -54,7 +56,8 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
             className={({ isActive }) =>
               cn(
                 'flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-semibold transition-colors',
-                isActive ? 'bg-white/10 text-white' : 'text-primary-300 hover:bg-white/5 hover:text-white',
+                isActive || (link.alsoActiveOn && pathname.startsWith(link.alsoActiveOn))
+                  ? 'bg-white/10 text-white' : 'text-primary-300 hover:bg-white/5 hover:text-white',
               )
             }
           >

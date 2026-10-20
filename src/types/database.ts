@@ -21,6 +21,7 @@ export type AuctionPlayerStatus = 'PENDING' | 'ON_BLOCK' | 'SOLD' | 'UNSOLD'
 export type AuctionStatus = 'DRAFT' | 'RUNNING' | 'PAUSED' | 'COMPLETED'
 export type AuctionModeType = 'AI' | 'MANUAL'
 export type PlayerDrawModeType = 'AUTO' | 'MANUAL'
+export type TournamentFormat = 'LEAGUE' | 'ROUNDS'
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
@@ -110,6 +111,8 @@ export interface Database {
           mvp_player_id: string | null
           champion_team_id: string | null
           description: string | null
+          tournament_id: string
+          players_per_team: number | null
           created_at: string
           updated_at: string
         }
@@ -129,6 +132,8 @@ export interface Database {
           mvp_player_id?: string | null
           champion_team_id?: string | null
           description?: string | null
+          tournament_id?: string
+          players_per_team?: number | null
           created_at?: string
           updated_at?: string
         }
@@ -190,6 +195,7 @@ export interface Database {
           team_b_score: number | null
           mvp_player_id: string | null
           stage_label: string | null
+          round_id: string | null
           created_at: string
           updated_at: string
         }
@@ -205,6 +211,7 @@ export interface Database {
           team_b_score?: number | null
           mvp_player_id?: string | null
           stage_label?: string | null
+          round_id?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -666,9 +673,118 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['match_live_snapshots']['Insert']>
         Relationships: []
       }
+      tournaments: {
+        Row: {
+          id: string
+          name: string
+          short_name: string
+          slug: string
+          format: TournamentFormat
+          description: string | null
+          sort_order: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          short_name: string
+          slug: string
+          format: TournamentFormat
+          description?: string | null
+          sort_order?: number
+          created_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['tournaments']['Insert']>
+        Relationships: []
+      }
+      team_tournaments: {
+        Row: {
+          team_id: string
+          tournament_id: string
+        }
+        Insert: {
+          team_id: string
+          tournament_id: string
+        }
+        Update: Partial<Database['public']['Tables']['team_tournaments']['Insert']>
+        Relationships: []
+      }
+      season_rounds: {
+        Row: {
+          id: string
+          season_id: string
+          round_number: number
+          name: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          season_id: string
+          round_number: number
+          name: string
+          created_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['season_rounds']['Insert']>
+        Relationships: []
+      }
+      round_teams: {
+        Row: {
+          round_id: string
+          team_id: string
+        }
+        Insert: {
+          round_id: string
+          team_id: string
+        }
+        Update: Partial<Database['public']['Tables']['round_teams']['Insert']>
+        Relationships: []
+      }
+      round_rosters: {
+        Row: {
+          id: string
+          round_id: string
+          team_id: string
+          player_id: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          round_id: string
+          team_id: string
+          player_id: string
+          created_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['round_rosters']['Insert']>
+        Relationships: []
+      }
     }
     Views: Record<string, never>
     Functions: {
+      create_rounds_season: {
+        Args: {
+          p_tournament_id: string
+          p_name: string
+          p_season_number: number
+          p_start_date: string | null
+          p_end_date: string | null
+          p_players_per_team: number
+          p_team_ids: string[]
+          p_rosters: { team_id: string; player_id: string }[]
+        }
+        Returns: string
+      }
+      create_season_round: {
+        Args: { p_season_id: string; p_name: string | null; p_team_ids: string[] }
+        Returns: string
+      }
+      update_season_round: {
+        Args: { p_round_id: string; p_name: string | null; p_team_ids: string[] }
+        Returns: undefined
+      }
+      set_round_lineup: {
+        Args: { p_round_id: string; p_team_id: string; p_player_ids: string[] }
+        Returns: undefined
+      }
       create_season_with_setup: {
         Args: {
           p_name: string

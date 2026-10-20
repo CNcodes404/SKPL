@@ -24,7 +24,7 @@ import { PLAYER_ROLE_LABELS } from '@/types'
 
 export default function PlayerProfile() {
   const { playerId = '' } = useParams()
-  const { seasons, selected, setSelected } = useSeasonFilter()
+  const { seasons, tournaments, selected, setSelected } = useSeasonFilter()
   const [includeExhibitions, setIncludeExhibitions] = useState(false)
 
   const { data: player, loading: playerLoading, error } = useAsync(() => getPlayer(playerId), [playerId])
@@ -113,7 +113,7 @@ export default function PlayerProfile() {
 
       <div className="flex flex-wrap items-center justify-end gap-3">
         <ExhibitionsToggle value={includeExhibitions} onChange={setIncludeExhibitions} />
-        <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} />
+        <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} tournaments={tournaments} />
       </div>
 
       {statsLoading ? (

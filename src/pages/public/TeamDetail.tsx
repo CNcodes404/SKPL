@@ -28,7 +28,7 @@ type StatsScope = 'SEASON' | 'ALL_TIME'
 
 export default function TeamDetail() {
   const { teamId = '' } = useParams()
-  const { seasons, selected, setSelected, selectedSeason } = useSeasonFilter()
+  const { seasons, tournaments, selected, setSelected, selectedSeason } = useSeasonFilter()
   const isAll = selected === ALL_SEASONS
   // The squad selector (which roster to show) and this toggle (which stats
   // to show for that roster) are independent — this lets a team see its
@@ -191,7 +191,7 @@ export default function TeamDetail() {
           </Tabs>
         ) : null}
         <ExhibitionsToggle value={includeExhibitions} onChange={setIncludeExhibitions} />
-        <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} />
+        <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} tournaments={tournaments} />
       </div>
 
       <SquadWithMascot team={team}>

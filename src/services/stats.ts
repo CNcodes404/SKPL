@@ -7,11 +7,23 @@ import { listPlayers } from '@/services/players'
 import { calculatePlayerStats, calculateTeamStats, type RosterMember } from '@/utils/calculations'
 import type { PlayerSeasonStats, Team, TeamSeasonStats } from '@/types'
 
-/** Every player who has ever appeared on a roster, deduped, each mapped to their most recent team. */
-async function getAllRosterMembers(): Promise<RosterMember[]> {
-  const { data, error } = await supabase
+/** Ids of one tournament's seasons. */
+export async function getTournamentSeasonIds(tournamentId: string): Promise<string[]> {
+  const { data, error } = await supabase.from('seasons').select('id').eq('tournament_id', tournamentId)
+  if (error) throw error
+  return (data ?? []).map((s) => s.id)
+}
+
+/**
+ * Every player who has ever appeared on a roster (of the given seasons, if
+ * any), deduped, each mapped to their most recent team.
+ */
+async function getAllRosterMembers(seasonIds?: string[]): Promise<RosterMember[]> {
+  let query = supabase
     .from('season_rosters')
     .select('player_id, players(*), team_id, teams(*), is_captain, seasons(season_number)')
+  if (seasonIds) query = query.in('season_id', seasonIds)
+  const { data, error } = await query
   if (error) throw error
 
   const bySeasonDesc = [...((data ?? []) as any[])].sort(
@@ -27,9 +39,44 @@ async function getAllRosterMembers(): Promise<RosterMember[]> {
   return members
 }
 
+/**
+ * Matches and stats across all seasons — of one tournament if given (which
+ * leaves exhibitions out, as they belong to no tournament).
+ */
+async function getAllSeasonsData(includeExhibitions: boolean, tournamentId?: string) {
+  const seasonIds = tournamentId ? await getTournamentSeasonIds(tournamentId) : undefined
+  let [matches, stats] = await Promise.all([
+    listMatchesRaw(undefined, includeExhibitions && !tournamentId),
+    listAllStats(includeExhibitions && !tournamentId),
+  ])
+  if (seasonIds) {
+    const inTournament = new Set(seasonIds)
+    matches = matches.filter((m) => m.season_id && inTournament.has(m.season_id))
+    const matchIds = new Set(matches.map((m) => m.id))
+    stats = stats.filter((s) => matchIds.has(s.match_id))
+  }
+  return { seasonIds, matches, stats }
+}
+
+/** Players who played in these stats but aren't members yet, under the team they last played for. */
+async function addUnlistedPlayers(members: RosterMember[], stats: { player_id: string; team_id: string }[], teams: Team[]) {
+  const listed = new Set(members.map((m) => m.player.id))
+  const missing = [...new Set(stats.filter((s) => !listed.has(s.player_id)).map((s) => s.player_id))]
+  if (missing.length === 0) return
+  const teamById = new Map(teams.map((t) => [t.id, t] as [string, Team]))
+  const players = await listPlayers(true)
+  for (const id of missing) {
+    const player = players.find((p) => p.id === id)
+    if (!player) continue
+    const lastTeamId = stats.filter((s) => s.player_id === id).at(-1)?.team_id
+    members.push({ player, team: (lastTeamId && teamById.get(lastTeamId)) || null, is_captain: false })
+  }
+}
+
 export async function getPlayerStatsForScope(
   seasonId: string,
   includeExhibitions = false,
+  tournamentId?: string,
 ): Promise<PlayerSeasonStats[]> {
   const isAll = seasonId === ALL_SEASONS
 
@@ -38,11 +85,12 @@ export async function getPlayerStatsForScope(
   let stats: Awaited<ReturnType<typeof listAllStats>>
 
   if (isAll) {
-    ;[members, matches, stats] = await Promise.all([
-      getAllRosterMembers(),
-      listMatchesRaw(undefined, includeExhibitions),
-      listAllStats(includeExhibitions),
-    ])
+    const data = await getAllSeasonsData(includeExhibitions, tournamentId)
+    matches = data.matches
+    stats = data.stats
+    members = await getAllRosterMembers(data.seasonIds)
+    // Players who only ever played from a round lineup or as a substitute.
+    if (data.seasonIds) await addUnlistedPlayers(members, stats, await listTeams(true))
   } else {
     const [roster, teams, seasonMatches, seasonStats] = await Promise.all([
       getSeasonRoster(seasonId),
@@ -113,13 +161,20 @@ export async function getTeamSeasonSquad(seasonId: string, teamId: string): Prom
 export async function getTeamStatsForScope(
   seasonId: string,
   includeExhibitions = false,
+  tournamentId?: string,
 ): Promise<TeamSeasonStats[]> {
-  const isAll = seasonId === ALL_SEASONS
+  if (seasonId === ALL_SEASONS) {
+    const [allTeams, data] = await Promise.all([listTeams(true), getAllSeasonsData(includeExhibitions, tournamentId)])
+    // Scoped to a tournament: only teams that played in it.
+    const played = new Set(data.matches.flatMap((m) => [m.team_a_id, m.team_b_id]))
+    const teams = tournamentId ? allTeams.filter((t) => played.has(t.id)) : allTeams
+    return calculateTeamStats(teams, data.matches, data.stats, { includeAllMatchTypes: true })
+  }
 
   const [teams, matches, stats] = await Promise.all([
-    isAll ? listTeams(true) : getSeasonTeams(seasonId),
-    isAll ? listMatchesRaw(undefined, includeExhibitions) : listMatchesRaw(seasonId),
-    isAll ? listAllStats(includeExhibitions) : listStatsForSeason(seasonId),
+    getSeasonTeams(seasonId),
+    listMatchesRaw(seasonId),
+    listStatsForSeason(seasonId),
   ])
 
   return calculateTeamStats(teams, matches, stats, { includeAllMatchTypes: true })

@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { FilterBar } from '@/components/shared/FilterBar'
 import { SeasonSelector, ALL_SEASONS } from '@/components/shared/SeasonSelector'
+import { TournamentSelector } from '@/components/shared/TournamentSelector'
 import { MatchCard } from '@/components/shared/MatchCard'
 import { LoadingGrid } from '@/components/shared/LoadingState'
 import { EmptyState } from '@/components/shared/EmptyState'
@@ -12,10 +13,13 @@ import { useSeasonFilter } from '@/hooks/useSeasonFilter'
 import { useAsync } from '@/hooks/useAsync'
 import { listMatches } from '@/services/matches'
 import { listTeams } from '@/services/teams'
+import { listRoundsForSeasons } from '@/services/rounds'
+import type { MatchWithTeams } from '@/types'
 import { useLiveMatches } from '@/context/LiveMatchesContext'
 
 export default function Matches() {
-  const { seasons, selected, setSelected } = useSeasonFilter()
+  const { seasons, selected, setSelected, selectedSeason, tournaments, tournament, setTournament, tournamentScope } =
+    useSeasonFilter()
   const [teamId, setTeamId] = useState<string>('ALL')
   const [tab, setTab] = useState<'upcoming' | 'recent'>('upcoming')
 
@@ -24,11 +28,23 @@ export default function Matches() {
 
   const { data: matches, loading, error } = useAsync(async () => {
     if (!selected) return []
-    return listMatches({
+    const list = await listMatches({
       seasonId: selected === ALL_SEASONS ? undefined : selected,
       teamId: teamId === 'ALL' ? undefined : teamId,
     })
-  }, [selected, teamId])
+    if (selected !== ALL_SEASONS || !tournamentScope) return list
+    // All seasons of one tournament.
+    const seasonIds = new Set(seasons.map((s) => s.id))
+    return list.filter((m) => m.season_id && seasonIds.has(m.season_id))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected, teamId, tournamentScope])
+
+  // Round-based seasons list their matches round by round.
+  const isRoundsSeason = tournaments.find((t) => t.id === selectedSeason?.tournament_id)?.format === 'ROUNDS'
+  const { data: rounds } = useAsync(async () => {
+    if (!isRoundsSeason || !selectedSeason) return []
+    return listRoundsForSeasons([selectedSeason.id])
+  }, [isRoundsSeason, selectedSeason?.id])
 
   const upcoming = (matches ?? [])
     .filter((m) => m.status === 'SCHEDULED')
@@ -44,6 +60,15 @@ export default function Matches() {
 
   const list = tab === 'upcoming' ? upcoming : recent
 
+  const groups: { key: string; title: string | null; matches: MatchWithTeams[] }[] =
+    isRoundsSeason && rounds && rounds.length > 0
+      ? [...rounds]
+          .sort((a, b) => (tab === 'upcoming' ? a.round_number - b.round_number : b.round_number - a.round_number))
+          .map((r) => ({ key: r.id, title: r.name, matches: list.filter((m) => m.round_id === r.id) }))
+          .concat([{ key: 'none', title: 'Other', matches: list.filter((m) => !m.round_id) }])
+          .filter((g) => g.matches.length > 0)
+      : [{ key: 'all', title: null, matches: list }]
+
   return (
     <div className="flex flex-col gap-6">
       <div>
@@ -52,7 +77,8 @@ export default function Matches() {
       </div>
 
       <FilterBar>
-        <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} />
+        <TournamentSelector tournaments={tournaments} value={tournament} onChange={setTournament} />
+        <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} tournaments={tournaments} />
         <Select value={teamId} onValueChange={setTeamId}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Team" />
@@ -84,9 +110,18 @@ export default function Matches() {
               icon={Swords}
             />
           ) : (
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {list.map((m) => (
-                <MatchCard key={m.id} match={m} linkTo={m.status === 'COMPLETED' ? `/matches/${m.id}` : undefined} />
+            <div className="flex flex-col gap-6">
+              {groups.map((group) => (
+                <div key={group.key} className="flex flex-col gap-3">
+                  {group.title ? (
+                    <h2 className="font-display text-lg font-bold text-primary-900">{group.title}</h2>
+                  ) : null}
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {group.matches.map((m) => (
+                      <MatchCard key={m.id} match={m} linkTo={m.status === 'COMPLETED' ? `/matches/${m.id}` : undefined} />
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           )}

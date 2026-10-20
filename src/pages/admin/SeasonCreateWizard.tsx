@@ -13,11 +13,12 @@ import { LoadingState } from '@/components/shared/LoadingState'
 import { useAsync } from '@/hooks/useAsync'
 import { listTeams } from '@/services/teams'
 import { listPlayers } from '@/services/players'
-import { createSeasonWithSetup } from '@/services/seasons'
+import { createSeasonWithSetup, listSeasons, updateSeason } from '@/services/seasons'
+import { listTournamentTeamIds } from '@/services/tournaments'
 import { applyRosterPrices, computeManualSeasonPrices } from '@/services/legacyPricing'
 import { generateSchedule, expectedMatchCount } from '@/utils/schedule'
 import { cn } from '@/lib/utils'
-import type { Team } from '@/types'
+import type { Team, Tournament } from '@/types'
 
 const STEPS = ['Basics', 'Teams', 'Rosters', 'Rules', 'Schedule', 'Confirm']
 
@@ -27,12 +28,17 @@ interface ScheduledMatch {
   scheduled_at: string
 }
 
-export default function SeasonCreateWizard() {
+export default function SeasonCreateWizard({ tournament }: { tournament: Tournament }) {
   const navigate = useNavigate()
   const [step, setStep] = useState(0)
 
-  const { data: teams, loading: teamsLoading } = useAsync(() => listTeams(), [])
+  // Only teams registered for this tournament can be picked.
+  const { data: teams, loading: teamsLoading } = useAsync(async () => {
+    const [allTeams, eligibleIds] = await Promise.all([listTeams(), listTournamentTeamIds(tournament.id)])
+    return allTeams.filter((t) => eligibleIds.includes(t.id))
+  }, [tournament.id])
   const { data: players, loading: playersLoading } = useAsync(() => listPlayers(), [])
+  const { data: existingSeasons } = useAsync(() => listSeasons(tournament.id), [tournament.id])
 
   // Step 1
   const [name, setName] = useState('')
@@ -60,6 +66,13 @@ export default function SeasonCreateWizard() {
   // Step 5
   const [schedule, setSchedule] = useState<ScheduledMatch[]>([])
   const [scheduleGeneratedFor, setScheduleGeneratedFor] = useState<string>('')
+
+  // Default the season number to the next one in this tournament.
+  const [seasonNumberTouched, setSeasonNumberTouched] = useState(false)
+  useEffect(() => {
+    if (seasonNumberTouched || !existingSeasons) return
+    setSeasonNumber(Math.max(0, ...existingSeasons.map((s) => s.season_number)) + 1)
+  }, [existingSeasons, seasonNumberTouched])
 
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
@@ -159,6 +172,7 @@ export default function SeasonCreateWizard() {
         max_retentions_per_team: rosterMode === 'AUCTION' ? maxRetentionsPerTeam : 0,
         retention_price_increase_pct: rosterMode === 'AUCTION' ? retentionPriceIncreasePct : 0,
       })
+      if (tournament.slug !== 'skctf') await updateSeason(seasonId, { tournament_id: tournament.id })
 
       if (rosterMode === 'MANUAL') {
         const teamInputs = teamIds.map((teamId) => ({
@@ -184,7 +198,7 @@ export default function SeasonCreateWizard() {
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="font-display text-3xl font-bold text-primary-900">Create Season</h1>
-        <p className="text-sm text-muted-foreground">Set up a new SKPL season in a few steps.</p>
+        <p className="text-sm text-muted-foreground">Set up a new {tournament.name} season in a few steps.</p>
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
@@ -218,7 +232,10 @@ export default function SeasonCreateWizard() {
                 type="number"
                 min={1}
                 value={seasonNumber}
-                onChange={(e) => setSeasonNumber(Number(e.target.value))}
+                onChange={(e) => {
+                  setSeasonNumberTouched(true)
+                  setSeasonNumber(Number(e.target.value))
+                }}
               />
             </FormField>
             <div className="grid grid-cols-2 gap-4">
@@ -234,7 +251,10 @@ export default function SeasonCreateWizard() {
 
         {step === 1 ? (
           <div className="flex flex-col gap-4">
-            <p className="text-sm text-muted-foreground">Select at least two active teams to participate this season.</p>
+            <p className="text-sm text-muted-foreground">
+              Select at least two active teams to participate this season. Only teams registered for {tournament.name}{' '}
+              are listed — set eligibility on the Teams page.
+            </p>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {(teams ?? []).map((team) => (
                 <label

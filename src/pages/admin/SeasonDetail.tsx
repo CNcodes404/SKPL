@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { Trash2, Crown, Swords, Scale, Gavel, Calculator, Pencil } from 'lucide-react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Trash2, Crown, Swords, Scale, Gavel, Calculator, Pencil, ChevronLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -8,8 +8,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { FormField } from '@/components/shared/FormField'
+import { SeasonDescriptionCard } from '@/components/admin/SeasonDescriptionCard'
+import RoundsSeasonDetail from '@/pages/admin/RoundsSeasonDetail'
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { ErrorState } from '@/components/shared/ErrorState'
@@ -26,6 +27,7 @@ import {
   setTeamCaptain,
 } from '@/services/seasons'
 import { listMatchesRaw, createMatch } from '@/services/matches'
+import { getTournament } from '@/services/tournaments'
 import { getAuctionConfig } from '@/services/auction'
 import { applyRosterPrices, computeManualSeasonPrices } from '@/services/legacyPricing'
 import { calculateStandings } from '@/utils/calculations'
@@ -42,7 +44,8 @@ export default function SeasonDetail() {
       listMatchesRaw(seasonId),
       getAuctionConfig(seasonId),
     ])
-    return { season, teams, roster, matches, auctionConfig }
+    const tournament = season ? await getTournament(season.tournament_id) : null
+    return { season, teams, roster, matches, auctionConfig, tournament }
   }, [seasonId])
 
   const [deleteOpen, setDeleteOpen] = useState(false)
@@ -86,14 +89,15 @@ export default function SeasonDetail() {
     setDeletingSeason(true)
     try {
       await deleteSeason(seasonId)
-      navigate('/admin/seasons')
+      navigate(data?.tournament ? `/admin/tournaments/${data.tournament.slug}` : '/admin/tournaments')
     } finally {
       setDeletingSeason(false)
     }
   }
 
-  if (loading) return <LoadingState rows={6} />
+  if (loading && !data) return <LoadingState rows={6} />
   if (error || !data?.season) return <ErrorState message="Season not found." />
+  if (data.tournament?.format === 'ROUNDS') return <RoundsSeasonDetail seasonId={seasonId} />
 
   const { season, teams, roster, matches, auctionConfig } = data
   const standings = calculateStandings(teams, matches, season)
@@ -103,6 +107,14 @@ export default function SeasonDetail() {
     <div className="flex flex-col gap-8">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
+          {data.tournament ? (
+            <Link
+              to={`/admin/tournaments/${data.tournament.slug}`}
+              className="mb-1 flex items-center gap-1 text-sm font-semibold text-muted-foreground hover:text-primary-900"
+            >
+              <ChevronLeft className="h-4 w-4" /> {data.tournament.name}
+            </Link>
+          ) : null}
           <div className="flex items-center gap-3">
             <h1 className="font-display text-3xl font-bold text-primary-900">{season.name}</h1>
             <Badge variant={season.status === 'ACTIVE' ? 'success' : 'outline'}>{season.status}</Badge>
@@ -320,57 +332,6 @@ export default function SeasonDetail() {
         onSaved={reload}
       />
     </div>
-  )
-}
-
-function SeasonDescriptionCard({
-  seasonId,
-  description,
-  onSaved,
-}: {
-  seasonId: string
-  description: string | null
-  onSaved: () => void
-}) {
-  const [text, setText] = useState(description ?? '')
-  const [saving, setSaving] = useState(false)
-  const [saved, setSaved] = useState(false)
-
-  async function handleSave() {
-    setSaving(true)
-    setSaved(false)
-    try {
-      await updateSeason(seasonId, { description: text.trim() || null })
-      setSaved(true)
-      onSaved()
-    } finally {
-      setSaving(false)
-    }
-  }
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>About This Season</CardTitle>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-3">
-        <Textarea
-          value={text}
-          onChange={(e) => {
-            setText(e.target.value)
-            setSaved(false)
-          }}
-          placeholder="Optional intro shown on the public About page, e.g. how the season played out."
-          className="min-h-[100px]"
-        />
-        <div className="flex items-center gap-3">
-          <Button type="button" size="sm" onClick={handleSave} disabled={saving}>
-            {saving ? 'Saving…' : 'Save Description'}
-          </Button>
-          {saved ? <span className="text-xs font-medium text-green-600">Saved</span> : null}
-        </div>
-      </CardContent>
-    </Card>
   )
 }
 

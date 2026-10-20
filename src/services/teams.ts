@@ -50,11 +50,10 @@ export async function getTeamHistoricalSquad(teamId: string): Promise<{ player: 
   return [...byPlayer.values()]
 }
 
-export async function countChampionships(teamId: string): Promise<number> {
-  const { count, error } = await supabase
-    .from('seasons')
-    .select('id', { count: 'exact', head: true })
-    .eq('champion_team_id', teamId)
+export async function countChampionships(teamId: string, tournamentId?: string): Promise<number> {
+  let query = supabase.from('seasons').select('id', { count: 'exact', head: true }).eq('champion_team_id', teamId)
+  if (tournamentId) query = query.eq('tournament_id', tournamentId)
+  const { count, error } = await query
   if (error) throw error
   return count ?? 0
 }

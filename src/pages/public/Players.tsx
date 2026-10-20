@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { FilterBar } from '@/components/shared/FilterBar'
 import { SeasonSelector, ALL_SEASONS } from '@/components/shared/SeasonSelector'
+import { TournamentSelector } from '@/components/shared/TournamentSelector'
 import { PlayerAvatar, TeamLogo } from '@/components/shared/Avatar'
 import { LoadingGrid } from '@/components/shared/LoadingState'
 import { EmptyState } from '@/components/shared/EmptyState'
@@ -14,22 +15,21 @@ import { useAsync } from '@/hooks/useAsync'
 import { useSeasonFilter } from '@/hooks/useSeasonFilter'
 import {
   listPlayersWithCurrentTeam,
+  listSeasonPlayersWithTeam,
   listPlayers,
   getPlayersCareerStats,
   getPlayerHonors,
   type PlayerWithCurrentTeam,
 } from '@/services/players'
-import { getSeasonRoster, getSeasonTeams } from '@/services/seasons'
 import { listTeams } from '@/services/teams'
 import { computePlayerTier } from '@/utils/playerTier'
 import { calculateKD, average } from '@/utils/calculations'
 import { PLAYER_ROLE_LABELS } from '@/types'
-import type { Team } from '@/types'
 
 type StatusFilter = 'ALL' | 'ACTIVE' | 'INACTIVE'
 
 export default function Players() {
-  const { seasons, selected, setSelected } = useSeasonFilter()
+  const { seasons, selected, setSelected, tournaments, tournament, setTournament, tournamentScope } = useSeasonFilter()
   const [teamFilter, setTeamFilter] = useState('ALL')
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('ALL')
 
@@ -38,12 +38,10 @@ export default function Players() {
   const { data: rows, loading, error } = useAsync(async (): Promise<PlayerWithCurrentTeam[]> => {
     if (!selected) return []
     if (selected === ALL_SEASONS) {
-      return listPlayersWithCurrentTeam(true)
+      return listPlayersWithCurrentTeam(true, tournamentScope)
     }
-    const [roster, teams] = await Promise.all([getSeasonRoster(selected), getSeasonTeams(selected)])
-    const teamById = new Map(teams.map((t) => [t.id, t] as [string, Team]))
-    return roster.map((r) => ({ player: r.player, currentTeam: teamById.get(r.team_id) ?? null }))
-  }, [selected])
+    return listSeasonPlayersWithTeam(selected)
+  }, [selected, tournamentScope])
 
   // Tier is career-wide and normalized against every player in the league,
   // so it's fetched once, independent of the season/team/status filters —
@@ -81,7 +79,8 @@ export default function Players() {
       </div>
 
       <FilterBar>
-        <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} />
+        <TournamentSelector tournaments={tournaments} value={tournament} onChange={setTournament} />
+        <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} tournaments={tournaments} />
         <Select value={teamFilter} onValueChange={setTeamFilter}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Team" />

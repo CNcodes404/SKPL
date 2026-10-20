@@ -94,6 +94,7 @@ export interface CreateMatchInput {
   scheduled_at: string | null
   match_type: MatchType
   stage_label?: string | null
+  round_id?: string | null
 }
 
 export async function createMatch(input: CreateMatchInput): Promise<Match> {

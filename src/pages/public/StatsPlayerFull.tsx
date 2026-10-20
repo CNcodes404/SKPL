@@ -1,9 +1,10 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { SeasonSelector } from '@/components/shared/SeasonSelector'
+import { TournamentSelector } from '@/components/shared/TournamentSelector'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorState } from '@/components/shared/ErrorState'
@@ -15,19 +16,16 @@ import { PLAYER_STAT_LABELS, isPlayerStatType, playerStatValue, playerStatDispla
 export default function StatsPlayerFull() {
   const { statType = '' } = useParams()
   const [searchParams] = useSearchParams()
-  const { seasons, selected, setSelected } = useSeasonFilter()
+  const { seasons, selected, setSelected, tournaments, tournament, setTournament, tournamentScope } = useSeasonFilter(true, {
+    initialSeason: searchParams.get('season'),
+    initialTournament: searchParams.get('tournament'),
+  })
   const [search, setSearch] = useState('')
-
-  const initialSeason = searchParams.get('season')
-  useMemo(() => {
-    if (initialSeason) setSelected(initialSeason)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const { data: stats, loading, error } = useAsync(async () => {
     if (!selected) return []
-    return getPlayerStatsForScope(selected)
-  }, [selected])
+    return getPlayerStatsForScope(selected, false, tournamentScope)
+  }, [selected, tournamentScope])
 
   if (!isPlayerStatType(statType)) {
     return <ErrorState message="Unknown statistic." />
@@ -45,7 +43,8 @@ export default function StatsPlayerFull() {
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} />
+        <TournamentSelector tournaments={tournaments} value={tournament} onChange={setTournament} />
+        <SeasonSelector seasons={seasons} value={selected} onChange={setSelected} tournaments={tournaments} />
         <div className="relative w-full max-w-xs">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input placeholder="Search players…" value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />

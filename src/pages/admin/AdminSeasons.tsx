@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { Plus, Trophy } from 'lucide-react'
+import { Link, useParams } from 'react-router-dom'
+import { ChevronLeft, Plus, Trophy } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
@@ -8,36 +8,55 @@ import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
 import { listSeasons } from '@/services/seasons'
+import { getTournamentBySlug } from '@/services/tournaments'
 import { formatDate } from '@/lib/utils'
 
 export default function AdminSeasons() {
-  const { data: seasons, loading, error } = useAsync(() => listSeasons(), [])
+  const { slug = '' } = useParams()
+  const { data, loading, error } = useAsync(async () => {
+    const tournament = await getTournamentBySlug(slug)
+    if (!tournament) return null
+    const seasons = await listSeasons(tournament.id)
+    return { tournament, seasons }
+  }, [slug])
+
+  if (loading) return <LoadingState rows={4} />
+  if (error || !data) return <ErrorState message="Tournament not found." />
+
+  const { tournament, seasons } = data
+  const createTo = `/admin/tournaments/${tournament.slug}/create`
 
   return (
     <div className="flex flex-col gap-6">
+      <Link
+        to="/admin/tournaments"
+        className="flex items-center gap-1 self-start text-sm font-semibold text-muted-foreground hover:text-primary-900"
+      >
+        <ChevronLeft className="h-4 w-4" /> All tournaments
+      </Link>
+
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="font-display text-3xl font-bold text-primary-900">Seasons</h1>
-          <p className="text-sm text-muted-foreground">Manage tournament seasons.</p>
+          <h1 className="font-display text-3xl font-bold text-primary-900">{tournament.name}</h1>
+          <p className="text-sm text-muted-foreground">
+            {tournament.format === 'ROUNDS' ? 'Round-based seasons.' : 'League seasons.'} Manage seasons of this
+            tournament.
+          </p>
         </div>
         <Button asChild>
-          <Link to="/admin/seasons/create">
+          <Link to={createTo}>
             <Plus className="h-4 w-4" /> Create Season
           </Link>
         </Button>
       </div>
 
-      {loading ? (
-        <LoadingState rows={4} />
-      ) : error ? (
-        <ErrorState message="Unable to load seasons." />
-      ) : !seasons || seasons.length === 0 ? (
+      {seasons.length === 0 ? (
         <EmptyState
           title="No seasons created yet."
           icon={Trophy}
           action={
             <Button asChild>
-              <Link to="/admin/seasons/create">Create Season</Link>
+              <Link to={createTo}>Create Season</Link>
             </Button>
           }
         />
