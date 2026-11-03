@@ -133,6 +133,8 @@ export interface PlayerSeasonStats {
   /** Played for this team as a substitute (not on its season roster). */
   is_sub?: boolean
   matchesPlayed: number
+  /** Completed matches where the player's team won. */
+  wins: number
   kills: number
   deaths: number
   flags: number

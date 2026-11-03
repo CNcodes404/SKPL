@@ -2,6 +2,7 @@ import { average, calculateKD, calculateWinRate, formatKD } from '@/utils/calcul
 import type { PlayerSeasonStats, TeamSeasonStats } from '@/types'
 
 export type PlayerStatType =
+  | 'win_rate'
   | 'kills'
   | 'flags'
   | 'kd'
@@ -24,6 +25,7 @@ export type TeamStatType =
   | 'most_flags_match'
 
 export const PLAYER_STAT_LABELS: Record<PlayerStatType, string> = {
+  win_rate: 'Win Rate',
   kills: 'Total Kills',
   flags: 'Total Flags',
   kd: 'KD Ratio',
@@ -49,6 +51,7 @@ export const TEAM_STAT_LABELS: Record<TeamStatType, string> = {
 }
 
 export const PLAYER_STAT_TYPES: PlayerStatType[] = [
+  'win_rate',
   'kills',
   'flags',
   'kd',
@@ -82,6 +85,8 @@ export function isTeamStatType(v: string): v is TeamStatType {
 
 export function playerStatValue(s: PlayerSeasonStats, type: PlayerStatType): number {
   switch (type) {
+    case 'win_rate':
+      return calculateWinRate(s.wins, s.matchesPlayed)
     case 'kills':
       return s.kills
     case 'flags':
@@ -103,6 +108,8 @@ export function playerStatValue(s: PlayerSeasonStats, type: PlayerStatType): num
 
 export function playerStatDisplay(s: PlayerSeasonStats, type: PlayerStatType): string {
   switch (type) {
+    case 'win_rate':
+      return `${calculateWinRate(s.wins, s.matchesPlayed)}%`
     case 'kills':
       return String(s.kills)
     case 'flags':

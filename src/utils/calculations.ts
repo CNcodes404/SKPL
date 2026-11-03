@@ -96,9 +96,12 @@ export function calculatePlayerStats(
   roster: RosterMember[],
   stats: MatchPlayerStat[],
   completedMatchIds: Set<string>,
+  matches: Pick<Match, 'id' | 'team_a_id' | 'team_b_id' | 'team_a_score' | 'team_b_score'>[] = [],
 ): PlayerSeasonStats[] {
+  const winnerByMatch = new Map(matches.map((m) => [m.id, determineMatchWinnerId(m)]))
   return roster.map(({ player, team, is_captain }) => {
     const rows = stats.filter((s) => s.player_id === player.id && completedMatchIds.has(s.match_id))
+    const wins = rows.filter((r) => winnerByMatch.get(r.match_id) === r.team_id).length
     const kills = rows.reduce((sum, r) => sum + r.kills, 0)
     const deaths = rows.reduce((sum, r) => sum + r.deaths, 0)
     const flags = rows.reduce((sum, r) => sum + r.flags, 0)
@@ -112,6 +115,7 @@ export function calculatePlayerStats(
       team,
       is_captain,
       matchesPlayed: rows.length,
+      wins,
       kills,
       deaths,
       flags,

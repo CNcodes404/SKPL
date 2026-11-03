@@ -119,7 +119,7 @@ export async function getPlayerStatsForScope(
   }
 
   const completedMatchIds = new Set(matches.filter((m) => m.status === 'COMPLETED').map((m) => m.id))
-  return calculatePlayerStats(members, stats, completedMatchIds)
+  return calculatePlayerStats(members, stats, completedMatchIds, matches)
 }
 
 /**
@@ -144,7 +144,7 @@ export async function getTeamSeasonSquad(seasonId: string, teamId: string): Prom
   const onSquad = new Set(members.map((m) => m.player.id))
   const subIds = [...new Set(teamStats.filter((s) => !onSquad.has(s.player_id)).map((s) => s.player_id))]
   const completedMatchIds = new Set(seasonMatches.filter((m) => m.status === 'COMPLETED').map((m) => m.id))
-  const squad = calculatePlayerStats(members, teamStats, completedMatchIds)
+  const squad = calculatePlayerStats(members, teamStats, completedMatchIds, seasonMatches)
   if (subIds.length === 0) return squad
 
   const players = await listPlayers(true)
@@ -152,7 +152,7 @@ export async function getTeamSeasonSquad(seasonId: string, teamId: string): Prom
     .map((id) => players.find((p) => p.id === id))
     .filter((p): p is NonNullable<typeof p> => Boolean(p))
     .map((player) => ({ player, team, is_captain: false }))
-  const subs = calculatePlayerStats(subMembers, teamStats, completedMatchIds)
+  const subs = calculatePlayerStats(subMembers, teamStats, completedMatchIds, seasonMatches)
     .filter((s) => s.matchesPlayed > 0)
     .map((s) => ({ ...s, is_sub: true }))
   return [...squad, ...subs]
