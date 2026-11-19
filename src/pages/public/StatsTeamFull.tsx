@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { BackButton } from '@/components/shared/BackButton'
 import { Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
@@ -15,17 +16,20 @@ import { TEAM_STAT_LABELS, isTeamStatType, teamStatValue, teamStatDisplay } from
 
 export default function StatsTeamFull() {
   const { statType = '' } = useParams()
-  const [searchParams] = useSearchParams()
   const { seasons, selected, setSelected, tournaments, tournament, setTournament, tournamentScope } = useSeasonFilter(true, {
-    initialSeason: searchParams.get('season'),
-    initialTournament: searchParams.get('tournament'),
+    startOnFirstTournament: true,
+    syncUrl: true,
   })
   const [search, setSearch] = useState('')
 
-  const { data: stats, loading, error } = useAsync(async () => {
-    if (!selected) return []
-    return getTeamStatsForScope(selected, false, tournamentScope)
-  }, [selected, tournamentScope])
+  const { data: stats, loading, error } = useAsync(
+    async () => {
+      if (!selected) return []
+      return getTeamStatsForScope(selected, false, tournamentScope)
+    },
+    [selected, tournamentScope],
+    { cache: 'stats:teams-full' },
+  )
 
   if (!isTeamStatType(statType)) {
     return <ErrorState message="Unknown statistic." />
@@ -38,6 +42,7 @@ export default function StatsTeamFull() {
   return (
     <div className="flex flex-col gap-6">
       <div>
+        <BackButton fallback="/stats?tab=team" label="Back to Stats" />
         <h1 className="font-display text-3xl font-bold text-primary-900">{TEAM_STAT_LABELS[statType]}</h1>
         <p className="text-sm text-muted-foreground">Full team ranking.</p>
       </div>

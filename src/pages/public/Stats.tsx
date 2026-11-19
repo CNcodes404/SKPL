@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { SeasonSelector } from '@/components/shared/SeasonSelector'
 import { TournamentSelector } from '@/components/shared/TournamentSelector'
@@ -9,6 +8,7 @@ import { ErrorState } from '@/components/shared/ErrorState'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { useSeasonFilter } from '@/hooks/useSeasonFilter'
 import { useAsync } from '@/hooks/useAsync'
+import { useUrlFlag, useUrlState } from '@/hooks/useUrlState'
 import { getPlayerStatsForScope, getTeamStatsForScope } from '@/services/stats'
 import { getPlayerHonors, listPlayersWithCurrentTeam } from '@/services/players'
 import {
@@ -24,18 +24,22 @@ import {
 import { BarChart3 } from 'lucide-react'
 
 export default function Stats() {
-  const { seasons, selected, setSelected, tournaments, tournament, setTournament, tournamentScope } = useSeasonFilter()
-  const [includeExhibitions, setIncludeExhibitions] = useState(false)
+  const { seasons, selected, setSelected, tournaments, tournament, setTournament, tournamentScope } = useSeasonFilter(true, {
+    startOnFirstTournament: true,
+    syncUrl: true,
+  })
+  const [includeExhibitions, setIncludeExhibitions] = useUrlFlag('exhibitions')
+  const [tab, setTab] = useUrlState<'player' | 'team'>('tab', 'player', ['player', 'team'])
 
   const { data: playerStats, loading: playersLoading, error: playersError } = useAsync(async () => {
     if (!selected) return []
     return getPlayerStatsForScope(selected, includeExhibitions, tournamentScope)
-  }, [selected, includeExhibitions, tournamentScope])
+  }, [selected, includeExhibitions, tournamentScope], { cache: 'stats:players' })
 
   const { data: teamStats, loading: teamsLoading, error: teamsError } = useAsync(async () => {
     if (!selected) return []
     return getTeamStatsForScope(selected, includeExhibitions, tournamentScope)
-  }, [selected, includeExhibitions, tournamentScope])
+  }, [selected, includeExhibitions, tournamentScope], { cache: 'stats:teams' })
 
   // MVP counts are career-wide honors, not season-scoped stats — fetched
   // independent of the season selector above, but still respects the
@@ -55,7 +59,7 @@ export default function Stats() {
         .sort((a, b) => b.honors!.seasonMvps - a.honors!.seasonMvps)
         .map((r) => ({ id: r.player.id, name: r.player.name, teamName: r.teamName, value: String(r.honors!.seasonMvps) })),
     }
-  }, [includeExhibitions])
+  }, [includeExhibitions], { cache: 'stats:mvps' })
 
   return (
     <div className="flex flex-col gap-6">
@@ -71,7 +75,7 @@ export default function Stats() {
         </div>
       </div>
 
-      <Tabs defaultValue="player">
+      <Tabs value={tab} onValueChange={(v) => setTab(v as 'player' | 'team')}>
         <TabsList>
           <TabsTrigger value="player">Player</TabsTrigger>
           <TabsTrigger value="team">Team</TabsTrigger>

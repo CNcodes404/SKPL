@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { UserRound, Trophy } from 'lucide-react'
 import { Card } from '@/components/ui/card'
@@ -13,6 +12,7 @@ import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
 import { useSeasonFilter } from '@/hooks/useSeasonFilter'
+import { useUrlState } from '@/hooks/useUrlState'
 import {
   listPlayersWithCurrentTeam,
   listSeasonPlayersWithTeam,
@@ -29,19 +29,23 @@ import { PLAYER_ROLE_LABELS } from '@/types'
 type StatusFilter = 'ALL' | 'ACTIVE' | 'INACTIVE'
 
 export default function Players() {
-  const { seasons, selected, setSelected, tournaments, tournament, setTournament, tournamentScope } = useSeasonFilter()
-  const [teamFilter, setTeamFilter] = useState('ALL')
-  const [statusFilter, setStatusFilter] = useState<StatusFilter>('ALL')
+  const { seasons, selected, setSelected, tournaments, tournament, setTournament, tournamentScope } = useSeasonFilter(true, { syncUrl: true })
+  const [teamFilter, setTeamFilter] = useUrlState<string>('team', 'ALL')
+  const [statusFilter, setStatusFilter] = useUrlState<StatusFilter>('status', 'ALL', ['ALL', 'ACTIVE', 'INACTIVE'])
 
-  const { data: allTeams } = useAsync(() => listTeams(true), [])
+  const { data: allTeams } = useAsync(() => listTeams(true), [], { cache: 'players:teams' })
 
-  const { data: rows, loading, error } = useAsync(async (): Promise<PlayerWithCurrentTeam[]> => {
-    if (!selected) return []
-    if (selected === ALL_SEASONS) {
-      return listPlayersWithCurrentTeam(true, tournamentScope)
-    }
-    return listSeasonPlayersWithTeam(selected)
-  }, [selected, tournamentScope])
+  const { data: rows, loading, error } = useAsync(
+    async (): Promise<PlayerWithCurrentTeam[]> => {
+      if (!selected) return []
+      if (selected === ALL_SEASONS) {
+        return listPlayersWithCurrentTeam(true, tournamentScope)
+      }
+      return listSeasonPlayersWithTeam(selected)
+    },
+    [selected, tournamentScope],
+    { cache: 'players:list' },
+  )
 
   // Tier is career-wide and normalized against every player in the league,
   // so it's fetched once, independent of the season/team/status filters —
@@ -57,11 +61,11 @@ export default function Players() {
       if (tier) result[p.id] = tier.label
     }
     return result
-  }, [])
+  }, [], { cache: 'players:tiers' })
 
   // Trophies are career-wide, same as Tier above — independent of the
   // season/team/status filters this grid otherwise applies.
-  const { data: honorsByPlayerId } = useAsync(() => getPlayerHonors(), [])
+  const { data: honorsByPlayerId } = useAsync(() => getPlayerHonors(), [], { cache: 'players:honors' })
 
   const filtered = (rows ?? [])
     .filter((r) => (teamFilter === 'ALL' ? true : r.currentTeam?.id === teamFilter))

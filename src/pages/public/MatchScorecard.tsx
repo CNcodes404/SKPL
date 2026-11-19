@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
+import { BackButton } from '@/components/shared/BackButton'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { TeamLogo, PlayerAvatar } from '@/components/shared/Avatar'
@@ -16,6 +17,8 @@ import { MATCH_TYPE_LABELS } from '@/types'
 
 export default function MatchScorecard() {
   const { matchId = '' } = useParams()
+  const { pathname } = useLocation()
+  const backFallback = pathname.startsWith('/exhibitions') ? '/exhibitions' : '/matches'
 
   const { data, loading, error, reload } = useAsync(async () => {
     const match = await getMatch(matchId)
@@ -48,6 +51,7 @@ export default function MatchScorecard() {
 
   return (
     <div className="flex flex-col gap-8">
+      <BackButton fallback={backFallback} className="-mb-5" />
       <Card className="overflow-hidden">
         <div className="bg-skpl-gradient p-6 sm:p-8">
           <div className="mb-4 flex items-center justify-center gap-2 text-xs font-semibold text-primary-100">

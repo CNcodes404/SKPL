@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Trophy, Percent, Skull, Flag } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -14,6 +13,8 @@ import { ErrorState } from '@/components/shared/ErrorState'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { useAsync } from '@/hooks/useAsync'
 import { useSeasonFilter } from '@/hooks/useSeasonFilter'
+import { useUrlFlag, useUrlState } from '@/hooks/useUrlState'
+import { BackButton } from '@/components/shared/BackButton'
 import { getTeam, listTeams, getTeamHistoricalSquad } from '@/services/teams'
 import { getPlayersCareerStats, listPlayers } from '@/services/players'
 import { listMatchesRaw, listStatsForSeason, listAllStats } from '@/services/matches'
@@ -28,18 +29,18 @@ type StatsScope = 'SEASON' | 'ALL_TIME'
 
 export default function TeamDetail() {
   const { teamId = '' } = useParams()
-  const { seasons, tournaments, selected, setSelected, selectedSeason } = useSeasonFilter()
+  const { seasons, tournaments, selected, setSelected, selectedSeason } = useSeasonFilter(true, { syncUrl: true })
   const isAll = selected === ALL_SEASONS
   // The squad selector (which roster to show) and this toggle (which stats
   // to show for that roster) are independent — this lets a team see its
   // current squad alongside each player's all-time career numbers. Squad ·
   // All Seasons already shows career stats inherently, so the toggle only
   // applies, and only renders, when a specific season's squad is selected.
-  const [statsScope, setStatsScope] = useState<StatsScope>('SEASON')
+  const [statsScope, setStatsScope] = useUrlState<StatsScope>('scope', 'SEASON', ['SEASON', 'ALL_TIME'])
   const effectiveScope: StatsScope = isAll ? 'ALL_TIME' : statsScope
   // A third, independent axis from statsScope/season: whether exhibition
   // matches' stats are blended into whatever scope is already selected.
-  const [includeExhibitions, setIncludeExhibitions] = useState(false)
+  const [includeExhibitions, setIncludeExhibitions] = useUrlFlag('exhibitions')
 
   const { data: base, loading: baseLoading, error: baseError } = useAsync(async () => {
     const team = await getTeam(teamId)
@@ -164,6 +165,7 @@ export default function TeamDetail() {
 
   return (
     <div className="flex flex-col gap-8">
+      <BackButton fallback="/teams" className="-mb-5" />
       <div className="flex flex-col items-center gap-3 rounded-xl bg-skpl-gradient p-8 text-center sm:flex-row sm:text-left">
         <TeamLogo name={team.name} logoUrl={team.logo_url} className="h-24 w-24 shrink-0 text-3xl" />
         <div>

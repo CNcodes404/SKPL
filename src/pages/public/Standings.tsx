@@ -27,7 +27,7 @@ export default function Standings() {
     tournament,
     setTournament,
     selectedTournament,
-  } = useSeasonFilter(false, { requireTournament: true })
+  } = useSeasonFilter(false, { requireTournament: true, syncUrl: true })
   const isRounds = selectedTournament?.format === 'ROUNDS'
 
   const { data: standings, loading, error } = useAsync(async () => {

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Skull, Flag, Swords, Trophy, Crown, Star } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -10,6 +9,8 @@ import { LoadingState } from '@/components/shared/LoadingState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useAsync } from '@/hooks/useAsync'
 import { useSeasonFilter } from '@/hooks/useSeasonFilter'
+import { useUrlFlag } from '@/hooks/useUrlState'
+import { BackButton } from '@/components/shared/BackButton'
 import {
   getPlayer,
   getPlayerDetailStats,
@@ -24,8 +25,8 @@ import { PLAYER_ROLE_LABELS } from '@/types'
 
 export default function PlayerProfile() {
   const { playerId = '' } = useParams()
-  const { seasons, tournaments, selected, setSelected } = useSeasonFilter()
-  const [includeExhibitions, setIncludeExhibitions] = useState(false)
+  const { seasons, tournaments, selected, setSelected } = useSeasonFilter(true, { syncUrl: true })
+  const [includeExhibitions, setIncludeExhibitions] = useUrlFlag('exhibitions')
 
   const { data: player, loading: playerLoading, error } = useAsync(() => getPlayer(playerId), [playerId])
 
@@ -63,6 +64,7 @@ export default function PlayerProfile() {
 
   return (
     <div className="flex flex-col gap-8">
+      <BackButton fallback="/players" className="-mb-5" />
       <div className="flex flex-col items-center gap-4 rounded-xl bg-skpl-gradient p-8 text-center sm:flex-row sm:text-left">
         <PlayerAvatar name={player.name} imageUrl={player.image_url} className="h-28 w-28 shrink-0 text-3xl" />
         <div className="flex flex-col items-center gap-2 sm:items-start">

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Swords } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -11,6 +10,7 @@ import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { useSeasonFilter } from '@/hooks/useSeasonFilter'
 import { useAsync } from '@/hooks/useAsync'
+import { useUrlState } from '@/hooks/useUrlState'
 import { listMatches } from '@/services/matches'
 import { listTeams } from '@/services/teams'
 import { listRoundsForSeasons } from '@/services/rounds'
@@ -19,12 +19,12 @@ import { useLiveMatches } from '@/context/LiveMatchesContext'
 
 export default function Matches() {
   const { seasons, selected, setSelected, selectedSeason, tournaments, tournament, setTournament, tournamentScope } =
-    useSeasonFilter()
-  const [teamId, setTeamId] = useState<string>('ALL')
-  const [tab, setTab] = useState<'upcoming' | 'recent'>('upcoming')
+    useSeasonFilter(true, { syncUrl: true })
+  const [teamId, setTeamId] = useUrlState<string>('team', 'ALL')
+  const [tab, setTab] = useUrlState<'upcoming' | 'recent'>('tab', 'recent', ['upcoming', 'recent'])
 
   const { getLive } = useLiveMatches()
-  const { data: teams } = useAsync(() => listTeams(), [])
+  const { data: teams } = useAsync(() => listTeams(), [], { cache: 'matches:teams' })
 
   const { data: matches, loading, error } = useAsync(async () => {
     if (!selected) return []
@@ -37,14 +37,14 @@ export default function Matches() {
     const seasonIds = new Set(seasons.map((s) => s.id))
     return list.filter((m) => m.season_id && seasonIds.has(m.season_id))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected, teamId, tournamentScope])
+  }, [selected, teamId, tournamentScope], { cache: 'matches:list' })
 
   // Round-based seasons list their matches round by round.
   const isRoundsSeason = tournaments.find((t) => t.id === selectedSeason?.tournament_id)?.format === 'ROUNDS'
   const { data: rounds } = useAsync(async () => {
     if (!isRoundsSeason || !selectedSeason) return []
     return listRoundsForSeasons([selectedSeason.id])
-  }, [isRoundsSeason, selectedSeason?.id])
+  }, [isRoundsSeason, selectedSeason?.id], { cache: 'matches:rounds' })
 
   const upcoming = (matches ?? [])
     .filter((m) => m.status === 'SCHEDULED')

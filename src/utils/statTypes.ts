@@ -51,12 +51,12 @@ export const TEAM_STAT_LABELS: Record<TeamStatType, string> = {
 }
 
 export const PLAYER_STAT_TYPES: PlayerStatType[] = [
-  'win_rate',
   'kills',
   'flags',
   'kd',
   'avg_kills',
   'avg_flags',
+  'win_rate',
   'most_kills_match',
   'most_flags_match',
   'highest_kd_match',
