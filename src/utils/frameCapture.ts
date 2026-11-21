@@ -15,9 +15,16 @@ export const DEFAULT_CROP: CropRect = { x: 0.3, y: 0.2, w: 0.42, h: 0.62 }
 
 const CROP_STORAGE_KEY = 'skpl.scorekeeper.crop'
 
-export function loadCrop(): CropRect {
+/** Solo League: the top-left player list (every player's kills). */
+export const SOLO_LIST_DEFAULT_CROP: CropRect = { x: 0, y: 0.07, w: 0.17, h: 0.46 }
+/** Solo League: the centre stats panel (deaths and kills, at most 8 rows). */
+export const SOLO_PANEL_DEFAULT_CROP: CropRect = { x: 0.26, y: 0.19, w: 0.36, h: 0.5 }
+export const SOLO_LIST_CROP_KEY = 'skpl.scorekeeper.solo.list'
+export const SOLO_PANEL_CROP_KEY = 'skpl.scorekeeper.solo.panel'
+
+export function loadCrop(storageKey = CROP_STORAGE_KEY, fallback: CropRect = DEFAULT_CROP): CropRect {
   try {
-    const raw = localStorage.getItem(CROP_STORAGE_KEY)
+    const raw = localStorage.getItem(storageKey)
     if (raw) {
       const c = JSON.parse(raw) as CropRect
       if ([c.x, c.y, c.w, c.h].every((n) => typeof n === 'number' && n >= 0 && n <= 1) && c.w > 0.05 && c.h > 0.05) {
@@ -27,12 +34,12 @@ export function loadCrop(): CropRect {
   } catch {
     // Storage unavailable or corrupt: fall back to the default.
   }
-  return DEFAULT_CROP
+  return fallback
 }
 
-export function saveCrop(crop: CropRect) {
+export function saveCrop(crop: CropRect, storageKey = CROP_STORAGE_KEY) {
   try {
-    localStorage.setItem(CROP_STORAGE_KEY, JSON.stringify(crop))
+    localStorage.setItem(storageKey, JSON.stringify(crop))
   } catch {
     // Not critical — the crop just won't be remembered.
   }

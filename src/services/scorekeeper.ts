@@ -128,9 +128,9 @@ export interface ExtractResult {
   model: string
 }
 
-/** Sends one image to the extract-scoreboard Edge Function (Gemini runs server-side). */
-export async function extractScoreboard(image: string, kind: 'live' | 'final', mimeType = 'image/jpeg'): Promise<ExtractResult> {
-  const { data, error } = await supabase.functions.invoke('extract-scoreboard', { body: { image, mimeType, kind } })
+/** Calls the extract-scoreboard Edge Function, turning its error body into a readable message. */
+export async function invokeExtractScoreboard(body: Record<string, unknown>): Promise<any> {
+  const { data, error } = await supabase.functions.invoke('extract-scoreboard', { body })
   if (error) {
     let message = error.message
     if (error instanceof FunctionsHttpError) {
@@ -144,6 +144,12 @@ export async function extractScoreboard(image: string, kind: 'live' | 'final', m
     }
     throw new Error(message)
   }
+  return data
+}
+
+/** Sends one image to the extract-scoreboard Edge Function (Gemini runs server-side). */
+export async function extractScoreboard(image: string, kind: 'live' | 'final', mimeType = 'image/jpeg'): Promise<ExtractResult> {
+  const data = await invokeExtractScoreboard({ image, mimeType, kind })
   return {
     scoreboard_visible: Boolean(data?.scoreboard_visible),
     players: Array.isArray(data?.players) ? data.players : [],

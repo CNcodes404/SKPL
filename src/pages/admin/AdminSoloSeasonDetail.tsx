@@ -1,6 +1,22 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { AlertCircle, Check, ChevronLeft, Copy, ImageUp, Plus, Save, Trash2, Undo2, Wand2, X } from 'lucide-react'
+import {
+  AlertCircle,
+  AlertTriangle,
+  Check,
+  ChevronLeft,
+  Copy,
+  History,
+  ImageUp,
+  Plus,
+  Radio,
+  Save,
+  Trash2,
+  Undo2,
+  Wand2,
+  X,
+} from 'lucide-react'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
@@ -35,8 +51,11 @@ import {
   type RosterPlayerOption,
 } from '@/utils/screenshotImport'
 import { denseRankByKills, ordinal, scoreResult } from '@/utils/soloStandings'
+import { KILL_JUMP_THRESHOLD, SOLO_OUTCOME_LABELS, resolveSoloRows } from '@/utils/soloLiveMerge'
+import { blobToBase64 } from '@/utils/frameCapture'
+import { extractSoloScoreboard, getSoloRoundReview, isSessionActive, resolveSoloReview } from '@/services/soloLive'
 import { cn } from '@/lib/utils'
-import type { Player, SeasonStatus, SoloRound } from '@/types'
+import type { Player, SeasonStatus, SoloKillReading, SoloRound } from '@/types'
 
 export default function AdminSoloSeasonDetail() {
   const { seasonId = '' } = useParams()
@@ -256,7 +275,14 @@ function RoundEditor({
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [confirmDelete, setConfirmDelete] = useState(false)
+  const [confirmComplete, setConfirmComplete] = useState(false)
+  const [reviewing, setReviewing] = useState<string | null>(null)
   const isCompleted = round.status === 'COMPLETED'
+
+  // Live tracking data for this round: review alerts and every kills reading.
+  const { data: review, reload: reloadReview } = useAsync(() => getSoloRoundReview(round.id), [round.id])
+  const flaggedIds = new Set((review?.stats ?? []).filter((s) => s.needs_review).map((s) => s.player_id))
+  const trackingLive = isSessionActive(review?.session)
 
   const update = (playerId: string, patch: Partial<EntryRow>) =>
     setRows((prev) => ({ ...prev, [playerId]: { ...(prev[playerId] ?? { played: false, kills: '', deaths: '' }), ...patch } }))
@@ -289,20 +315,53 @@ function RoundEditor({
     }
   }
 
-  function applyImport(imported: { playerId: string; kills: number; deaths: number }[]) {
+  /** Fills the table from an import. Deaths of null keep what's already entered. Players not imported are marked DNP. */
+  function applyImport(imported: { playerId: string; kills: number; deaths: number | null }[]) {
     const byId = new Map(imported.map((i) => [i.playerId, i]))
-    setRows(
+    setRows((prev) =>
       Object.fromEntries(
         players.map((p) => {
           const hit = byId.get(p.id)
-          return [p.id, hit ? { played: true, kills: String(hit.kills), deaths: String(hit.deaths) } : { played: false, kills: '', deaths: '' }]
+          if (!hit) return [p.id, { played: false, kills: '', deaths: '' }]
+          const deaths = hit.deaths === null ? prev[p.id]?.deaths ?? '' : String(hit.deaths)
+          return [p.id, { played: true, kills: String(Math.max(0, hit.kills)), deaths }]
         }),
       ),
     )
   }
 
+  function requestComplete() {
+    if (flaggedIds.size > 0) setConfirmComplete(true)
+    else save('COMPLETED')
+  }
+
+  const reviewingPlayer = players.find((p) => p.id === reviewing)
+
   return (
     <div className="flex flex-col gap-6">
+      {trackingLive ? (
+        <p className="flex items-center gap-2 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+          <Radio className="h-4 w-4 shrink-0 animate-pulse" /> A scorekeeper is tracking this round live. When they end the
+          round, its results here are replaced with the live totals — edit after that.
+        </p>
+      ) : null}
+      {flaggedIds.size > 0 ? (
+        <div className="flex flex-col gap-2 rounded-md border border-accent-300 bg-accent-50 p-3 text-sm text-accent-900">
+          <p className="flex items-center gap-2 font-semibold">
+            <AlertTriangle className="h-4 w-4 shrink-0" /> {flaggedIds.size} player{flaggedIds.size === 1 ? '' : 's'} need
+            review — a fall, a kills jump of more than {KILL_JUMP_THRESHOLD}, or a reconnect was detected while tracking.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {players
+              .filter((p) => flaggedIds.has(p.id))
+              .map((p) => (
+                <Button key={p.id} size="sm" variant="outline" className="bg-white" onClick={() => setReviewing(p.id)}>
+                  <History className="h-3.5 w-3.5" /> {p.name}
+                </Button>
+              ))}
+          </div>
+        </div>
+      ) : null}
       <Card>
         <CardHeader className="flex-row flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
@@ -351,6 +410,24 @@ function RoundEditor({
                           <span className="flex items-center gap-2 font-semibold text-primary-900">
                             <PlayerAvatar name={p.name} imageUrl={p.image_url} className="h-6 w-6 text-[9px]" />
                             {p.name}
+                            {flaggedIds.has(p.id) ? (
+                              <button
+                                type="button"
+                                onClick={() => setReviewing(p.id)}
+                                className="flex items-center gap-1 rounded-full bg-accent-100 px-2 py-0.5 text-[11px] font-bold text-accent-800 hover:bg-accent-200"
+                              >
+                                <AlertTriangle className="h-3 w-3" /> Review
+                              </button>
+                            ) : review?.readings.some((r) => r.player_id === p.id) ? (
+                              <button
+                                type="button"
+                                onClick={() => setReviewing(p.id)}
+                                className="text-muted-foreground hover:text-primary-700"
+                                aria-label={`Kill history for ${p.name}`}
+                              >
+                                <History className="h-3.5 w-3.5" />
+                              </button>
+                            ) : null}
                           </span>
                         </TableCell>
                         <TableCell>
@@ -391,7 +468,7 @@ function RoundEditor({
           <div className="flex flex-wrap gap-2">
             {isCompleted ? (
               <>
-                <Button onClick={() => save('COMPLETED')} disabled={saving}>
+                <Button onClick={requestComplete} disabled={saving}>
                   <Save className="h-4 w-4" /> {saving ? 'Saving…' : 'Save Changes'}
                 </Button>
                 <Button variant="outline" onClick={() => save('SCHEDULED')} disabled={saving}>
@@ -400,7 +477,7 @@ function RoundEditor({
               </>
             ) : (
               <>
-                <Button onClick={() => save('COMPLETED')} disabled={saving || preview.length === 0}>
+                <Button onClick={requestComplete} disabled={saving || preview.length === 0}>
                   <Check className="h-4 w-4" /> {saving ? 'Saving…' : 'Save & Complete Round'}
                 </Button>
                 <Button variant="outline" onClick={() => save('SCHEDULED')} disabled={saving}>
@@ -412,7 +489,35 @@ function RoundEditor({
         </CardContent>
       </Card>
 
+      {players.length > 0 ? <SoloScreenshotUpload players={players} onApply={applyImport} /> : null}
       {players.length > 0 ? <SoloScreenshotImport players={players} onApply={applyImport} /> : null}
+
+      {reviewingPlayer ? (
+        <KillHistoryDialog
+          player={reviewingPlayer}
+          roundId={round.id}
+          readings={(review?.readings ?? []).filter((r) => r.player_id === reviewingPlayer.id)}
+          flagged={flaggedIds.has(reviewingPlayer.id)}
+          currentKills={rows[reviewingPlayer.id]?.kills ?? ''}
+          onClose={() => setReviewing(null)}
+          onApply={(kills) => update(reviewingPlayer.id, { kills: String(kills), played: true })}
+          onResolved={reloadReview}
+        />
+      ) : null}
+
+      <ConfirmDialog
+        open={confirmComplete}
+        onOpenChange={setConfirmComplete}
+        title="Complete with unreviewed alerts?"
+        description={`${flaggedIds.size} player${flaggedIds.size === 1 ? '' : 's'} still need review. Complete the round anyway?`}
+        confirmLabel="Complete anyway"
+        destructive={false}
+        loading={saving}
+        onConfirm={async () => {
+          setConfirmComplete(false)
+          await save('COMPLETED')
+        }}
+      />
 
       <ConfirmDialog
         open={confirmDelete}
@@ -588,6 +693,225 @@ function SoloScreenshotImport({
               ) : null}
             </div>
           </div>
+        ) : null}
+      </CardContent>
+    </Card>
+  )
+}
+
+const ALERT_OUTCOMES = new Set(['FALL', 'HELD', 'CONFIRMED', 'RECONNECT'])
+
+/** Every kills reading the tracker saw for one player, oldest first, with a way to set the final kills. */
+function KillHistoryDialog({
+  player,
+  roundId,
+  readings,
+  flagged,
+  currentKills,
+  onClose,
+  onApply,
+  onResolved,
+}: {
+  player: Player
+  roundId: string
+  readings: SoloKillReading[]
+  flagged: boolean
+  currentKills: string
+  onClose: () => void
+  onApply: (kills: number) => void
+  onResolved: () => void
+}) {
+  const [kills, setKills] = useState(currentKills)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  async function apply(markReviewed: boolean) {
+    setBusy(true)
+    setError(null)
+    try {
+      if (kills.trim() !== '') onApply(Math.max(0, Math.floor(Number(kills) || 0)))
+      if (markReviewed) {
+        await resolveSoloReview(roundId, player.id)
+        onResolved()
+      }
+      onClose()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to mark as reviewed.')
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <Dialog open onOpenChange={(open) => (!open ? onClose() : undefined)}>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <History className="h-4 w-4" /> {player.name}: kill history
+          </DialogTitle>
+          <DialogDescription>
+            Every reading taken while tracking, oldest first. Total is the kills the live board showed after that reading.
+            Pick a value or type the final kills, then save the round.
+          </DialogDescription>
+        </DialogHeader>
+
+        {readings.length === 0 ? (
+          <p className="text-sm text-muted-foreground">No readings were saved for this player.</p>
+        ) : (
+          <div className="max-h-80 overflow-y-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Time</TableHead>
+                  <TableHead className="text-center">Read</TableHead>
+                  <TableHead className="text-center">Deaths</TableHead>
+                  <TableHead>What happened</TableHead>
+                  <TableHead className="text-center">Total</TableHead>
+                  <TableHead />
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {readings.map((r) => (
+                  <TableRow key={r.id} className={ALERT_OUTCOMES.has(r.outcome) ? 'bg-accent-50' : undefined}>
+                    <TableCell className="whitespace-nowrap text-xs">{new Date(r.created_at).toLocaleTimeString()}</TableCell>
+                    <TableCell className="text-center font-semibold">{r.read_kills}</TableCell>
+                    <TableCell className="text-center">{r.read_deaths ?? '–'}</TableCell>
+                    <TableCell className="text-xs">
+                      {ALERT_OUTCOMES.has(r.outcome) ? <AlertTriangle className="mr-1 inline h-3 w-3 text-accent-600" /> : null}
+                      {SOLO_OUTCOME_LABELS[r.outcome]}
+                    </TableCell>
+                    <TableCell className="text-center font-display font-extrabold">{r.total_kills}</TableCell>
+                    <TableCell className="text-right">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-7 px-2 text-xs"
+                        onClick={() => setKills(String(Math.max(0, r.total_kills)))}
+                      >
+                        Use {Math.max(0, r.total_kills)}
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        )}
+
+        <div className="flex flex-wrap items-end gap-3">
+          <label className="flex flex-col gap-1.5 text-sm font-semibold text-primary-900">
+            Final kills
+            <Input type="number" min={0} className="h-9 w-28" value={kills} onChange={(e) => setKills(e.target.value)} />
+          </label>
+          <p className="pb-2 text-xs text-muted-foreground">Goes into the table. Save the round afterwards.</p>
+        </div>
+        {error ? <p className="text-sm font-medium text-destructive">{error}</p> : null}
+
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose} disabled={busy}>
+            Cancel
+          </Button>
+          <Button onClick={() => apply(flagged)} disabled={busy}>
+            <Check className="h-4 w-4" /> {busy ? 'Saving…' : flagged ? 'Use & mark reviewed' : 'Use'}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+/** Upload a screenshot; Gemini reads every player's kills (and deaths where the stats panel shows them). */
+function SoloScreenshotUpload({
+  players,
+  onApply,
+}: {
+  players: Player[]
+  onApply: (rows: { playerId: string; kills: number; deaths: number | null }[]) => void
+}) {
+  const [file, setFile] = useState<File | null>(null)
+  const [fileUrl, setFileUrl] = useState<string | null>(null)
+  const [reading, setReading] = useState(false)
+  const [message, setMessage] = useState<{ tone: 'ok' | 'error'; text: string } | null>(null)
+
+  const pick = useCallback((f: File | null) => {
+    if (!f || !f.type.startsWith('image/')) return
+    setFile(f)
+    setMessage(null)
+    setFileUrl((old) => {
+      if (old) URL.revokeObjectURL(old)
+      return URL.createObjectURL(f)
+    })
+  }, [])
+
+  useEffect(() => {
+    function onPaste(e: ClipboardEvent) {
+      const item = Array.from(e.clipboardData?.items ?? []).find((i) => i.type.startsWith('image/'))
+      if (item) pick(item.getAsFile())
+    }
+    window.addEventListener('paste', onPaste)
+    return () => window.removeEventListener('paste', onPaste)
+  }, [pick])
+
+  async function read() {
+    if (!file) return
+    setReading(true)
+    setMessage(null)
+    try {
+      const result = await extractSoloScoreboard([await blobToBase64(file)], file.type || 'image/png')
+      const roster = players.map((p) => ({ id: p.id, name: p.name, game_name: p.game_name, team_id: '' }))
+      const { matched, unmatched } = resolveSoloRows(result.players, roster)
+      if (matched.length === 0) {
+        setMessage({ tone: 'error', text: 'No registered players were found in this screenshot.' })
+        return
+      }
+      onApply(matched.map((m) => ({ playerId: m.playerId, kills: m.kills, deaths: m.deaths })))
+      const noDeaths = matched.filter((m) => m.deaths === null).length
+      setMessage({
+        tone: 'ok',
+        text:
+          `Filled ${matched.length} player${matched.length === 1 ? '' : 's'}` +
+          (noDeaths ? `; ${noDeaths} without deaths (not in the stats panel), enter those by hand` : '') +
+          (unmatched.length ? `. Not registered: ${unmatched.join(', ')}` : '') +
+          '. Review the table and save.',
+      })
+    } catch (err) {
+      setMessage({ tone: 'error', text: err instanceof Error ? err.message : 'Unable to read the screenshot.' })
+    } finally {
+      setReading(false)
+    }
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <ImageUp className="h-4 w-4 text-primary-600" /> Upload Screenshot (auto-detect)
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-4 text-sm">
+        <p className="text-muted-foreground">
+          Upload a screenshot of the game showing the top-left player list (and the stats panel if open). Kills are read for
+          every player, deaths for players shown in the stats panel. BOT is ignored. Players not in the screenshot are
+          marked as did not play.
+        </p>
+        <label
+          className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border p-5 text-center hover:bg-secondary/50"
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => {
+            e.preventDefault()
+            pick(e.dataTransfer.files?.[0] ?? null)
+          }}
+        >
+          <ImageUp className="h-6 w-6 text-primary-700" />
+          <span className="font-semibold">{file ? file.name : 'Choose, drop or paste (Ctrl+V) a screenshot'}</span>
+          <input type="file" accept="image/*" className="hidden" onChange={(e) => pick(e.target.files?.[0] ?? null)} />
+        </label>
+        {fileUrl ? <img src={fileUrl} alt="Screenshot" className="max-h-72 w-fit rounded-lg border border-border" /> : null}
+        <Button className="self-start" onClick={read} disabled={!file || reading}>
+          <Wand2 className="h-4 w-4" /> {reading ? 'Reading…' : 'Read screenshot'}
+        </Button>
+        {message ? (
+          <p className={cn('text-sm font-medium', message.tone === 'ok' ? 'text-green-700' : 'text-destructive')}>{message.text}</p>
         ) : null}
       </CardContent>
     </Card>

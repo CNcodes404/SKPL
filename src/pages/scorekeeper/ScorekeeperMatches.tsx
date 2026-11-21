@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Radio, RefreshCw } from 'lucide-react'
+import { Crosshair, Radio, RefreshCw } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -10,6 +10,7 @@ import { EmptyState } from '@/components/shared/EmptyState'
 import { useAuth } from '@/context/AuthContext'
 import { useAsync } from '@/hooks/useAsync'
 import { listTrackableMatches } from '@/services/scorekeeper'
+import { isSessionActive, listTrackableSoloRounds } from '@/services/soloLive'
 import { formatDateTime } from '@/lib/utils'
 import { MATCH_TYPE_LABELS, type MatchLiveSession } from '@/types'
 
@@ -22,6 +23,7 @@ function isLockedByOther(session: MatchLiveSession | undefined, userId: string |
 export default function ScorekeeperMatches() {
   const { user } = useAuth()
   const { data, loading, error, reload } = useAsync(listTrackableMatches, [])
+  const { data: soloRounds, reload: reloadSolo } = useAsync(listTrackableSoloRounds, [])
 
   if (loading) return <LoadingState rows={4} />
   if (error || !data) return <ErrorState message={error ?? 'Unable to load matches.'} />
@@ -35,7 +37,14 @@ export default function ScorekeeperMatches() {
           <h1 className="font-display text-2xl font-extrabold text-primary-900">Track a match</h1>
           <p className="text-sm text-muted-foreground">Pick the scheduled match you are spectating.</p>
         </div>
-        <Button variant="outline" size="sm" onClick={reload}>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => {
+            reload()
+            reloadSolo()
+          }}
+        >
           <RefreshCw className="h-4 w-4" /> Refresh
         </Button>
       </div>
@@ -88,6 +97,49 @@ export default function ScorekeeperMatches() {
           </CardContent>
         </Card>
       )}
+
+      {soloRounds && soloRounds.length > 0 ? (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Crosshair className="h-4 w-4 text-accent-500" /> Solo League rounds
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col divide-y divide-border p-0">
+            {soloRounds.map(({ round, season, session }) => {
+              const lockedByOther = isSessionActive(session) && session?.scorekeeper_id !== user?.id
+              const mine = session?.status === 'LIVE' && session.scorekeeper_id === user?.id
+              const ended = session?.status === 'ENDED'
+              return (
+                <div key={round.id} className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
+                  <div className="min-w-0">
+                    <p className="truncate font-semibold text-primary-900">
+                      {season.name} · {round.name}
+                    </p>
+                    <p className="text-xs text-muted-foreground">Free-for-all · kills and deaths for every player</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {lockedByOther ? <Badge variant="accent">Being tracked</Badge> : null}
+                    {mine ? <Badge variant="success">You are tracking</Badge> : null}
+                    {ended ? <Badge variant="outline">Ended — awaiting admin</Badge> : null}
+                    {lockedByOther ? (
+                      <Button size="sm" variant="outline" disabled>
+                        <Radio className="h-4 w-4" /> Track
+                      </Button>
+                    ) : (
+                      <Button asChild size="sm">
+                        <Link to={`/scorekeeper/solo/${round.id}`}>
+                          <Radio className="h-4 w-4" /> {mine || ended ? 'Resume' : 'Track'}
+                        </Link>
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </CardContent>
+        </Card>
+      ) : null}
     </div>
   )
 }

@@ -157,6 +157,26 @@ shows the current season's top 3, and player profiles have a Solo League section
 **One-time setup:** apply `supabase/migrations/0026_solo_league.sql` in the SQL Editor. Undo with
 `supabase/backups/0026_solo_league_rollback.sql` (deletes all Solo League data).
 
+### Live tracking and screenshot upload
+
+- **Scorekeeper:** `/scorekeeper` lists Solo League rounds next to team matches. Share the Smash Karts tab, fit the
+  **blue box** over the top-left player list (every player's kills) and the **green box** over the centre stats
+  panel (deaths, at most 8 rows — no scrolling), test, and start. The player named `BOT` is ignored. When the
+  round is over, **End round**: the live totals are saved as the round's results (not yet completed).
+- **Website:** while tracked, the round shows as LIVE on `/solo-league` (and in the navbar LIVE pill and Home
+  "Live Now"), updating by itself. Falls lower a player's kills there too.
+- **Kill readings:** every kills reading is kept. A rise of up to 3 applies; a fall (−1/−2) applies and flags the
+  player; a jump of more than 3 is held back and flagged until the next reading confirms it; a reconnect keeps
+  the earlier kills and flags the player.
+- **Admin:** the round shows an alert for each flagged player. **Review** opens that player's kill history; pick
+  or type the final kills and mark it reviewed. Fill in deaths for players who weren't in the stats panel, then
+  **Save & Complete Round** (it warns while alerts are open). **Upload Screenshot** reads a game screenshot with
+  Gemini and fills kills (and deaths where visible).
+
+**One-time setup:** apply `supabase/migrations/0027_solo_live_tracking.sql`, then redeploy the Edge Function
+(it gained a `solo` mode): `npx supabase functions deploy extract-scoreboard --no-verify-jwt`. Undo the database
+part with `supabase/backups/0027_solo_live_tracking_rollback.sql`.
+
 ## Demo Data (optional)
 
 A small seed script creates 6 teams, ~24 players, one sample season and a handful of matches (some completed

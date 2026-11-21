@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Crown, Crosshair, Trophy, Users, ListOrdered } from 'lucide-react'
 import { Card } from '@/components/ui/card'
@@ -9,10 +9,12 @@ import { LeaderboardCard, type LeaderboardEntry } from '@/components/shared/Lead
 import { LoadingState } from '@/components/shared/LoadingState'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorState } from '@/components/shared/ErrorState'
-import { SoloPointsRules, SoloRoundTable, SoloStandingsTable } from '@/components/solo/SoloTables'
+import { SoloLiveRoundTable, SoloPointsRules, SoloRoundTable, SoloStandingsTable } from '@/components/solo/SoloTables'
 import { useAsync } from '@/hooks/useAsync'
 import { useUrlState } from '@/hooks/useUrlState'
 import { getSoloSeasonData, listSoloSeasons, type SoloSeasonData } from '@/services/solo'
+import { getSoloLiveView, subscribeSoloLive, type SoloLiveView } from '@/services/soloLive'
+import type { SoloRound } from '@/types'
 import { calculateKD, formatKD } from '@/utils/calculations'
 import { cn, formatDate } from '@/lib/utils'
 
@@ -42,11 +44,54 @@ export default function SoloLeague() {
     )
   }
 
-  const { data, loading, error } = useAsync(
+  const { data, loading, error, reload } = useAsync(
     async () => (selected ? getSoloSeasonData(selected) : null),
     [selected],
     { cache: 'solo-season' },
   )
+
+  // Live tracking for this season's rounds, kept fresh over Realtime.
+  const roundKey = (data?.rounds ?? []).map((r) => r.id).join(',')
+  const { data: liveView, reload: reloadLive } = useAsync(
+    () => getSoloLiveView(roundKey ? roundKey.split(',') : []),
+    [roundKey],
+  )
+  useEffect(() => {
+    if (!roundKey) return
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const unsubscribe = subscribeSoloLive(() => {
+      clearTimeout(timer)
+      timer = setTimeout(reloadLive, 500)
+    }, `solo-live-page-${selected}`)
+    return () => {
+      clearTimeout(timer)
+      unsubscribe()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roundKey])
+
+  // A round ending or being completed changes the saved results too: reload them.
+  const sessionKey = (liveView?.sessions ?? []).map((s) => `${s.round_id}:${s.status}`).join(',')
+  const prevSessionKey = useRef<string | null>(null)
+  useEffect(() => {
+    if (prevSessionKey.current !== null && prevSessionKey.current !== sessionKey) reload()
+    prevSessionKey.current = sessionKey
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionKey])
+
+  const liveRound = data?.rounds.find((r) => liveStatusOf(r, liveView) === 'live')
+
+  function showRound(roundId: string) {
+    setSearchParams(
+      (prev) => {
+        const params = new URLSearchParams(prev)
+        params.set('tab', 'rounds')
+        params.set('round', roundId)
+        return params
+      },
+      { replace: true },
+    )
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -83,6 +128,18 @@ export default function SoloLeague() {
         <ErrorState message="Season not found." />
       ) : (
         <>
+          {liveRound ? (
+            <button
+              type="button"
+              onClick={() => showRound(liveRound.id)}
+              className="flex items-center justify-between gap-3 rounded-xl border border-red-200 bg-red-50 px-5 py-3 text-left transition-colors hover:bg-red-100"
+            >
+              <span className="flex items-center gap-2 font-semibold text-red-700">
+                <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-red-600" /> {liveRound.name} is live now
+              </span>
+              <span className="text-sm font-semibold text-red-700">Watch live standings →</span>
+            </button>
+          ) : null}
           <SeasonSummary data={data} />
           <Tabs value={tab} onValueChange={(v) => setTab(v as Tab)}>
             <TabsList>
@@ -106,7 +163,7 @@ export default function SoloLeague() {
               <SoloPointsRules season={data.season} />
             </TabsContent>
             <TabsContent value="rounds">
-              <RoundsView data={data} />
+              <RoundsView data={data} liveView={liveView} onPick={showRound} />
             </TabsContent>
             <TabsContent value="stats">
               <StatsView data={data} />
@@ -158,65 +215,81 @@ function Tile({ icon: Icon, label, value }: { icon: typeof Trophy; label: string
   )
 }
 
-function RoundsView({ data }: { data: SoloSeasonData }) {
-  const [searchParams, setSearchParams] = useSearchParams()
+type LiveStatus = 'live' | 'review' | null
+
+/** live: being tracked now; review: tracking ended, waiting for the admin to complete it. */
+function liveStatusOf(round: SoloRound, liveView: SoloLiveView | undefined): LiveStatus {
+  if (round.status === 'COMPLETED' || !liveView) return null
+  const session = liveView.sessions.find((s) => s.round_id === round.id)
+  const hasStats = liveView.stats.some((s) => s.round_id === round.id)
+  if (!session || !hasStats) return null
+  const fresh = Date.now() - new Date(session.heartbeat_at).getTime() < 5 * 60 * 1000
+  return session.status === 'LIVE' && fresh ? 'live' : 'review'
+}
+
+function RoundsView({
+  data,
+  liveView,
+  onPick,
+}: {
+  data: SoloSeasonData
+  liveView: SoloLiveView | undefined
+  onPick: (roundId: string) => void
+}) {
+  const [searchParams] = useSearchParams()
   const { rounds } = data
   const lastCompleted = [...rounds].reverse().find((r) => r.status === 'COMPLETED')
+  const live = rounds.find((r) => liveStatusOf(r, liveView) === 'live')
   const urlRound = searchParams.get('round')
-  const [roundId, setRoundId] = useState(
-    rounds.some((r) => r.id === urlRound) ? (urlRound as string) : lastCompleted?.id ?? rounds[0]?.id ?? '',
-  )
-
-  useEffect(() => {
-    if (!rounds.some((r) => r.id === roundId)) setRoundId(lastCompleted?.id ?? rounds[0]?.id ?? '')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data.season.id])
-
-  function pick(id: string) {
-    setRoundId(id)
-    setSearchParams(
-      (prev) => {
-        const params = new URLSearchParams(prev)
-        params.set('round', id)
-        return params
-      },
-      { replace: true },
-    )
-  }
+  const roundId = rounds.some((r) => r.id === urlRound)
+    ? (urlRound as string)
+    : live?.id ?? lastCompleted?.id ?? rounds[0]?.id ?? ''
 
   if (rounds.length === 0) return <EmptyState title="No rounds in this season yet." icon={ListOrdered} />
   const round = rounds.find((r) => r.id === roundId) ?? rounds[0]
   const results = data.results.filter((r) => r.round_id === round.id)
   const played = new Set(results.map((r) => r.player_id))
   const missed = data.players.filter((p) => !played.has(p.id))
+  const status = liveStatusOf(round, liveView)
+  const liveStats = (liveView?.stats ?? []).filter((s) => s.round_id === round.id)
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap gap-2">
-        {rounds.map((r) => (
-          <button
-            key={r.id}
-            type="button"
-            onClick={() => pick(r.id)}
-            className={cn(
-              'flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-semibold transition-colors',
-              r.id === round.id ? 'border-primary-700 bg-primary-700 text-white' : 'border-border hover:bg-secondary',
-            )}
-          >
-            {r.name}
-            {r.status !== 'COMPLETED' ? (
-              <span className={cn('text-[10px] uppercase', r.id === round.id ? 'text-primary-200' : 'text-muted-foreground')}>
-                Upcoming
-              </span>
-            ) : null}
-          </button>
-        ))}
+        {rounds.map((r) => {
+          const s = liveStatusOf(r, liveView)
+          return (
+            <button
+              key={r.id}
+              type="button"
+              onClick={() => onPick(r.id)}
+              className={cn(
+                'flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-semibold transition-colors',
+                r.id === round.id ? 'border-primary-700 bg-primary-700 text-white' : 'border-border hover:bg-secondary',
+              )}
+            >
+              {s === 'live' ? <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" /> : null}
+              {r.name}
+              {r.status !== 'COMPLETED' ? (
+                <span className={cn('text-[10px] uppercase', r.id === round.id ? 'text-primary-200' : 'text-muted-foreground')}>
+                  {s === 'live' ? 'Live' : s === 'review' ? 'In review' : 'Upcoming'}
+                </span>
+              ) : null}
+            </button>
+          )
+        })}
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
         <h2 className="font-display text-xl font-bold text-primary-900">{round.name}</h2>
         {round.status === 'COMPLETED' ? (
           <Badge variant="success">Completed</Badge>
+        ) : status === 'live' ? (
+          <Badge variant="destructive" className="flex items-center gap-1.5">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-red-600" /> Live
+          </Badge>
+        ) : status === 'review' ? (
+          <Badge variant="accent">Awaiting final results</Badge>
         ) : (
           <Badge variant="outline">Upcoming</Badge>
         )}
@@ -225,7 +298,16 @@ function RoundsView({ data }: { data: SoloSeasonData }) {
         ) : null}
       </div>
 
-      {round.status !== 'COMPLETED' ? (
+      {round.status !== 'COMPLETED' && status ? (
+        <>
+          <p className="text-sm text-muted-foreground">
+            {status === 'live'
+              ? 'Updating live as the round is played. Positions come from current kills; these numbers are provisional until the round is completed.'
+              : 'The round has finished. These are the live numbers — final results appear once the admin completes the round.'}
+          </p>
+          <SoloLiveRoundTable season={data.season} stats={liveStats} players={data.players} />
+        </>
+      ) : round.status !== 'COMPLETED' ? (
         <EmptyState title="Results will appear here once this round is completed." icon={ListOrdered} />
       ) : (
         <>

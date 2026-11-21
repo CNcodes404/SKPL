@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { Menu, X, ShieldCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { matchPath, useLiveMatches } from '@/context/LiveMatchesContext'
+import { soloLivePath } from '@/services/soloLive'
 
 const LINKS = [
   { to: '/', label: 'Home', end: true },
@@ -101,11 +102,13 @@ export function PublicNavbar() {
   )
 }
 
-/** Pulsing LIVE pill while any match is being tracked: one match → its scorecard, several → Home's "Live Now". */
+/** Pulsing LIVE pill while anything is being tracked: one match/round → its page, several → Home's "Live Now". */
 function LiveIndicator({ onClick }: { onClick?: () => void }) {
-  const { liveMatches } = useLiveMatches()
-  if (liveMatches.length === 0) return null
-  const to = liveMatches.length === 1 ? matchPath(liveMatches[0].match) : '/'
+  const { liveMatches, liveSoloRounds } = useLiveMatches()
+  const count = liveMatches.length + liveSoloRounds.length
+  if (count === 0) return null
+  const to =
+    count > 1 ? '/' : liveMatches.length === 1 ? matchPath(liveMatches[0].match) : soloLivePath(liveSoloRounds[0])
   return (
     <NavLink
       to={to}
@@ -113,7 +116,7 @@ function LiveIndicator({ onClick }: { onClick?: () => void }) {
       className="flex items-center gap-1.5 rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white transition-colors hover:bg-red-700"
     >
       <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
-      LIVE{liveMatches.length > 1 ? ` · ${liveMatches.length}` : ''}
+      LIVE{count > 1 ? ` · ${count}` : ''}
     </NavLink>
   )
 }

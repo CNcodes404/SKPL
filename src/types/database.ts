@@ -844,9 +844,104 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['solo_round_results']['Insert']>
         Relationships: []
       }
+      solo_live_sessions: {
+        Row: {
+          round_id: string
+          scorekeeper_id: string | null
+          status: 'LIVE' | 'ENDED'
+          started_at: string
+          heartbeat_at: string
+          ended_at: string | null
+        }
+        Insert: {
+          round_id: string
+          scorekeeper_id?: string | null
+          status?: 'LIVE' | 'ENDED'
+          started_at?: string
+          heartbeat_at?: string
+          ended_at?: string | null
+        }
+        Update: Partial<Database['public']['Tables']['solo_live_sessions']['Insert']>
+        Relationships: []
+      }
+      solo_live_stats: {
+        Row: {
+          round_id: string
+          player_id: string
+          banked_kills: number
+          banked_deaths: number
+          cur_kills: number
+          cur_deaths: number
+          deaths_seen: boolean
+          sessions: number
+          on_board: boolean
+          last_read_kills: number | null
+          held_kills: number | null
+          held_count: number
+          needs_review: boolean
+          updated_at: string
+        }
+        Insert: {
+          round_id: string
+          player_id: string
+          banked_kills?: number
+          banked_deaths?: number
+          cur_kills?: number
+          cur_deaths?: number
+          deaths_seen?: boolean
+          sessions?: number
+          on_board?: boolean
+          last_read_kills?: number | null
+          held_kills?: number | null
+          held_count?: number
+          needs_review?: boolean
+          updated_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['solo_live_stats']['Insert']>
+        Relationships: []
+      }
+      solo_kill_readings: {
+        Row: {
+          id: number
+          round_id: string
+          player_id: string
+          read_kills: number
+          read_deaths: number | null
+          outcome: 'FIRST' | 'APPLIED' | 'FALL' | 'HELD' | 'CONFIRMED' | 'RECONNECT' | 'UPLOAD'
+          total_kills: number
+          created_at: string
+        }
+        Insert: {
+          round_id: string
+          player_id: string
+          read_kills: number
+          read_deaths?: number | null
+          outcome: 'FIRST' | 'APPLIED' | 'FALL' | 'HELD' | 'CONFIRMED' | 'RECONNECT' | 'UPLOAD'
+          total_kills: number
+          created_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['solo_kill_readings']['Insert']>
+        Relationships: []
+      }
     }
     Views: Record<string, never>
     Functions: {
+      claim_solo_round: {
+        Args: { p_round_id: string }
+        Returns: Database['public']['Tables']['solo_live_sessions']['Row']
+      }
+      record_solo_live: {
+        Args: { p_round_id: string; p_stats: Json; p_readings: Json }
+        Returns: undefined
+      }
+      end_solo_live_round: {
+        Args: { p_round_id: string }
+        Returns: undefined
+      }
+      resolve_solo_review: {
+        Args: { p_round_id: string; p_player_id: string }
+        Returns: undefined
+      }
       create_solo_season: {
         Args: {
           p_name: string

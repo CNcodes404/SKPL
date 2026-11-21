@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { PlayerAvatar } from '@/components/shared/Avatar'
 import { formatKD } from '@/utils/calculations'
-import { ordinal, scoreResult, type SoloStandingRow } from '@/utils/soloStandings'
+import { denseRankByKills, ordinal, scoreResult, type SoloStandingRow } from '@/utils/soloStandings'
 import { cn } from '@/lib/utils'
-import type { Player, SoloRound, SoloRoundResult, SoloSeason } from '@/types'
+import type { Player, SoloLiveStat, SoloRound, SoloRoundResult, SoloSeason } from '@/types'
 
 const PODIUM_ROW = ['bg-yellow-50', 'bg-gray-50', 'bg-orange-50']
 const PODIUM_RANK = ['text-yellow-600', 'text-gray-500', 'text-orange-600']
@@ -155,6 +155,59 @@ export function SoloRoundTable({
               <TableCell className="text-center">{formatKD(r.kills, r.deaths)}</TableCell>
               <TableCell className="text-center">{score.killPoints}</TableCell>
               <TableCell className="text-center">{score.positionPoints}</TableCell>
+              <TableCell className="text-center font-display text-base font-extrabold text-primary-900">{score.total}</TableCell>
+            </TableRow>
+          )
+        })}
+      </TableBody>
+    </Table>
+  )
+}
+
+/** A round being tracked live (or ended, awaiting review): positions from current kills. Provisional. */
+export function SoloLiveRoundTable({
+  season,
+  stats,
+  players,
+}: {
+  season: SoloSeason
+  stats: SoloLiveStat[]
+  players: Player[]
+}) {
+  const playerById = new Map(players.map((p) => [p.id, p]))
+  const rows = denseRankByKills(
+    stats.map((s) => ({
+      stat: s,
+      kills: s.banked_kills + s.cur_kills,
+      deaths: s.deaths_seen || s.banked_deaths > 0 ? s.banked_deaths + s.cur_deaths : null,
+    })),
+  )
+
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-14">Pos</TableHead>
+          <TableHead>Player</TableHead>
+          <TableHead className="text-center">Kills</TableHead>
+          <TableHead className="text-center">Deaths</TableHead>
+          <TableHead className="text-center">Points</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {rows.map((r) => {
+          const score = scoreResult(season, { position: r.position, kills: Math.max(0, r.kills), deaths: r.deaths ?? 0 })
+          const podium = r.position <= 3 ? r.position - 1 : -1
+          return (
+            <TableRow key={r.stat.player_id} className={cn(podium >= 0 && PODIUM_ROW[podium], !r.stat.on_board && 'opacity-60')}>
+              <TableCell className={cn('font-display font-extrabold', podium >= 0 ? PODIUM_RANK[podium] : 'text-primary-800')}>
+                {ordinal(r.position)}
+              </TableCell>
+              <TableCell className="min-w-[160px]">
+                <PlayerCell player={playerById.get(r.stat.player_id)} link />
+              </TableCell>
+              <TableCell className="text-center font-semibold">{r.kills}</TableCell>
+              <TableCell className="text-center">{r.deaths ?? '–'}</TableCell>
               <TableCell className="text-center font-display text-base font-extrabold text-primary-900">{score.total}</TableCell>
             </TableRow>
           )

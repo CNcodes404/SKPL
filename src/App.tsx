@@ -52,6 +52,7 @@ import ScorekeeperLogin from '@/pages/scorekeeper/ScorekeeperLogin'
 import ScorekeeperClaim from '@/pages/scorekeeper/ScorekeeperClaim'
 import ScorekeeperMatches from '@/pages/scorekeeper/ScorekeeperMatches'
 import ScorekeeperTracker from '@/pages/scorekeeper/ScorekeeperTracker'
+import ScorekeeperSoloTracker from '@/pages/scorekeeper/ScorekeeperSoloTracker'
 
 export default function App() {
   return (
@@ -120,6 +121,7 @@ export default function App() {
         <Route element={<ScorekeeperLayout />}>
           <Route path="/scorekeeper" element={<ScorekeeperMatches />} />
           <Route path="/scorekeeper/matches/:matchId" element={<ScorekeeperTracker />} />
+          <Route path="/scorekeeper/solo/:roundId" element={<ScorekeeperSoloTracker />} />
         </Route>
       </Route>
     </Routes>

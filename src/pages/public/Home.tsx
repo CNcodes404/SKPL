@@ -12,9 +12,10 @@ import { getLatestSeason, getSeasonTeams } from '@/services/seasons'
 import { listMatches } from '@/services/matches'
 import { getPlayer } from '@/services/players'
 import { useLiveMatches } from '@/context/LiveMatchesContext'
+import { soloLivePath } from '@/services/soloLive'
 
 export default function Home() {
-  const { liveMatches } = useLiveMatches()
+  const { liveMatches, liveSoloRounds } = useLiveMatches()
   const { data, loading, reload } = useAsync(async () => {
     const season = await getLatestSeason()
     const [teams, upcoming, recent] = await Promise.all([
@@ -74,7 +75,7 @@ export default function Home() {
         </div>
       </section>
 
-      {liveMatches.length > 0 ? (
+      {liveMatches.length > 0 || liveSoloRounds.length > 0 ? (
         <section className="flex flex-col gap-4">
           <h2 className="flex items-center gap-2 font-display text-2xl font-bold text-primary-900">
             <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-red-600" /> Live Now
@@ -82,6 +83,19 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {liveMatches.map((l) => (
               <MatchCard key={l.match.id} match={l.match} />
+            ))}
+            {liveSoloRounds.map((l) => (
+              <Link key={l.round.id} to={soloLivePath(l)}>
+                <Card className="flex h-full flex-col gap-2 p-5 transition-shadow hover:shadow-elevated">
+                  <span className="flex items-center gap-1.5 text-xs font-bold text-red-600">
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-red-600" /> LIVE · Solo League
+                  </span>
+                  <p className="font-display text-lg font-bold text-primary-900">
+                    {l.season.name} · {l.round.name}
+                  </p>
+                  <p className="text-sm text-muted-foreground">Live kills, positions and points →</p>
+                </Card>
+              </Link>
             ))}
           </div>
         </section>

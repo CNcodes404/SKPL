@@ -39,6 +39,9 @@ export type RoundRoster = Database['public']['Tables']['round_rosters']['Row']
 export type SoloSeason = Database['public']['Tables']['solo_seasons']['Row']
 export type SoloRound = Database['public']['Tables']['solo_rounds']['Row']
 export type SoloRoundResult = Database['public']['Tables']['solo_round_results']['Row']
+export type SoloLiveSession = Database['public']['Tables']['solo_live_sessions']['Row']
+export type SoloLiveStat = Database['public']['Tables']['solo_live_stats']['Row']
+export type SoloKillReading = Database['public']['Tables']['solo_kill_readings']['Row']
 export type { SoloRoundStatus } from './database'
 
 export type {

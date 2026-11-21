@@ -1,19 +1,27 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { listLiveMatches, subscribeAllLiveMatches, type LiveMatch } from '@/services/scorekeeper'
+import { listLiveSoloRounds, subscribeSoloLive, type LiveSoloRound } from '@/services/soloLive'
 
 interface LiveMatchesContextValue {
   liveMatches: LiveMatch[]
   getLive: (matchId: string) => LiveMatch | undefined
+  /** Solo League rounds being tracked right now. */
+  liveSoloRounds: LiveSoloRound[]
 }
 
 // Outside the provider (e.g. admin pages) nothing is live.
-const LiveMatchesContext = createContext<LiveMatchesContextValue>({ liveMatches: [], getLive: () => undefined })
+const LiveMatchesContext = createContext<LiveMatchesContextValue>({
+  liveMatches: [],
+  getLive: () => undefined,
+  liveSoloRounds: [],
+})
 
 // One scoreboard save upserts a row per player, so coalesce bursts of events into one reload.
 const RELOAD_DEBOUNCE_MS = 500
 
 export function LiveMatchesProvider({ children }: { children: ReactNode }) {
   const [liveMatches, setLiveMatches] = useState<LiveMatch[]>([])
+  const [liveSoloRounds, setLiveSoloRounds] = useState<LiveSoloRound[]>([])
 
   useEffect(() => {
     let active = true
@@ -38,10 +46,37 @@ export function LiveMatchesProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  useEffect(() => {
+    let active = true
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const load = async () => {
+      try {
+        const next = await listLiveSoloRounds()
+        // Only replace when membership changes, so stat updates don't re-render every page.
+        if (active)
+          setLiveSoloRounds((prev) =>
+            prev.map((l) => l.round.id).join(',') === next.map((l) => l.round.id).join(',') ? prev : next,
+          )
+      } catch {
+        // Keep the last known state.
+      }
+    }
+    load()
+    const unsubscribe = subscribeSoloLive(() => {
+      clearTimeout(timer)
+      timer = setTimeout(load, RELOAD_DEBOUNCE_MS)
+    }, 'solo-live-nav')
+    return () => {
+      active = false
+      clearTimeout(timer)
+      unsubscribe()
+    }
+  }, [])
+
   const value = useMemo<LiveMatchesContextValue>(() => {
     const byId = new Map(liveMatches.map((l) => [l.match.id, l]))
-    return { liveMatches, getLive: (matchId) => byId.get(matchId) }
-  }, [liveMatches])
+    return { liveMatches, getLive: (matchId) => byId.get(matchId), liveSoloRounds }
+  }, [liveMatches, liveSoloRounds])
 
   return <LiveMatchesContext.Provider value={value}>{children}</LiveMatchesContext.Provider>
 }
