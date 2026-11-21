@@ -22,6 +22,7 @@ export type AuctionStatus = 'DRAFT' | 'RUNNING' | 'PAUSED' | 'COMPLETED'
 export type AuctionModeType = 'AI' | 'MANUAL'
 export type PlayerDrawModeType = 'AUTO' | 'MANUAL'
 export type TournamentFormat = 'LEAGUE' | 'ROUNDS'
+export type SoloRoundStatus = 'SCHEDULED' | 'COMPLETED'
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
@@ -757,9 +758,120 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['round_rosters']['Insert']>
         Relationships: []
       }
+      solo_seasons: {
+        Row: {
+          id: string
+          name: string
+          season_number: number
+          status: SeasonStatus
+          start_date: string | null
+          max_players: number
+          points_per_kill: number
+          position_points: number[]
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          season_number: number
+          status?: SeasonStatus
+          start_date?: string | null
+          max_players?: number
+          points_per_kill?: number
+          position_points?: number[]
+          created_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['solo_seasons']['Insert']>
+        Relationships: []
+      }
+      solo_season_players: {
+        Row: {
+          season_id: string
+          player_id: string
+          created_at: string
+        }
+        Insert: {
+          season_id: string
+          player_id: string
+          created_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['solo_season_players']['Insert']>
+        Relationships: []
+      }
+      solo_rounds: {
+        Row: {
+          id: string
+          season_id: string
+          round_number: number
+          name: string
+          status: SoloRoundStatus
+          played_at: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          season_id: string
+          round_number: number
+          name: string
+          status?: SoloRoundStatus
+          played_at?: string | null
+          created_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['solo_rounds']['Insert']>
+        Relationships: []
+      }
+      solo_round_results: {
+        Row: {
+          id: string
+          round_id: string
+          player_id: string
+          position: number
+          kills: number
+          deaths: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          round_id: string
+          player_id: string
+          position: number
+          kills?: number
+          deaths?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['solo_round_results']['Insert']>
+        Relationships: []
+      }
     }
     Views: Record<string, never>
     Functions: {
+      create_solo_season: {
+        Args: {
+          p_name: string
+          p_season_number: number
+          p_start_date: string | null
+          p_rounds: number
+          p_max_players: number
+          p_points_per_kill: number
+          p_position_points: number[]
+          p_player_ids: string[]
+        }
+        Returns: string
+      }
+      set_solo_season_players: {
+        Args: { p_season_id: string; p_player_ids: string[] }
+        Returns: undefined
+      }
+      save_solo_round_results: {
+        Args: {
+          p_round_id: string
+          p_results: { player_id: string; kills: number; deaths: number }[]
+          p_status: SoloRoundStatus
+        }
+        Returns: undefined
+      }
       create_rounds_season: {
         Args: {
           p_tournament_id: string

@@ -36,6 +36,10 @@ export type TeamTournament = Database['public']['Tables']['team_tournaments']['R
 export type SeasonRound = Database['public']['Tables']['season_rounds']['Row']
 export type RoundTeam = Database['public']['Tables']['round_teams']['Row']
 export type RoundRoster = Database['public']['Tables']['round_rosters']['Row']
+export type SoloSeason = Database['public']['Tables']['solo_seasons']['Row']
+export type SoloRound = Database['public']['Tables']['solo_rounds']['Row']
+export type SoloRoundResult = Database['public']['Tables']['solo_round_results']['Row']
+export type { SoloRoundStatus } from './database'
 
 export type {
   AuctionModeType,

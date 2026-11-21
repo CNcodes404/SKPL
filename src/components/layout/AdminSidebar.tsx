@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard,
+  Crosshair,
   Trophy,
   Users,
   UserRound,
@@ -20,6 +21,7 @@ const LINKS: { to: string; label: string; icon: typeof Trophy; end?: boolean; al
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
   // Season pages live under /admin/seasons but belong to a tournament.
   { to: '/admin/tournaments', label: 'Tournaments', icon: Trophy, alsoActiveOn: '/admin/seasons' },
+  { to: '/admin/solo-league', label: 'Solo League', icon: Crosshair },
   { to: '/admin/teams', label: 'Teams', icon: Users },
   { to: '/admin/players', label: 'Players', icon: UserRound },
   { to: '/admin/matches', label: 'Matches', icon: Swords },

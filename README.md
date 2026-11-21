@@ -139,6 +139,24 @@ To undo the database part, run `supabase/backups/0021_scorekeeper_live_tracking_
 4. When the match ends, click **End match**, add the results screenshot from a player, check the table, and
    **Submit result**.
 
+## Solo League
+
+A free-for-all competition, kept separate from team tournaments: its numbers never appear in team standings,
+team stats or career totals. Public page: `/solo-league` (Standings, Rounds, Stats per season). The home page
+shows the current season's top 3, and player profiles have a Solo League section.
+
+- **Admin → Solo League → Create Season**: name, rounds (default 3), max players (default 12), points per kill
+  and the position-points table (default 15, 12, 10, 8, 7, 6, 5, 4, 3, 2, 1, 0), plus the players.
+- After each round, open the round, enter kills and deaths for everyone who played (or paste the AI's JSON from
+  the leaderboard screenshot) and **Save & Complete Round**. Only completed rounds count on the public page.
+- Position comes from kills: equal kills share a position and the next player takes the next number
+  (1, 2, 2, 3). It is stored when the round is saved. Round points = kills × points per kill + position points.
+- Winner: most total points; ties go to more kills, then best single-round finish, then the latest round's
+  position. Set the season to **Completed** to show the champion.
+
+**One-time setup:** apply `supabase/migrations/0026_solo_league.sql` in the SQL Editor. Undo with
+`supabase/backups/0026_solo_league_rollback.sql` (deletes all Solo League data).
+
 ## Demo Data (optional)
 
 A small seed script creates 6 teams, ~24 players, one sample season and a handful of matches (some completed
@@ -158,7 +176,7 @@ Supabase dashboard at any time.
 npm run dev       # start the Vite dev server
 npm run build     # type-check and build for production
 npm run preview   # preview the production build locally
-npm test          # unit tests (live-tracking merge rules)
+npm test          # unit tests (live-tracking merge rules, Solo League scoring)
 ```
 
 ## Deployment

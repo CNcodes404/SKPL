@@ -65,7 +65,20 @@ export function matchEntryToPlayer(entry: ExtractedStat, roster: RosterPlayerOpt
   return byName ? byName.id : null
 }
 
-export const SCREENSHOT_EXTRACTION_PROMPT = `Look at this Smash Karts match-results screenshot and extract each player's stats.
+export const SOLO_SCREENSHOT_EXTRACTION_PROMPT = `Look at this Smash Karts free-for-all results screenshot and extract each player's stats.
+
+Reply with ONLY a JSON array (no other text, no markdown code fence) in exactly this shape:
+[
+  { "game_name": "exact in-game name as shown", "kills": 0, "deaths": 0 }
+]
+
+Rules:
+- One entry per player visible in the leaderboard, in the same top-to-bottom order as shown.
+- "game_name" must be copied exactly as it appears on screen, including capitalization and symbols.
+- kills and deaths must be non-negative whole numbers. Use 0 if a value isn't visible.
+- Do not add explanations, headers, or any text outside the JSON array.`
+
+export const SCREENSHOT_EXTRACTION_PROMPT =`Look at this Smash Karts match-results screenshot and extract each player's stats.
 
 Reply with ONLY a JSON array (no other text, no markdown code fence) in exactly this shape:
 [

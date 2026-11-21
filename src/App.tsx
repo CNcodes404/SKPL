@@ -21,6 +21,7 @@ import StatsPlayerFull from '@/pages/public/StatsPlayerFull'
 import StatsTeamFull from '@/pages/public/StatsTeamFull'
 import About from '@/pages/public/About'
 import AuctionViewer from '@/pages/public/AuctionViewer'
+import SoloLeague from '@/pages/public/SoloLeague'
 import NotFound from '@/pages/public/NotFound'
 
 import AdminLogin from '@/pages/admin/AdminLogin'
@@ -37,6 +38,9 @@ import AdminMatchDetail from '@/pages/admin/AdminMatchDetail'
 import AdminExhibitions from '@/pages/admin/AdminExhibitions'
 import AdminExhibitionDetail from '@/pages/admin/AdminExhibitionDetail'
 import AdminSpectators from '@/pages/admin/AdminSpectators'
+import AdminSoloLeague from '@/pages/admin/AdminSoloLeague'
+import AdminSoloSeasonCreate from '@/pages/admin/AdminSoloSeasonCreate'
+import AdminSoloSeasonDetail from '@/pages/admin/AdminSoloSeasonDetail'
 
 import OwnerLogin from '@/pages/owner/OwnerLogin'
 import OwnerClaim from '@/pages/owner/OwnerClaim'
@@ -63,6 +67,7 @@ export default function App() {
         <Route path="/players/:playerId" element={<PlayerProfile />} />
         <Route path="/matches/:matchId" element={<MatchScorecard />} />
         <Route path="/standings" element={<Standings />} />
+        <Route path="/solo-league" element={<SoloLeague />} />
         <Route path="/stats" element={<Stats />} />
         <Route path="/stats/players/:statType" element={<StatsPlayerFull />} />
         <Route path="/stats/teams/:statType" element={<StatsTeamFull />} />
@@ -91,6 +96,9 @@ export default function App() {
           <Route path="/admin/exhibitions" element={<AdminExhibitions />} />
           <Route path="/admin/exhibitions/:matchId" element={<AdminExhibitionDetail />} />
           <Route path="/admin/spectators" element={<AdminSpectators />} />
+          <Route path="/admin/solo-league" element={<AdminSoloLeague />} />
+          <Route path="/admin/solo-league/create" element={<AdminSoloSeasonCreate />} />
+          <Route path="/admin/solo-league/:seasonId" element={<AdminSoloSeasonDetail />} />
         </Route>
       </Route>
 

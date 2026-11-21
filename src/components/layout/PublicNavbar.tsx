@@ -11,6 +11,7 @@ const LINKS = [
   { to: '/teams', label: 'Teams' },
   { to: '/players', label: 'Players' },
   { to: '/standings', label: 'Standings' },
+  { to: '/solo-league', label: 'Solo League' },
   { to: '/stats', label: 'Stats' },
   { to: '/auction', label: 'Auction' },
   { to: '/about', label: 'About' },

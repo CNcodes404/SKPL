@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card'
 import { MatchCard } from '@/components/shared/MatchCard'
 import { LoadingGrid } from '@/components/shared/LoadingState'
 import { EmptyState } from '@/components/shared/EmptyState'
+import { SoloHomeCard } from '@/components/solo/SoloHomeCard'
 import { useAsync } from '@/hooks/useAsync'
 import { getLatestSeason, getSeasonTeams } from '@/services/seasons'
 import { listMatches } from '@/services/matches'
@@ -94,6 +95,8 @@ export default function Home() {
           <HighlightTile icon={Swords} label="Season MVP" value={data.mvp?.name ?? 'TBD'} />
         </section>
       ) : null}
+
+      <SoloHomeCard />
 
       <section className="flex flex-col gap-4">
         <div className="flex items-center justify-between">

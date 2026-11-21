@@ -11,6 +11,7 @@ import { useAsync } from '@/hooks/useAsync'
 import { useSeasonFilter } from '@/hooks/useSeasonFilter'
 import { useUrlFlag } from '@/hooks/useUrlState'
 import { BackButton } from '@/components/shared/BackButton'
+import { PlayerSoloSection } from '@/components/solo/PlayerSoloSection'
 import {
   getPlayer,
   getPlayerDetailStats,
@@ -185,6 +186,8 @@ export default function PlayerProfile() {
           </div>
         </>
       )}
+
+      <PlayerSoloSection playerId={playerId} />
     </div>
   )
 }

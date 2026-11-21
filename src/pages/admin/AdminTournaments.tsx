@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ChevronRight, Trophy } from 'lucide-react'
+import { ChevronRight, Crosshair, Trophy } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { LoadingState } from '@/components/shared/LoadingState'
@@ -67,6 +67,25 @@ export default function AdminTournaments() {
               </Link>
             )
           })}
+          <Link to="/admin/solo-league">
+            <Card className="flex h-full flex-col gap-4 p-6 transition-shadow hover:shadow-elevated">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary-50">
+                    <Crosshair className="h-5 w-5 text-primary-700" />
+                  </div>
+                  <div>
+                    <p className="font-display text-xl font-bold text-primary-900">SKPL Solo League</p>
+                    <p className="text-xs text-muted-foreground">Free-for-all rounds. Kills and finishing position earn points.</p>
+                  </div>
+                </div>
+                <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground" />
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="outline">Solo</Badge>
+              </div>
+            </Card>
+          </Link>
         </div>
       )}
     </div>
